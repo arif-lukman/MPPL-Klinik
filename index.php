@@ -7,5 +7,8 @@
 	Namanya cerita panjang <br>
 	Bukan cerita pendek <br>
 	";
+
 	echo "<br/>Apaansih?";
+
+	echo "Kereeen";
 ?>
