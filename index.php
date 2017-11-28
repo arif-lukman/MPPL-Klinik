@@ -5,7 +5,7 @@
 	Ceritanya ga panjang <br>
 	Kalau ceritanya panjang <br>
 	Namanya cerita panjang <br>
-	uwuwuwuwuuwwww<br>
+	Bukan cerita pendek <br>
 	";
 
 ?>
