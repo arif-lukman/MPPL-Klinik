@@ -1,3 +1,7 @@
+<?php
+date_default_timezone_set("Asia/Jakarta");
+$jam = date('Y-m-d | h:i:s');
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,12 +28,17 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<style>
-	  .modal-header, h4, .close {
-      background-color: #FFBF00;
+	  
+  .modal-header, h4, .close {
+      background-color: #333;
       color: #fff !important;
       text-align: center;
       font-size: 30px;
   }
+  
+  
+  
+  
   .modal-header, .modal-body {
       padding: 30px 50px;
   }
@@ -202,7 +211,6 @@
           <h4><span class="glyphicon glyphicon-lock"></span> Pendaftaran Pasien Lama</h4>
         </div>
         <div class="modal-body">
-		<h6 id="showtime"></h6>
           <form role="form">
             <div class="form-group">
               <label for="no_rekam_medis">Nomor Rekam Medis</label>
@@ -215,7 +223,7 @@
             </div>
 			<div class="form-group">
               <label for="jam_layan">Jam Daftar</label>
-              <input type="text" class="form-control" id="jam_layan" placeholder="Jam Daftar">
+              <input type="text" class="form-control" id="jam_layan" placeholder="Jam Daftar" value="<?php echo $jam;?>" disabled>
 			  <p class="form-control-static"></p>
             </div>
               <button type="submit" class="btn btn-block">Daftar
