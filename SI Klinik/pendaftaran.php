@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
-$jam = date('Y-m-d | h:i:s');
+$jam = date('d-m-y / h:i:s');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -235,7 +235,6 @@ $jam = date('Y-m-d | h:i:s');
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
             <span class="glyphicon glyphicon-remove"></span> Cancel
           </button>
-          <p>Need <a href="#">help?</a></p>
         </div>
       </div>
     </div>
