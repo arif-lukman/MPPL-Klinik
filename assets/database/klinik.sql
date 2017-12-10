@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09 Des 2017 pada 09.58
+-- Generation Time: 10 Des 2017 pada 11.16
 -- Versi Server: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -183,6 +183,28 @@ CREATE TABLE `transaksi` (
   `jenis_pembayaran` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_klinik`
+--
+
+CREATE TABLE `user_klinik` (
+  `id` int(11) NOT NULL,
+  `username` varchar(12) NOT NULL,
+  `password` text NOT NULL,
+  `jenis_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user_klinik`
+--
+
+INSERT INTO `user_klinik` (`id`, `username`, `password`, `jenis_user`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1),
+(2, 'dokter', 'd22af4180eee4bd95072eb90f94930e5', 2),
+(3, 'perawat', '5d6a514ee02a5fc910dee69cc07017cc', 3);
+
 --
 -- Indexes for dumped tables
 --
@@ -263,6 +285,13 @@ ALTER TABLE `transaksi`
   ADD KEY `no_reg_perawat` (`no_reg_perawat`);
 
 --
+-- Indexes for table `user_klinik`
+--
+ALTER TABLE `user_klinik`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -319,6 +348,12 @@ ALTER TABLE `perawat`
 --
 ALTER TABLE `transaksi`
   MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_klinik`
+--
+ALTER TABLE `user_klinik`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
