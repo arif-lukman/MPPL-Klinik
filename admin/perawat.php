@@ -104,7 +104,7 @@
                       </a>
                       <ul class="sub">
                           <li><a href="pasien.php">Pasien</a></li>
-						              <li><a href="dokter.php">Dokter</a></li>
+                          <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
@@ -166,15 +166,28 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Selamat Datang di Sistem Informasi Klinik~!</center></h2>
+          	<h2><center>Data Perawat</center></h2>
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
-          		<p>TO BE DEVELOPED.</p>
+          		<table class="table-bordered col-lg-12">
+              <thead>
+                <td>Nama</td>
+                <td>Alamat</td>
+                <td>Tanggal Lahir</td>
+                <td>Jenis Kelamin</td>
+                <td>Nomor Telpon</td>
+                <td>Email</td>
+                <td>Status</td>
+              </thead>
+              <tbody>
+              </tbody>
+              </table>
+              <button style="float: right">Tambah</button>
           		</div>
           	</div>
 			
-		</section>
+		      </section>
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->

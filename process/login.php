@@ -20,6 +20,7 @@
 		if(!isset($_SESSION)){
 			session_start();
 			$_SESSION["uid"] = $uid;
+			$_SESSION["tgt"] = $data["jenis_user"];
 		}
 		header ("location:" . $tgt);
 	} else {
