@@ -5,7 +5,6 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -170,61 +169,129 @@
           	<h2><center>Data Perawat</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
-              <thead>
-                <td>Nama</td>
-                <td>Nomor Registrasi</td>
-                <td>Alamat</td>
-                <td>Tanggal Lahir</td>
-                <td>Jenis Kelamin</td>
-                <td>Nomor Telpon</td>
-                <td>Email</td>
-                <td>Status</td>
-              </thead>
-              <tbody>
-                <?php
-                while($perawat = $dataPerawat->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $perawat[nama_perawat]
-                      </td>
-                      <td>
-                        $perawat[no_reg_perawat]
-                      </td>
-                      <td>
-                        $perawat[alamat]
-                      </td>
-                      <td>
-                        $perawat[tanggal_lahir]
-                      </td>
-                      <td>
-                        $perawat[jenis_kelamin]
-                      </td>
-                      <td>
-                        $perawat[no_telp]
-                      </td>
-                      <td>
-                        $perawat[email]
-                      </td>
-                      <td>
-                  ";
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <br>
 
-                  if($perawat['status'] === '1'){
-                    echo "Aktif";
-                  } else {
-                    echo "Pasif";
-                  }
-                  echo "
-                      </td>
-                    </tr>
-                  ";
-                }
-                ?>
-              </tbody>
-              </table>
-              <button style="float: right"><a href="add_perawat.php">Tambah</a></button>
+                  <form class="form-horizontal style-form" method="post" action = "act/add_perawat.php">
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Perawat</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_perawat" id="nama_perawat" required>
+                      </div>
+                    </div>
+
+                    <!--no_reg_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Perawat</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_reg_perawat" id="no_reg_perawat" required>
+                      </div>
+                    </div>
+
+                    <!--alamat-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>
+                      </div>
+                    </div>
+
+                    <!--tanggal_lahir-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
+                      <div class="col-sm-10">
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" required>
+                      </div>
+                    </div>
+
+                    <!--jenis_kelamin-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jenis Kelamin</label>
+                      <div class="radio col-sm-10">
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required>
+                      Laki-laki
+                      </label>
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P">
+                      Perempuan
+                      </label>
+                      </div>
+                    </div>
+
+                    <!--nomor_telpon-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
+                      </div>
+                    </div>
+
+                    <!--email-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" name="email" id="email" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
+                      <div class="col-lg-10">
+                      <p class="form-control-static">email@example.com</p>
+                      </div>
+                    </div>
+
+                    <!--status-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Status</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="status" id="status" required>
+                          <option value="1">Aktif</option>
+                          <option value="2">Pasif</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <h4><center>Akun Klinik</center></h4><br>
+
+                    <!--username-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Username</label>
+                      <div class="col-sm-10">
+                        <input type="text"  class="form-control" placeholder="" name="username" id="username" required>
+                      </div>
+                    </div>
+
+                    <!--password-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                      <div class="col-sm-10">
+                        <input type="password"  class="form-control" placeholder="" name="password" id="password" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
+                      <div class="col-sm-10">
+                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw"  required>
+                      </div>
+                    </div>
+
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
 			
