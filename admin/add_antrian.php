@@ -166,7 +166,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Perawat</center></h2>
+          	<h2><center>Daftar Antrian</center></h2>
             <hr>
           	<div class="row mt">
               <div class="col-lg-2">
@@ -177,27 +177,27 @@
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = "act/add_dokter.php">
+                  <form class="form-horizontal style-form" method="post" action = "act/add_perawat.php">
 
                     <!--nama_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Perawat</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Lengkap Pasien</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_dokter" id="nama_dokter" required>
+                        <input type="text" class="form-control" name="nama_perawat" id="nama_perawat" required>
                       </div>
                     </div>
 
                     <!--no_reg_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Perawat</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_reg_dokter" id="no_reg_dokter" required>
+                        <input type="text" class="form-control" name="no_reg_perawat" id="no_reg_perawat" required>
                       </div>
                     </div>
 
                     <!--alamat-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
                       <div class="col-sm-10">
                         <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>
                       </div>
@@ -205,7 +205,7 @@
 
                     <!--tanggal_lahir-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Jam Daftar</label>
                       <div class="col-sm-10">
                         <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" required>
                       </div>
@@ -213,7 +213,7 @@
 
                     <!--jenis_kelamin-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jenis Kelamin</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Jam Layan</label>
                       <div class="radio col-sm-10">
                       <label>
                         <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required>
@@ -228,7 +228,7 @@
 
                     <!--nomor_telpon-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Dokter</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="no_telp" id="no_telp" required>
                       </div>
@@ -236,7 +236,7 @@
 
                     <!--email-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Status Pasien</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" name="email" id="email" required>
                       </div>

@@ -4,9 +4,7 @@
 	<title></title>
 </head>
 <body>
-	INI PERAWAT
-	INI APEL
-	UGH
-	PERAWAT APEL
+	HALAMAN SISTEM PERAWAT
+	TO BE DEVELOPED.
 </body>
 </html>

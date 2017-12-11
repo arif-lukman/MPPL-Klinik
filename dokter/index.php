@@ -4,9 +4,7 @@
 	<title></title>
 </head>
 <body>
-	INI DOKTER
-	INI APEL
-	UGH
-	DOKTER APEL
+	HALAMAN SISTEM DOKTER
+	TO BE DEVELOPED.
 </body>
 </html>

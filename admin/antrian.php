@@ -5,6 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $dataAntrian = $conn->query("SELECT pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -142,24 +143,57 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Pasien</center></h2>
+          	<h2><center>Daftar Antrian</center></h2>
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
           		<table class="table-bordered col-lg-12">
               <thead>
-                <td>Nama</td>
-                <td>Alamat</td>
-                <td>Tanggal Lahir</td>
-                <td>Pekerjaan</td>
-                <td>Nomor Telpon</td>
-                <td>Jenis Kelamin</td>
+                <td>Nama Lengkap</td>
                 <td>Nomor Rekam Medis</td>
+                <td>Tanggal</td>
+                <td>Status Layanan</td>
+                <td>Jam Daftar</td>
+                <td>Jam Layan</td>
+                <td>Dokter</td>
+                <td>Status Pasien</td>
               </thead>
               <tbody>
+                <?php
+                while($antrian = $dataAntrian->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        $antrian[nama_pasien]
+                      </td>
+                      <td>
+                        $antrian[no_rekam_medis]
+                      </td>
+                      <td>
+                        $antrian[tanggal]
+                      </td>
+                      <td>
+                        $antrian[status]
+                      </td>
+                      <td>
+                        $antrian[jam_daftar]
+                      </td>
+                      <td>
+                        $antrian[jam_layan]
+                      </td>
+                      <td>
+                        $antrian[nama_dokter]
+                      </td>
+                      <td>
+                        $antrian[status_pasien]
+                      </td>
+                    </tr>
+                  ";
+                }
+                ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_pasien.php">Tambah</a></button>
+              <button style="float: right"><a href="add_antrian.php">Tambah</a></button>
           		</div>
           	</div>
 			

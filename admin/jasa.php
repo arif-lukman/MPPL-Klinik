@@ -5,6 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $dataJasa = $conn->query("SELECT * FROM jasa");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -142,24 +143,33 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Pasien</center></h2>
+          	<h2><center>Daftar Jasa</center></h2>
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
           		<table class="table-bordered col-lg-12">
               <thead>
-                <td>Nama</td>
-                <td>Alamat</td>
-                <td>Tanggal Lahir</td>
-                <td>Pekerjaan</td>
-                <td>Nomor Telpon</td>
-                <td>Jenis Kelamin</td>
-                <td>Nomor Rekam Medis</td>
+                <td>Nama Jasa</td>
+                <td>Tarif</td>
               </thead>
               <tbody>
+                <?php
+                while($jasa = $dataJasa->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        $jasa[nama_jasa]
+                      </td>
+                      <td>
+                        $jasa[tarif]
+                      </td>
+                    </tr>
+                  ";
+                }
+                ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_pasien.php">Tambah</a></button>
+              <button style="float: right"><a href="add_jasa.php">Tambah</a></button>
           		</div>
           	</div>
 			

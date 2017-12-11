@@ -75,7 +75,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
@@ -103,32 +103,56 @@
                           <span>DATABASE</span>
                       </a>
                       <ul class="sub">
+                          <li><a href="pasien.php">Pasien</a></li>
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
+                  <!--
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-cogs"></i>
+                          <span>DOKTER</span>
+                      </a>
+                      <ul class="sub"> 
+                          <li><a  href="dokter.html">Rekam Medis Pasien</a></li>
+                          <li><a  href="dokter.html">List Obat</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-book"></i>
+                          <span>PEMBAYARAN</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="pembayaran.html">Pembayaran</a></li>
+                      </ul>
+                  </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
-                          <span>LAYANAN</span>
+                          <span>KARYAWAN</span>
                       </a>
-                      <ul class="sub"> 
-                          <li><a  href="jasa.php">Daftar Jasa</a></li>
-                          <li><a  href="obat.php">Daftar Obat</a></li>
+                      
+					  <ul class="sub">
+                          <li><a  href="form_component2.html">Form Pendaftaran Karyawan</a></li>
+						  <li><a  href="form_component2.html">Data Karyawan</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
+                  
+				  <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-users"></i>
-                          <span>PASIEN</span>
+                          <i class="fa fa-cogs"></i>
+                          <span>EXTRA</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="antrian.php">Antrian</a></li>
-                          <li><a  href="booking.php">Booking</a></li>
-                          <li><a  href="pasien.php">Data Pasien</a></li>
+                          <li><a  href="calendar.html">Calendar</a></li>
+                          <li><a  href="gallery.html">Gallery</a></li>
+                          <li><a  href="todo_list.html">Todo List</a></li>
                       </ul>
                   </li>
+                -->
 
               </ul>
               <!-- sidebar menu end-->
@@ -142,24 +166,56 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Pasien</center></h2>
+          	<h2><center>Daftar Obat</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
-              <thead>
-                <td>Nama</td>
-                <td>Alamat</td>
-                <td>Tanggal Lahir</td>
-                <td>Pekerjaan</td>
-                <td>Nomor Telpon</td>
-                <td>Jenis Kelamin</td>
-                <td>Nomor Rekam Medis</td>
-              </thead>
-              <tbody>
-              </tbody>
-              </table>
-              <button style="float: right"><a href="add_pasien.php">Tambah</a></button>
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <br>
+
+                  <form class="form-horizontal style-form" method="post" action = "act/add_obat.php">
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Obat</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_obat" id="nama_obat" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="satuan" id="satuan" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" required>
+                      </div>
+                    </div>
+
+                    <!--no_reg_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Harga Per Satuan (Rp)</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="harga" id="harga" required>
+                      </div>
+                    </div>
+
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
 			
