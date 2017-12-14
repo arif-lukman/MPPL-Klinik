@@ -79,9 +79,9 @@
             <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
             <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
+              <ul class="nav pull-right top-menu">
                     <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
+              </ul>
             </div>
         </header>
       <!--header end-->
@@ -95,8 +95,8 @@
                <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
+                  <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -143,18 +143,18 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Antrian</center></h2>
+            <h2><center>Daftar Booking</center></h2>
             <hr>
-          	<div class="row mt">
+            <div class="row mt">
               <div class="col-lg-2">
               </div>
-          		<div class="col-lg-8">
-            		<center>
+              <div class="col-lg-8">
+                <center>
                   <div class="form-panel">
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = "act/add_antrian.php">
+                  <form class="form-horizontal style-form" method="post" action = "act/add_booking.php">
 
                     <!--nama_dokter-->
                     <div class="form-group">
@@ -181,43 +181,19 @@
                       </div>
                     </div>
 
-                    <!--email-->
+                    <!--tanggal_lahir-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status Layanan</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Jam</label>
                       <div class="col-sm-10">
-                        <select class="form-control" name="status" id="status" required>
-                          <option value="1">Menunggu</option>
-                          <option value="2">Sedang Dilayani</option>
-                          <option value="3">Selesai</option>
-                        </select>
+                        <input type="time" class="form-control" name="jam" id="jam" required>
                       </div>
                     </div>
 
                     <!--tanggal_lahir-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jam Daftar</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam_daftar" id="jam_daftar" required>
-                      </div>
-                    </div>
-
-                    <!--jenis_kelamin-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jam Layan</label>
-                      <!--
-                      <div class="radio col-sm-10">
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required>
-                      Laki-laki
-                      </label>
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P">
-                      Perempuan
-                      </label>
-                      </div>
-                    -->
-                      <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam_layan" id="jam_layan" required>
+                        <input type="text" class="form-control" name="no_telp" id="jam" required>
                       </div>
                     </div>
 
@@ -256,10 +232,10 @@
               </div><!-- col-lg-12-->       
             </div><!-- /row -->
               </center>
-          		</div>
-          	</div>
-			
-		      </section>
+              </div>
+            </div>
+      
+          </section>
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->

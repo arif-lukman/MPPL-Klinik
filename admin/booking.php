@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $resultDokter = $conn->query("SELECT nama_dokter, no_reg_dokter FROM dokter");
+  $dataBooking = $conn->query("SELECT pasien.nama_pasien as nama_pasien, booking.no_rekam_medis as no_rekam_medis, booking.tanggal as tanggal, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter, pasien WHERE booking.no_rekam_medis = pasien.no_rekam_medis AND booking.no_reg_dokter = dokter.no_reg_dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -76,7 +76,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
@@ -143,119 +143,45 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Antrian</center></h2>
+          	<h2><center>Daftar Booking</center></h2>
             <hr>
           	<div class="row mt">
-              <div class="col-lg-2">
-              </div>
-          		<div class="col-lg-8">
-            		<center>
-                  <div class="form-panel">
-                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
-                  <br>
-
-                  <form class="form-horizontal style-form" method="post" action = "act/add_antrian.php">
-
-                    <!--nama_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Lengkap Pasien</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" required>
-                      </div>
-                    </div>
-
-                    <!--no_reg_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
-                      </div>
-                    </div>
-
-                    <!--alamat-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
-                      <div class="col-sm-10">
-                        <!--<textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>-->
-                        <input type="date" class="form-control" name="tanggal" id="tanggal" required>
-                      </div>
-                    </div>
-
-                    <!--email-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status Layanan</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="status" id="status" required>
-                          <option value="1">Menunggu</option>
-                          <option value="2">Sedang Dilayani</option>
-                          <option value="3">Selesai</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <!--tanggal_lahir-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jam Daftar</label>
-                      <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam_daftar" id="jam_daftar" required>
-                      </div>
-                    </div>
-
-                    <!--jenis_kelamin-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jam Layan</label>
-                      <!--
-                      <div class="radio col-sm-10">
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required>
-                      Laki-laki
-                      </label>
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P">
-                      Perempuan
-                      </label>
-                      </div>
-                    -->
-                      <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam_layan" id="jam_layan" required>
-                      </div>
-                    </div>
-
-                    <!--nomor_telpon-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Dokter</label>
-                      <div class="col-sm-10">
-                        <!--DROPDOWN NAMA DOKTER-->
-                        <select class="form-control" name="no_reg_dokter" id="no_reg_dokter">
-                          <?php
-                            while($dokter = $resultDokter->fetch_assoc()){
-                              echo "
-                                <option value=\"$dokter[no_reg_dokter]\">$dokter[nama_dokter]</option>
-                              ";
-                            }
-                          ?>
-                        </select>
-                      </div>
-                    </div>
-
-                    <!--status-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status Pasien</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="status_pasien" id="status_pasien" required>
-                          <option value="1">Pasien Lama</option>
-                          <option value="2">Pasien Baru</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
-                    <br>
-                  </form>
-                </div>
-              </div><!-- col-lg-12-->       
-            </div><!-- /row -->
-              </center>
+          		<div class="col-lg-12">
+          		<table class="table-bordered col-lg-12">
+              <thead>
+                <td>Nama Lengkap</td>
+                <td>Nomor Rekam Medis</td>
+                <td>Tanggal dan Jam</td>
+                <td>Dokter</td>
+                <td>Status Pasien</td>
+              </thead>
+              <tbody>
+                <?php
+                while($booking = $dataBooking->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        $booking[nama_pasien]
+                      </td>
+                      <td>
+                        $booking[no_rekam_medis]
+                      </td>
+                      <td>
+                        $booking[tanggal]
+                      </td>
+                      <td>
+                        $booking[nama_dokter]
+                      </td>
+                      <td>
+                        $booking[status_pasien]
+                      </td>
+                    </tr>
+                  ";
+                }
+                ?>
+              </tbody>
+              </table>
+              <button style="float: right"><a href="add_booking.php">Tambah</a></button>
           		</div>
           	</div>
 			
