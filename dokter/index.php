@@ -1,7 +1,7 @@
 <?php
   //Library
   include "../connection/connect.php";
-  include "../process/session_check.php";
+/*  include "../process/session_check.php";
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
@@ -33,7 +33,7 @@
     } else {
       return false;
     }
-  }
+  }*/
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +51,7 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
@@ -84,7 +84,7 @@
             </div>
         </header>
       <!--header end-->
-      
+
       <!-- **********************************************************************************************************************************************************
       MAIN SIDEBAR MENU
       *********************************************************************************************************************************************************** -->
@@ -93,41 +93,27 @@
           <div id="sidebar"  class="nav-collapse ">
                <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-              
+
               	  <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
               	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
 
                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>DATABASE</span>
+                      <a href="diagnosa.php" >
+                          <i class="fa"></i>
+                          <span>PROFILE</span>
                       </a>
-                      <ul class="sub">
-						              <li><a href="dokter.php">Dokter</a></li>
-                          <li><a href="perawat.php">Perawat</a></li>
-                          <li><a href="akun.php">Akun Pengguna Sistem</a></li>
-                      </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>LAYANAN</span>
+                      <a href="diagnosa.php" >
+                          <i class="fa"></i>
+                          <span>DIAGNOSA</span>
                       </a>
-                      <ul class="sub"> 
-                          <li><a  href="jasa.php">Daftar Jasa</a></li>
-                          <li><a  href="obat.php">Daftar Obat</a></li>
-                      </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-users"></i>
-                          <span>PASIEN</span>
+                      <a href="../process/logout.php" >
+                          <i class="fa"></i>
+                          <span>LOGOUT</span>
                       </a>
-                      <ul class="sub">
-                          <li><a  href="antrian.php">Antrian</a></li>
-                          <li><a  href="booking.php">Booking</a></li>
-                          <li><a  href="pasien.php">Data Pasien</a></li>
-                      </ul>
                   </li>
 
               </ul>
@@ -135,7 +121,7 @@
           </div>
       </aside>
       <!--sidebar end-->
-      
+
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
@@ -149,7 +135,7 @@
           		<p>TO BE DEVELOPED.</p>
           		</div>
           	</div>
-			
+
 		</section>
       </section><!-- /MAIN CONTENT -->
 
@@ -182,7 +168,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+
   <script>
       //custom select box
 
