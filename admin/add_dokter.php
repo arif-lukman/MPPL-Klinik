@@ -152,7 +152,38 @@
                           <li><a  href="todo_list.html">Todo List</a></li>
                       </ul>
                   </li>
-                -->
+                --><li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-desktop"></i>
+                          <span>DATABASE</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a href="dokter.php">Dokter</a></li>
+                          <li><a href="perawat.php">Perawat</a></li>
+                          <li><a href="akun.php">Akun Pengguna Sistem</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-tasks"></i>
+                          <span>LAYANAN</span>
+                      </a>
+                      <ul class="sub"> 
+                          <li><a  href="jasa.php">Daftar Jasa</a></li>
+                          <li><a  href="obat.php">Daftar Obat</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-users"></i>
+                          <span>PASIEN</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="antrian.php">Antrian</a></li>
+                          <li><a  href="booking.php">Booking</a></li>
+                          <li><a  href="pasien.php">Data Pasien</a></li>
+                      </ul>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->
