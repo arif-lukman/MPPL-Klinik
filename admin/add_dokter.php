@@ -103,61 +103,6 @@
                           <span>DATABASE</span>
                       </a>
                       <ul class="sub">
-                          <li><a href="pasien.php">Pasien</a></li>
-                          <li><a href="dokter.php">Dokter</a></li>
-                          <li><a href="perawat.php">Perawat</a></li>
-                          <li><a href="akun.php">Akun Pengguna Sistem</a></li>
-                      </ul>
-                  </li>
-                  <!--
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>DOKTER</span>
-                      </a>
-                      <ul class="sub"> 
-                          <li><a  href="dokter.html">Rekam Medis Pasien</a></li>
-                          <li><a  href="dokter.html">List Obat</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-book"></i>
-                          <span>PEMBAYARAN</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="pembayaran.html">Pembayaran</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>KARYAWAN</span>
-                      </a>
-                      
-					  <ul class="sub">
-                          <li><a  href="form_component2.html">Form Pendaftaran Karyawan</a></li>
-						  <li><a  href="form_component2.html">Data Karyawan</a></li>
-                      </ul>
-                  </li>
-                  
-				  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-cogs"></i>
-                          <span>EXTRA</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="calendar.html">Calendar</a></li>
-                          <li><a  href="gallery.html">Gallery</a></li>
-                          <li><a  href="todo_list.html">Todo List</a></li>
-                      </ul>
-                  </li>
-                --><li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>DATABASE</span>
-                      </a>
-                      <ul class="sub">
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
