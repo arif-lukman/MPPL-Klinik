@@ -133,121 +133,75 @@
               </div>
           		<div class="col-lg-8">
             		<center>
+
+                  <!--menu tabs-->
                   <ul class="nav nav-tabs">
                     <li class="active"><a href="index.php">Rekam Medis</a></li>
                     <li><a href="#">Riwayat Rekam Medis</a></li>
                   </ul>
+                  <!-- end tabs-->
+
                   <div class="form-panel">
                   <h4 class="mb"><center>Diagnosa Pasien</center></h4>
                   <br>
+                  <form class="form-horizontal style-form" method="post" action = "act/diagnosa.php">
 
-                  <form class="form-horizontal style-form" method="post" action = "act/add_dokter.php">
-
-                    <!--nama_dokter-->
+                    <!--no rekam medis pasien-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Dokter</label>
+                      <label class="col-sm-2 control-label">No Rekam Medis</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_dokter" id="nama_dokter" required>
+                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
                       </div>
                     </div>
 
-                    <!--no_reg_dokter-->
+                    <!--diagnosa dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Dokter</label>
+                      <label class="col-sm-2 control-label">Diagnosa</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_reg_dokter" id="no_reg_dokter" required>
+                        <textarea class="form-control" name="diagnosa" id="diagnosa" style="max-width: 100%; min-width: 100%"></textarea required>
                       </div>
                     </div>
 
-                    <!--alamat-->
+                  <!--Form terapi-->
+                  <div class="form-inline">
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>
-                      </div>
-                    </div>
+                      <label class="col-sm-3 control-label">Terapi</label>
 
-                    <!--tanggal_lahir-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
-                      <div class="col-sm-10">
-                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" required>
-                      </div>
+                  <!--menu drop down jenis tindakan-->
+                  <div class="col-sm-4">
+                    <select class="form-control" id="tindakan">
+                      <option value="">tindakan 1</option>
+                    </select>
                     </div>
+                    <!-- end menu drop down jenis tindakan-->
 
-                    <!--jenis_kelamin-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jenis Kelamin</label>
-                      <div class="radio col-sm-10">
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required>
-                      Laki-laki
-                      </label>
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P">
-                      Perempuan
-                      </label>
+                        <!--tarif-->
+                        <label class="col-sm-2 control-label">Tarif</label>
+                        <div class="col-sm-2">
+                          <input type="text" class="form-control" name="tarif" id="tarif" required>
+                        </div>
+                        </div>
                       </div>
-                    </div>
+                      <!--end form terapi-->
 
-                    <!--nomor_telpon-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
+                      <!--form keterangan-->
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Keterangan</label>
+                        <div class="col-sm-10">
+                          <textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
+                        </div>
                       </div>
-                    </div>
+                      <!-- end form keterangan-->
 
-                    <!--email-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Email</label>
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" name="email" id="email" required>
+                      <!--menu drop down jenis tindakan-->
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Pilih Obat</label>
+                        <div class="col-sm-4">
+                          <select class="form-control" id="tindakan">
+                            <option value="">tindakan 1</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
-                      <div class="col-lg-10">
-                      <p class="form-control-static">email@example.com</p>
-                      </div>
-                    </div>
-
-                    <!--status-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="status" id="status" required>
-                          <option value="1">Aktif</option>
-                          <option value="2">Pasif</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <h4><center>Akun Klinik</center></h4><br>
-
-                    <!--username-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Username</label>
-                      <div class="col-sm-10">
-                        <input type="text"  class="form-control" placeholder="" name="username" id="username" required>
-                      </div>
-                    </div>
-
-                    <!--password-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Password</label>
-                      <div class="col-sm-10">
-                        <input type="password"  class="form-control" placeholder="" name="password" id="password" required>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
-                      <div class="col-sm-10">
-                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw"  required>
-                      </div>
-                    </div>
 
                     <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
                     <br>
