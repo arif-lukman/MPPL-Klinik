@@ -128,92 +128,49 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<div class="row mt">
-              <div class="col-lg-2">
-              </div>
-          		<div class="col-lg-8">
-            		<center>
-
-                  <!--menu tabs-->
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a href="index.php">Rekam Medis</a></li>
-                    <li><a href="#">Riwayat Rekam Medis</a></li>
-                  </ul>
-                  <!-- end tabs-->
-
-                  <div class="form-panel">
-                  <h4 class="mb"><center>Diagnosa Pasien</center></h4>
-                  <br>
-                  <form class="form-horizontal style-form" method="post" action = "act/diagnosa.php">
-
-                    <!--no rekam medis pasien-->
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">No Rekam Medis</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
-                      </div>
-                    </div>
-
-                    <!--diagnosa dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Diagnosa</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="diagnosa" id="diagnosa" style="max-width: 100%; min-width: 100%"></textarea required>
-                      </div>
-                    </div>
-
-                  <!--Form terapi-->
-                  <div class="form-inline">
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Terapi</label>
-
-                  <!--menu drop down jenis tindakan-->
-                  <div class="col-sm-4">
-                    <select class="form-control" id="tindakan">
-                      <option value="">tindakan 1</option>
-                    </select>
-                    </div>
-                    <!-- end menu drop down jenis tindakan-->
-
-                        <!--tarif-->
-                        <label class="col-sm-2 control-label">Tarif</label>
-                        <div class="col-sm-2">
-                          <input type="text" class="form-control" name="tarif" id="tarif" required>
-                        </div>
-                        </div>
-                      </div>
-                      <!--end form terapi-->
-
-                      <!--form keterangan-->
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Keterangan</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
-                        </div>
-                      </div>
-                      <!-- end form keterangan-->
-
-                      <!--menu drop down jenis tindakan-->
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label">Pilih Obat</label>
-                        <div class="col-sm-4">
-                          <select class="form-control" id="tindakan">
-                            <option value="">tindakan 1</option>
-                          </select>
-                        </div>
-                      </div>
-
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
-                    <br>
-                  </form>
-                </div>
-              </div><!-- col-lg-12-->
-            </div><!-- /row -->
-              </center>
-          		</div>
+          	<h2><center>Profile</center></h2>
+            <hr>
+			<?php
+				$sql = "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+				$result = mysqli_query($conn, $sql);
+			?>
+			
+          	<div class="container">
+				<table class="table table-striped">
+				<?php
+				while($row=mysqli_fetch_assoc($result))
+				echo "
+				<tr>
+					<td> Nama </td>
+					<td> : </td>
+					<td> ".$row['nama_dokter']."</td>
+				</tr>
+				<tr>
+					<td> Alamat </td>
+					<td> : </td>
+					<td> ".$row['alamat']."</td>
+				</tr>
+				<tr>
+					<td> Tanggal Lahir </td>
+					<td> : </td>
+					<td> ".$row['tanggal_lahir']."</td>
+				</tr>
+				<tr>
+					<td> No. Telepon </td>
+					<td> : </td>
+					<td> ".$row['no_telp']."</td>
+				</tr>
+				<tr>
+					<td> Email </td>
+					<td> : </td>
+					<td> ".$row['email']."</td>
+				</tr>
+				";
+				?>
+          		</table>
           	</div>
-
-		      </section>
+			
+		</section>
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
