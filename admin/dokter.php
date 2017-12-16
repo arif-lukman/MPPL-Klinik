@@ -194,6 +194,12 @@
                   }
                   echo "
                       </td>
+                      <td>
+                      	<a href=\"edit_dokter.php?id_dokter=$dokter[id_dokter]\">Edit</a>
+                      </td>
+                      <td>
+                      	<a href=\"act/hapus_dokter.php?id_dokter=$dokter[id_dokter]\">Hapus</a>
+                      </td>
                     </tr>
                   ";
                 }

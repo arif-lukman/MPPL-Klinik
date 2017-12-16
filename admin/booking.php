@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataBooking = $conn->query("SELECT pasien.nama_pasien as nama_pasien, booking.no_rekam_medis as no_rekam_medis, booking.tanggal as tanggal, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter, pasien WHERE booking.no_rekam_medis = pasien.no_rekam_medis AND booking.no_reg_dokter = dokter.no_reg_dokter");
+  $dataBooking = $conn->query("SELECT booking.id_booking as id_booking, pasien.nama_pasien as nama_pasien, booking.no_rekam_medis as no_rekam_medis, booking.tanggal as tanggal, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter, pasien WHERE booking.no_rekam_medis = pasien.no_rekam_medis AND booking.no_reg_dokter = dokter.no_reg_dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi

@@ -153,33 +153,25 @@
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = "act/add_perawat.php">
+                  <form class="form-horizontal style-form" method="post" action = "act/add_pasien.php">
 
                     <!--nama_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Perawat</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Pasien</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_perawat" id="nama_perawat" required>
+                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" required>
                       </div>
                     </div>
 
                     <!--no_reg_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Perawat</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_reg_perawat" id="no_reg_perawat" required>
-                      </div>
-                    </div>
-
-                    <!--alamat-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Alamat Pasien</label>
                       <div class="col-sm-10">
                         <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>
                       </div>
                     </div>
 
-                    <!--tanggal_lahir-->
+                    <!--alamat-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
                       <div class="col-sm-10">
@@ -187,7 +179,23 @@
                       </div>
                     </div>
 
+                    <!--tanggal_lahir-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Pekerjaan</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" required>
+                      </div>
+                    </div>
+
                     <!--jenis_kelamin-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
+                      </div>
+                    </div>
+
+                    <!--nomor_telpon-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Jenis Kelamin</label>
                       <div class="radio col-sm-10">
@@ -202,62 +210,11 @@
                       </div>
                     </div>
 
-                    <!--nomor_telpon-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
-                      </div>
-                    </div>
-
                     <!--email-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" name="email" id="email" required>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
-                      <div class="col-lg-10">
-                      <p class="form-control-static">email@example.com</p>
-                      </div>
-                    </div>
-
-                    <!--status-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="status" id="status" required>
-                          <option value="1">Aktif</option>
-                          <option value="2">Pasif</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <h4><center>Akun Klinik</center></h4><br>
-
-                    <!--username-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Username</label>
-                      <div class="col-sm-10">
-                        <input type="text"  class="form-control" placeholder="" name="username" id="username" required>
-                      </div>
-                    </div>
-
-                    <!--password-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Password</label>
-                      <div class="col-sm-10">
-                        <input type="password"  class="form-control" placeholder="" name="password" id="password" required>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
-                      <div class="col-sm-10">
-                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw"  required>
+                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
                       </div>
                     </div>
 

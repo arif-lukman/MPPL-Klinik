@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAntrian = $conn->query("SELECT pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter");
+  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -185,7 +185,19 @@
                         $antrian[nama_dokter]
                       </td>
                       <td>
-                        $antrian[status_pasien]
+                      ";
+                      if($antrian['status_pasien'] === '1'){
+                        echo "Pasien Lama";
+                      } else {
+                        echo "Pasien Baru";
+                      }
+                      echo "
+                      </td>
+                      <td>
+                        <a href=\"act/edit_antrian.php?id_antrian=$antrian[id_antrian]\">Edit</a>
+                      </td>
+                      <td>
+                        <a href=\"act/hapus_antrian.php?id_antrian=$antrian[id_antrian]\">Hapus</a>
                       </td>
                     </tr>
                   ";

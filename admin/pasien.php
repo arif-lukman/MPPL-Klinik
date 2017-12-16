@@ -5,6 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $dataPasien = $conn->query("SELECT * FROM pasien");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -157,6 +158,41 @@
                 <td>Nomor Rekam Medis</td>
               </thead>
               <tbody>
+                <?php
+                while($pasien = $dataPasien->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        $pasien[nama_pasien]
+                      </td>
+                      <td>
+                        $pasien[alamat]
+                      </td>
+                      <td>
+                        $pasien[tanggal_lahir]
+                      </td>
+                      <td>
+                        $pasien[pekerjaan]
+                      </td>
+                      <td>
+                        $pasien[no_telp]
+                      </td>
+                      <td>
+                        $pasien[jenis_kelamin]
+                      </td>
+                      <td>
+                        $pasien[no_rekam_medis]
+                      </td>
+                      <td>
+                        <a href=\"act/edit_pasien.php?id_pasien=$pasien[id_pasien]\">Edit</a>
+                      </td>
+                      <td>
+                        <a href=\"act/hapus_pasien.php?id_pasien=$pasien[id_pasien]\">Hapus</a>
+                      </td>
+                    </tr>
+                  ";
+                }
+                ?>
               </tbody>
               </table>
               <button style="float: right"><a href="add_pasien.php">Tambah</a></button>

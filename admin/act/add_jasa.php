@@ -14,11 +14,11 @@
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){
 		echo "<script> alert('Data berhasil diinputkan');
-		location='../index.php';
+		location='../jasa.php';
 		</script>";
 	} else {
 		echo "<script> alert('Data gagal diinputkan');
-		location='../index.php';
+		location='../add_jasa.php';
 		</script>";
 	}
 

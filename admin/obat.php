@@ -151,7 +151,7 @@
               <thead>
                 <td>Nama Obat</td>
                 <td>Satuan</td>
-                <td>Jumlah</td>
+                <td>Stok</td>
                 <td>Harga Per Satuan</td>
               </thead>
               <tbody>
@@ -166,10 +166,16 @@
                         $obat[satuan]
                       </td>
                       <td>
-                        $obat[jumlah]
+                        $obat[stok]
                       </td>
                       <td>
                         $obat[harga]
+                      </td>
+                      <td>
+                        <a href=\"edit_obat.php?id_obat=$obat[id_obat]\">Edit</a>
+                      </td>
+                      <td>
+                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_obat]\">Hapus</a>
                       </td>
                     </tr>
                   ";

@@ -5,7 +5,8 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
+  $dataObat = $conn->query("SELECT * FROM obat WHERE id_obat = $_GET[id_obat]");
+  $obat = $dataObat->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -76,7 +77,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
@@ -143,70 +144,56 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Perawat</center></h2>
+          	<h2><center>Daftar Obat</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
-              <thead>
-                <td>Nama</td>
-                <td>Nomor Registrasi</td>
-                <td>Alamat</td>
-                <td>Tanggal Lahir</td>
-                <td>Jenis Kelamin</td>
-                <td>Nomor Telpon</td>
-                <td>Email</td>
-                <td>Status</td>
-              </thead>
-              <tbody>
-                <?php
-                while($perawat = $dataPerawat->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $perawat[nama_perawat]
-                      </td>
-                      <td>
-                        $perawat[no_reg_perawat]
-                      </td>
-                      <td>
-                        $perawat[alamat]
-                      </td>
-                      <td>
-                        $perawat[tanggal_lahir]
-                      </td>
-                      <td>
-                        $perawat[jenis_kelamin]
-                      </td>
-                      <td>
-                        $perawat[no_telp]
-                      </td>
-                      <td>
-                        $perawat[email]
-                      </td>
-                      <td>
-                  ";
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <br>
 
-                  if($perawat['status'] === '1'){
-                    echo "Aktif";
-                  } else {
-                    echo "Pasif";
-                  }
-                  echo "
-                      </td>
-                      <td>
-                        <a href=\"edit_perawat.php?id_perawat=$perawat[id_perawat]\">Edit</a>
-                      </td>
-                      <td>
-                        <a href=\"act/hapus_perawat.php?id_perawat=$perawat[id_perawat]\">Hapus</a>
-                      </td>
-                    </tr>
-                  ";
-                }
-                ?>
-              </tbody>
-              </table>
-              <button style="float: right"><a href="add_perawat.php">Tambah</a></button>
+                  <form class="form-horizontal style-form" method="post" action = "act/add_obat.php">
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Obat</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_obat" id="nama_obat" value=<?php echo "\" $obat[nama_obat]\"";?> required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="satuan" id="satuan" value=<?php echo "\" $obat[satuan]\"";?> required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" value=<?php echo "\" $obat[stok]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--no_reg_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Harga Per Satuan (Rp)</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="harga" id="harga" value=<?php echo "\" $obat[harga]\"";?> required>
+                      </div>
+                    </div>
+
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
 			

@@ -34,13 +34,13 @@
 
 	//Masukkan data
 	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE){
-		//echo "<script> alert('Data berhasil diinputkan');
-		//location='../index.php';
-		//</script>";
+		echo "<script> alert('Data berhasil diinputkan');
+		location='../perawat.php';
+		</script>";
 	} else {
-		//echo "<script> alert('Data gagal diinputkan');
-		//location='../index.php';
-		//</script>";
+		echo "<script> alert('Data gagal diinputkan');
+		location='../add_perawat.php';
+		</script>";
 	}
 
 	//Fungsi

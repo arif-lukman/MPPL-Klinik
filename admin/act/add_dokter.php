@@ -35,11 +35,11 @@
 	//Masukkan data
 	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE){
 		echo "<script> alert('Data berhasil diinputkan');
-		location='../index.php';
+		location='../dokter.php';
 		</script>";
 	} else {
 		echo "<script> alert('Data gagal diinputkan');
-		location='../index.php';
+		location='../add_dokter.php';
 		</script>";
 	}
 

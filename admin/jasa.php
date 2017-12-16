@@ -163,6 +163,12 @@
                       <td>
                         $jasa[tarif]
                       </td>
+                      <td>
+                        <a href=\"edit_jasa.php?id_jasa=$jasa[id_jasa]\">Edit</a>
+                      </td>
+                      <td>
+                        <a href=\"act/hapus_jasa.php?id_jasa=$jasa[id_jasa]\">Hapus</a>
+                      </td>
                     </tr>
                   ";
                 }

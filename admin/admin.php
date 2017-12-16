@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
+  $dataDokter = $conn->query("SELECT * FROM admin");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -143,7 +143,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Perawat</center></h2>
+          	<h2><center>Data Dokter</center></h2>
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
@@ -160,34 +160,34 @@
               </thead>
               <tbody>
                 <?php
-                while($perawat = $dataPerawat->fetch_assoc()){
+                while($dokter = $dataDokter->fetch_assoc()){
                   echo "
                     <tr>
                       <td>
-                        $perawat[nama_perawat]
+                        $dokter[nama_dokter]
                       </td>
                       <td>
-                        $perawat[no_reg_perawat]
+                        $dokter[no_reg_dokter]
                       </td>
                       <td>
-                        $perawat[alamat]
+                        $dokter[alamat]
                       </td>
                       <td>
-                        $perawat[tanggal_lahir]
+                        $dokter[tanggal_lahir]
                       </td>
                       <td>
-                        $perawat[jenis_kelamin]
+                        $dokter[jenis_kelamin]
                       </td>
                       <td>
-                        $perawat[no_telp]
+                        $dokter[no_telp]
                       </td>
                       <td>
-                        $perawat[email]
+                        $dokter[email]
                       </td>
                       <td>
                   ";
 
-                  if($perawat['status'] === '1'){
+                  if($dokter['status'] === '1'){
                     echo "Aktif";
                   } else {
                     echo "Pasif";
@@ -195,10 +195,10 @@
                   echo "
                       </td>
                       <td>
-                        <a href=\"edit_perawat.php?id_perawat=$perawat[id_perawat]\">Edit</a>
+                      	<a href=\"act/edit_dokter.php?id_dokter=$dokter[id_dokter]\">Edit</a>
                       </td>
                       <td>
-                        <a href=\"act/hapus_perawat.php?id_perawat=$perawat[id_perawat]\">Hapus</a>
+                      	<a href=\"act/hapus_dokter.php?id_dokter=$dokter[id_dokter]\">Hapus</a>
                       </td>
                     </tr>
                   ";
@@ -206,7 +206,7 @@
                 ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_perawat.php">Tambah</a></button>
+              <button style="float: right"><a href="add_admin.php">Tambah</a></button>
           		</div>
           	</div>
 			

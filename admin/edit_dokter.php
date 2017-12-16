@@ -5,7 +5,8 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
+  $dataDokter = $conn->query("SELECT * FROM dokter, detail_akun_dokter, user_klinik WHERE dokter.id_dokter = detail_akun_dokter.id_dokter AND detail_akun_dokter.id_user_klinik = user_klinik.id_user_klinik AND dokter.id_dokter = $_GET[id_dokter]");
+  $dokter = $dataDokter->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -76,7 +77,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
@@ -143,70 +144,119 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Perawat</center></h2>
+          	<h2><center>Data Dokter</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
-              <thead>
-                <td>Nama</td>
-                <td>Nomor Registrasi</td>
-                <td>Alamat</td>
-                <td>Tanggal Lahir</td>
-                <td>Jenis Kelamin</td>
-                <td>Nomor Telpon</td>
-                <td>Email</td>
-                <td>Status</td>
-              </thead>
-              <tbody>
-                <?php
-                while($perawat = $dataPerawat->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $perawat[nama_perawat]
-                      </td>
-                      <td>
-                        $perawat[no_reg_perawat]
-                      </td>
-                      <td>
-                        $perawat[alamat]
-                      </td>
-                      <td>
-                        $perawat[tanggal_lahir]
-                      </td>
-                      <td>
-                        $perawat[jenis_kelamin]
-                      </td>
-                      <td>
-                        $perawat[no_telp]
-                      </td>
-                      <td>
-                        $perawat[email]
-                      </td>
-                      <td>
-                  ";
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <br>
 
-                  if($perawat['status'] === '1'){
-                    echo "Aktif";
-                  } else {
-                    echo "Pasif";
-                  }
-                  echo "
-                      </td>
-                      <td>
-                        <a href=\"edit_perawat.php?id_perawat=$perawat[id_perawat]\">Edit</a>
-                      </td>
-                      <td>
-                        <a href=\"act/hapus_perawat.php?id_perawat=$perawat[id_perawat]\">Hapus</a>
-                      </td>
-                    </tr>
-                  ";
-                }
-                ?>
-              </tbody>
-              </table>
-              <button style="float: right"><a href="add_perawat.php">Tambah</a></button>
+                  <form class="form-horizontal style-form" method="post" action = "act/edit_dokter.php">
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Dokter</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_dokter" id="nama_dokter" value=<?php echo "\" $dokter[nama_dokter]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--no_reg_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Dokter</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_reg_dokter" id="no_reg_dokter" value=<?php echo "\"$dokter[no_reg_dokter]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--alamat-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"><?php echo "$dokter[alamat]";?></textarea required>
+                      </div>
+                    </div>
+
+                    <!--tanggal_lahir-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
+                      <div class="col-sm-10">
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value=<?php echo "\"$dokter[tanggal_lahir]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--jenis_kelamin-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jenis Kelamin</label>
+                      <div class="radio col-sm-10">
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required 
+                        <?php 
+                          if($dokter['jenis_kelamin'] == "L"){
+                            echo "checked";
+                          }
+                        ?>
+                        >
+                      Laki-laki
+                      </label>
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P"
+                        <?php 
+                          if($dokter['jenis_kelamin'] == "P"){
+                            echo "checked";
+                          }
+                        ?>
+                        >
+                      Perempuan
+                      </label>
+                      </div>
+                    </div>
+
+                    <!--nomor_telpon-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\"$dokter[no_telp]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--email-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" name="email" id="email" value=<?php echo "\"$dokter[email]\"";?> required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
+                      <div class="col-lg-10">
+                      <p class="form-control-static">email@example.com</p>
+                      </div>
+                    </div>
+
+                    <!--status-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Status</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="status" id="status" required>
+                          <option value="1">Aktif</option>
+                          <option value="2">Pasif</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
 			

@@ -156,14 +156,6 @@
 
                   <form class="form-horizontal style-form" method="post" action = "act/add_antrian.php">
 
-                    <!--nama_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Lengkap Pasien</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" required>
-                      </div>
-                    </div>
-
                     <!--no_reg_dokter-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
@@ -186,9 +178,9 @@
                       <label class="col-sm-2 col-sm-2 control-label">Status Layanan</label>
                       <div class="col-sm-10">
                         <select class="form-control" name="status" id="status" required>
-                          <option value="1">Menunggu</option>
-                          <option value="2">Sedang Dilayani</option>
-                          <option value="3">Selesai</option>
+                          <option>Menunggu</option>
+                          <option>Sedang Dilayani</option>
+                          <option>Selesai</option>
                         </select>
                       </div>
                     </div>
@@ -204,18 +196,6 @@
                     <!--jenis_kelamin-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Jam Layan</label>
-                      <!--
-                      <div class="radio col-sm-10">
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required>
-                      Laki-laki
-                      </label>
-                      <label>
-                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P">
-                      Perempuan
-                      </label>
-                      </div>
-                    -->
                       <div class="col-sm-10">
                         <input type="time" class="form-control" name="jam_layan" id="jam_layan" required>
                       </div>
