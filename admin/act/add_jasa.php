@@ -5,11 +5,12 @@
 	//Ambil parameter
 	//dokter
 	$nama_jasa = $_POST['nama_jasa'];
+	$kat = $_POST['kat'];
 	$tarif = $_POST['tarif'];
 
 	//SQL command
 	//username
-	$sql1 = "INSERT INTO jasa(nama_jasa, tarif) VALUES ('$nama_jasa', '$tarif')";
+	$sql1 = "INSERT INTO jasa(nama_jasa, kategori, tarif) VALUES ('$nama_jasa', '$kat', '$tarif')";
 
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){

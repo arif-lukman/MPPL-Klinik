@@ -105,6 +105,7 @@
                       <ul class="sub">
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
+                          <li><a href="admin.php">Admin</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -124,7 +125,8 @@
                           <span>PASIEN</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="antrian.php">Antrian</a></li>
+                         <li><a  href="antrian_hari_ini.php">Antrian Hari Ini</a></li>
+                          <li><a  href="antrian_semua.php">Antrian Keseluruhan</a></li>
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>

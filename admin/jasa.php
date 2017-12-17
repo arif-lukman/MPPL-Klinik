@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataJasa = $conn->query("SELECT * FROM jasa");
+  $dataJasa = $conn->query("SELECT * FROM jasa, kategori_jasa WHERE kategori_jasa.id_kategori_jasa = jasa.kategori");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -106,6 +106,7 @@
                       <ul class="sub">
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
+                          <li><a href="admin.php">Admin</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -125,7 +126,8 @@
                           <span>PASIEN</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="antrian.php">Antrian</a></li>
+                          <li><a  href="antrian_hari_ini.php">Antrian Hari Ini</a></li>
+                          <li><a  href="antrian_semua.php">Antrian Keseluruhan</a></li>
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
@@ -150,6 +152,7 @@
           		<table class="table-bordered col-lg-12">
               <thead>
                 <td>Nama Jasa</td>
+                <td>Kategori</td>
                 <td>Tarif</td>
               </thead>
               <tbody>
@@ -159,6 +162,9 @@
                     <tr>
                       <td>
                         $jasa[nama_jasa]
+                      </td>
+                      <td>
+                        $jasa[nama_kategori_jasa]
                       </td>
                       <td>
                         $jasa[tarif]

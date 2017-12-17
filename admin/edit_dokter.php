@@ -107,6 +107,7 @@
                       <ul class="sub">
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
+                          <li><a href="admin.php">Admin</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -126,7 +127,8 @@
                           <span>PASIEN</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="antrian.php">Antrian</a></li>
+                          <li><a  href="antrian_hari_ini.php">Antrian Hari Ini</a></li>
+                          <li><a  href="antrian_semua.php">Antrian Keseluruhan</a></li>
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
@@ -161,7 +163,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Dokter</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_dokter" id="nama_dokter" value=<?php echo "\" $dokter[nama_dokter]\"";?> required>
+                        <input type="text" class="form-control" name="nama_dokter" id="nama_dokter" value=<?php echo "\"$dokter[nama_dokter]\"";?> required>
                       </div>
                     </div>
 

@@ -107,6 +107,7 @@
                       <ul class="sub">
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
+                          <li><a href="admin.php">Admin</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -126,7 +127,8 @@
                           <span>PASIEN</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="antrian.php">Antrian</a></li>
+                          <li><a  href="antrian_hari_ini.php">Antrian Hari Ini</a></li>
+                          <li><a  href="antrian_semua.php">Antrian Keseluruhan</a></li>
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
@@ -161,7 +163,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Admin</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_admin" id="nama_admin" value=<?php echo "\" $admin[nama_admin]\"";?> required>
+                        <input type="text" class="form-control" name="nama_admin" id="nama_admin" value=<?php echo "\"$admin[nama_admin]\"";?> required>
                       </div>
                     </div>
 
@@ -177,7 +179,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
                       <div class="col-sm-10">
-                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value=<?php echo "\" $admin[tanggal_lahir]\"";?> required>
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value=<?php echo "\"$admin[tanggal_lahir]\"";?> required>
                       </div>
                     </div>
 
@@ -212,7 +214,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\" $admin[no_telp]\"";?> required>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\"$admin[no_telp]\"";?> required>
                       </div>
                     </div>
 
@@ -220,7 +222,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" name="email" id="email" value=<?php echo "\" $admin[email]\"";?> required>
+                        <input type="email" class="form-control" name="email" id="email" value=<?php echo "\"$admin[email]\"";?> required>
                       </div>
                     </div>
 

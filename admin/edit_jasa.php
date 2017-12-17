@@ -107,6 +107,7 @@
                       <ul class="sub">
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
+                          <li><a href="admin.php">Admin</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -126,7 +127,8 @@
                           <span>PASIEN</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="antrian.php">Antrian</a></li>
+                          <li><a  href="antrian_hari_ini.php">Antrian Hari Ini</a></li>
+                          <li><a  href="antrian_semua.php">Antrian Keseluruhan</a></li>
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
@@ -161,7 +163,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Jasa</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_jasa" id="nama_jasa" value=<?php echo "\" $jasa[nama_jasa]\"";?> required>
+                        <input type="text" class="form-control" name="nama_jasa" id="nama_jasa" value=<?php echo "\"$jasa[nama_jasa]\"";?> required>
                       </div>
                     </div>
 
@@ -169,7 +171,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tarif (Rp)</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="tarif" id="tarif" value=<?php echo "\" $jasa[tarif]\"";?> required>
+                        <input type="text" class="form-control" name="tarif" id="tarif" value=<?php echo "\"$jasa[tarif]\"";?> required>
                       </div>
                     </div>
 
