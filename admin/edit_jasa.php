@@ -155,7 +155,7 @@
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = "act/edit_jasa.php">
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_jasa.php?id_jasa=$jasa[id_jasa]\"" ?>>
 
                     <!--nama_dokter-->
                     <div class="form-group">

@@ -24,9 +24,10 @@
 		}
 		header ("location:" . $tgt);
 	} else {
-		echo "<script> alert('Username atau Password Salah');
-		location='../login.php';
-		</script>";
+		//echo "<script> alert('Username atau Password Salah');
+		//location='../login.php';
+		//</script>";
+		echo "SELECT username, password, jenis_user FROM user_klinik WHERE username = '$uid' AND password = '$pw'";
 	}
 
 	//Fungsi

@@ -5,8 +5,8 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataObat = $conn->query("SELECT * FROM obat WHERE id_obat = $_GET[id_obat]");
-  $obat = $dataObat->fetch_assoc();
+  $dataAdmin = $conn->query("SELECT * FROM admin, detail_akun_admin, user_klinik WHERE admin.id_admin = detail_akun_admin.id_admin AND detail_akun_admin.id_user_klinik = user_klinik.id_user_klinik AND admin.id_admin = $_GET[id_admin]");
+  $admin = $dataAdmin->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -144,7 +144,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Obat</center></h2>
+          	<h2><center>Data Admin</center></h2>
             <hr>
           	<div class="row mt">
               <div class="col-lg-2">
@@ -155,35 +155,90 @@
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = <?php echo "act/edit_obat.php?id_obat=$obat[id_obat]" ?>>
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_admin.php?id_admin=$admin[id_admin]\""?>>
 
                     <!--nama_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Obat</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Admin</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_obat" id="nama_obat" value=<?php echo "\" $obat[nama_obat]\"";?> required>
+                        <input type="text" class="form-control" name="nama_admin" id="nama_admin" value=<?php echo "\" $admin[nama_admin]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--alamat-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"><?php echo "$admin[alamat]";?></textarea required>
+                      </div>
+                    </div>
+
+                    <!--tanggal_lahir-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
+                      <div class="col-sm-10">
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value=<?php echo "\" $admin[tanggal_lahir]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--jenis_kelamin-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jenis Kelamin</label>
+                      <div class="radio col-sm-10">
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required
+                        <?php 
+                          if($admin['jenis_kelamin'] == "L"){
+                            echo "checked";
+                          }
+                        ?>
+                        >
+                      Laki-laki
+                      </label>
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P"
+                        <?php 
+                          if($admin['jenis_kelamin'] == "P"){
+                            echo "checked";
+                          }
+                        ?>
+                        >
+                      Perempuan
+                      </label>
+                      </div>
+                    </div>
+
+                    <!--nomor_telpon-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\" $admin[no_telp]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--email-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" name="email" id="email" value=<?php echo "\" $admin[email]\"";?> required>
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="satuan" id="satuan" value=<?php echo "\" $obat[satuan]\"";?> required>
+                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
+                      <div class="col-lg-10">
+                      <p class="form-control-static">email@example.com</p>
                       </div>
                     </div>
 
+                    <!--status-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Status</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="jumlah" id="jumlah" value=<?php echo "\" $obat[stok]\"";?> required>
-                      </div>
-                    </div>
-
-                    <!--no_reg_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Harga Per Satuan (Rp)</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="harga" id="harga" value=<?php echo "\" $obat[harga]\"";?> required>
+                        <select class="form-control" name="status" id="status" required>
+                          <option value="1">Aktif</option>
+                          <option value="2">Pasif</option>
+                        </select>
                       </div>
                     </div>
 

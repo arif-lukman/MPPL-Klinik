@@ -5,8 +5,8 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataObat = $conn->query("SELECT * FROM obat WHERE id_obat = $_GET[id_obat]");
-  $obat = $dataObat->fetch_assoc();
+  $dataAkun = $conn->query("SELECT * FROM user_klinik WHERE id_user_klinik = $_GET[id_akun]");
+  $akun = $dataAkun->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -80,9 +80,9 @@
             <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
             <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
+              <ul class="nav pull-right top-menu">
                     <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
+              </ul>
             </div>
         </header>
       <!--header end-->
@@ -96,8 +96,8 @@
                <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
+                  <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -144,46 +144,39 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Obat</center></h2>
+            <h2><center>Data Akun</center></h2>
             <hr>
-          	<div class="row mt">
+            <div class="row mt">
               <div class="col-lg-2">
               </div>
-          		<div class="col-lg-8">
-            		<center>
+              <div class="col-lg-8">
+                <center>
                   <div class="form-panel">
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = <?php echo "act/edit_obat.php?id_obat=$obat[id_obat]" ?>>
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_akun.php?id_akun=$akun[id_user_klinik]\""?>>
 
-                    <!--nama_dokter-->
+                    <!--username-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Obat</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Username</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_obat" id="nama_obat" value=<?php echo "\" $obat[nama_obat]\"";?> required>
+                        <input type="text"  class="form-control" placeholder="" name="username" id="username" value=<?php echo "\"$akun[username]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--password-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                      <div class="col-sm-10">
+                        <input type="password"  class="form-control" placeholder="" name="password" id="password" required>
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="satuan" id="satuan" value=<?php echo "\" $obat[satuan]\"";?> required>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="jumlah" id="jumlah" value=<?php echo "\" $obat[stok]\"";?> required>
-                      </div>
-                    </div>
-
-                    <!--no_reg_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Harga Per Satuan (Rp)</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="harga" id="harga" value=<?php echo "\" $obat[harga]\"";?> required>
+                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw"  required>
                       </div>
                     </div>
 
@@ -194,10 +187,10 @@
               </div><!-- col-lg-12-->       
             </div><!-- /row -->
               </center>
-          		</div>
-          	</div>
-			
-		      </section>
+              </div>
+            </div>
+      
+          </section>
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
