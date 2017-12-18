@@ -70,14 +70,18 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header blue-bg">
+      <header class="header black-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            
+            <div class="top-menu">
+            	<ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
+            	</ul>
+            </div>
         </header>
       <!--header end-->
 
@@ -100,9 +104,9 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="antrian.php" >
+                      <a href="diagnosa.php" >
                           <i class="fa"></i>
-                          <span>ANTRIAN</span>
+                          <span>DIAGNOSA</span>
                       </a>
                   </li>
                   <li class="sub-menu">
@@ -124,50 +128,50 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Profile</center></h2>
-            <hr>
-			<?php
-				$sql  = "SELECT * FROM user_klinik, detail_akun_dokter, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=detail_akun_dokter.id_user_klinik and detail_akun_dokter.id_dokter=dokter.id_dokter";
-				$result = mysqli_query($conn, $sql);
-			?>
-			
-          	<div class="container">
-				<table class="table table-striped">
-				<?php
-				while($row=mysqli_fetch_assoc($result))
-				echo "
-				<tr>
-					<td> Nama </td>
-					<td> : </td>
-					<td> ".$row['nama_dokter']."</td>
-				</tr>
-				<tr>
-					<td> Alamat </td>
-					<td> : </td>
-					<td> ".$row['alamat']."</td>
-				</tr>
-				<tr>
-					<td> Tanggal Lahir </td>
-					<td> : </td>
-					<td> ".$row['tanggal_lahir']."</td>
-				</tr>
-				<tr>
-					<td> No. Telepon </td>
-					<td> : </td>
-					<td> ".$row['no_telp']."</td>
-				</tr>
-				<tr>
-					<td> Email </td>
-					<td> : </td>
-					<td> ".$row['email']."</td>
-				</tr>
-				";
-				?>
-          		</table>
-          	</div>
-			<br>
-			<button style="float: left"><a href="gantipass.php">Change Password</a></button>
-                    <br>
+          	<div class="row mt">
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+					<div class="form-panel">
+						<h4 class="mb"><center>Change Password</center></h4>
+						<form class="form-horizontal style-form" method="post" action = "act/gantipass.php">
+						
+							<!--- Password saat ini ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Password Saat Ini</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="pass" id="pass" required>
+							<br>
+							</div>
+							</div>
+							
+							<!--- Password Baru ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Password Baru</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="passbaru" id="passbaru" required>
+							<br>
+							</div>
+							</div>
+							
+							<!--- Verifikasi Password ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="verpass" id="verpass" required>
+							<br>
+							</div>
+							</div>
+							
+							<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+							<br>
+							</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
 		</section>
       </section><!-- /MAIN CONTENT -->
 
