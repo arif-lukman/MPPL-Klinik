@@ -166,14 +166,6 @@
                       </div>
                     </div>
 
-                    <!--no_reg_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
-                      </div>
-                    </div>
-
                     <!--alamat-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
@@ -195,7 +187,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="jam" required>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
                       </div>
                     </div>
 

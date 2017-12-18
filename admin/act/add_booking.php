@@ -4,17 +4,16 @@
 
 	//Ambil parameter
 	//pasien
-	$no_rekam_medis = $_POST['no_rekam_medis'];
-	$tanggal = $_POST['tanggal'];
-	$time = $_POST['time'];
-	$no_telp = $_POST['no_telp'];
 	$nama_pasien = $_POST['nama_pasien'];
+	$tanggal = $_POST['tanggal'];
+	$jam = $_POST['jam'];
+	$no_telp = $_POST['no_telp'];
 	$no_reg_dokter = $_POST['no_reg_dokter'];
 	$status_pasien = $_POST['status_pasien'];
 
 	//SQL command
 	//antrian
-	$sql1 = "INSERT INTO booking(no_rekam_medis, tanggal, status, jam_daftar, jam_layan, no_reg_dokter, status_pasien) VALUES ('$no_rekam_medis', '$tanggal', '$status', '$jam_daftar', '$jam_layan', '$no_reg_dokter', '$status_pasien')";
+	$sql1 = "INSERT INTO booking(nama_pasien, tanggal, jam, no_telp, no_reg_dokter, status_pasien) VALUES ('$nama_pasien', '$tanggal', '$jam', '$no_telp', '$no_reg_dokter', '$status_pasien')";
 
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){
@@ -23,7 +22,7 @@
 		</script>";
 	} else {
 		echo "<script> alert('Data gagal diinputkan');
-		location='../add_booking.php';
+		location='../booking.php';
 		</script>";
 	}
 

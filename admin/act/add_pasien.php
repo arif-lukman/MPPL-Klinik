@@ -7,10 +7,12 @@
 	$nama_pasien = $_POST['nama_pasien'];
 	$alamat = $_POST['alamat'];
 	$tanggal_lahir = $_POST['tanggal_lahir'];
-	$pekerjaan = $POST['pekerjaan'];
+	$pekerjaan = $_POST['pekerjaan'];
 	$no_telp = $_POST['no_telp'];
 	$jenis_kelamin = $_POST['jenis_kelamin'];
 	$no_rekam_medis = $_POST['no_rekam_medis'];
+
+	echo $pekerjaan;
 
 	//SQL command
 	//dokter

@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataBooking = $conn->query("SELECT booking.id_booking as id_booking, pasien.nama_pasien as nama_pasien, booking.no_rekam_medis as no_rekam_medis, booking.tanggal as tanggal, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter, pasien WHERE booking.no_rekam_medis = pasien.no_rekam_medis AND booking.no_reg_dokter = dokter.no_reg_dokter");
+  $dataBooking = $conn->query("SELECT booking.id_booking as id_booking, booking.nama_pasien as nama_pasien, booking.tanggal as tanggal, booking.jam as jam, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter WHERE booking.no_reg_dokter = dokter.no_reg_dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -152,8 +152,8 @@
           		<table class="table-bordered col-lg-12">
               <thead>
                 <td>Nama Lengkap</td>
-                <td>Nomor Rekam Medis</td>
-                <td>Tanggal dan Jam</td>
+                <td>Tanggal</td>
+                <td>Jam</td>
                 <td>Dokter</td>
                 <td>Status Pasien</td>
               </thead>
@@ -166,16 +166,22 @@
                         $booking[nama_pasien]
                       </td>
                       <td>
-                        $booking[no_rekam_medis]
+                        $booking[tanggal]
                       </td>
                       <td>
-                        $booking[tanggal]
+                        $booking[jam]
                       </td>
                       <td>
                         $booking[nama_dokter]
                       </td>
                       <td>
-                        $booking[status_pasien]
+                      ";
+                      if($booking['status_pasien'] === '1'){
+                        echo "Pasien Lama";
+                      } else {
+                        echo "Pasien Baru";
+                      }
+                      echo "
                       </td>
                     </tr>
                   ";

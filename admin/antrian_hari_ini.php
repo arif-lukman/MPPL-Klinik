@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter");
+  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -145,7 +145,10 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Antrian</center></h2>
+            <center>
+          	<h2>Daftar Antrian</h2>
+            <h4><?php echo date("l - d/M/Y")?><h4>
+            </center>
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
@@ -153,7 +156,6 @@
               <thead>
                 <td>Nama Lengkap</td>
                 <td>Nomor Rekam Medis</td>
-                <td>Tanggal</td>
                 <td>Status Layanan</td>
                 <td>Jam Daftar</td>
                 <td>Jam Layan</td>
@@ -170,9 +172,6 @@
                       </td>
                       <td>
                         $antrian[no_rekam_medis]
-                      </td>
-                      <td>
-                        $antrian[tanggal]
                       </td>
                       <td>
                         $antrian[status]
