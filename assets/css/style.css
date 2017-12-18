@@ -29,11 +29,11 @@ a, a:hover, a:focus {
 }
 ::selection {
 
-    background: #68dff0;
+    background: #8c6bf7;
     color: #fff;
 }
 ::-moz-selection {
-    background: #68dff0;
+    background: #;
     color: #fff;
 }
 
@@ -232,7 +232,7 @@ ul.top-menu > li > .logout {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: #424a5d;
+    background: #5e426a;
 }
 
 #sidebar h5 {
@@ -413,7 +413,22 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #ffd777;
+    background: #000000;
+    border-bottom: 1px solid #c9aa5f;
+}
+
+.purple1-bg {
+    background: #a472b9;
+    border-bottom: 1px solid #c9aa5f;
+}
+
+.blue-bg {
+    background: #6dc3c4;
+    border-bottom: 1px solid #c9aa5f;
+}
+
+.pink-bg {
+    background: #de599b;
     border-bottom: 1px solid #c9aa5f;
 }
 
@@ -2216,7 +2231,7 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #68dff0;
+    background: #d390df;
     color: #fff;
     padding: 10px 0;
 }
