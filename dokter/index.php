@@ -107,7 +107,7 @@
                   </li>
                   <li class="sub-menu">
                       <a href="../process/logout.php" >
-                          <i class="fa"></i>
+                          <i class="fa fa-sign-out"></i>
                           <span>LOGOUT</span>
                       </a>
                   </li>
