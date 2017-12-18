@@ -165,7 +165,9 @@
 				?>
           		</table>
           	</div>
-			
+			<br>
+			<button style="float: left"><a href="gantipass.php">Change Password</a></button>
+                    <br>
 		</section>
       </section><!-- /MAIN CONTENT -->
 
