@@ -184,9 +184,6 @@
                       <td>
                         <a href=\"edit_akun.php?id_akun=$akun[id_user_klinik]\">Edit</a>
                       </td>
-                      <td>
-                        <a href=\"act/hapus_akun.php?id_akun=$akun[id_user_klinik]\">Hapus</a>
-                      </td>
                     </tr>
                   ";
                 }
