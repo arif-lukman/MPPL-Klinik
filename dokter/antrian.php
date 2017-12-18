@@ -5,6 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -51,7 +52,7 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+        
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
@@ -70,17 +71,21 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header blue-bg">
+      <header class="header black-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            
+            <div class="top-menu">
+            	<ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
+            	</ul>
+            </div>
         </header>
       <!--header end-->
-
+      
       <!-- **********************************************************************************************************************************************************
       MAIN SIDEBAR MENU
       *********************************************************************************************************************************************************** -->
@@ -89,8 +94,8 @@
           <div id="sidebar"  class="nav-collapse ">
                <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-
-              	  <p class="centered"><a href="profile.php"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+              
+              	  <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
               	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
 
                   <li class="sub-menu">
@@ -117,115 +122,74 @@
           </div>
       </aside>
       <!--sidebar end-->
-
+      
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
+            <center>
+          	<h2>Daftar Antrian</h2>
+            <h4><?php echo date("l - d/M/Y")?><h4>
+            </center>
+            <hr>
           	<div class="row mt">
-              <div class="col-lg-2">
-              </div>
-          		<div class="col-lg-8">
-            		<center>
-
-                  <!--menu tabs-->
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a href="index.php">Rekam Medis</a></li>
-                    <li><a href="#">Riwayat Rekam Medis</a></li>
-                  </ul>
-                  <!-- end tabs-->
-
-                  <div class="form-panel">
-                  <h4 class="mb"><center>Diagnosa Pasien</center></h4>
-                  <br>
-                  <form class="form-horizontal style-form" method="post" action = "act/diagnosa.php">
-
-                    <!--no rekam medis pasien-->
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">No Rekam Medis</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
-                      </div>
-                    </div>
-
-                    <!--diagnosa dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Diagnosa</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="diagnosa" id="diagnosa" style="max-width: 100%; min-width: 100%"></textarea required>
-                      </div>
-                    </div>
-
-                  <!--Form terapi-->
-                  <div class="form-inline">
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Terapi</label>
-
-                  <!--menu drop down jenis tindakan-->
-                  <div class="col-sm-4">
-                    <select class="form-control" id="tindakan">
-                      <option value="">tindakan 1</option>
-                    </select>
-                    </div>
-                    <!-- end menu drop down jenis tindakan-->
-
-                        <!--tarif-->
-                        <label class="col-sm-2 control-label">Tarif</label>
-                        <div class="col-sm-2">
-                          <input type="text" class="form-control" name="tarif" id="tarif" required>
-                        </div>
-                        </div>
-                      </div>
-                      <!--end form terapi-->
-
-                      <!--form keterangan-->
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Keterangan</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
-                        </div>
-                      </div>
-                      <!-- end form keterangan-->
-
-                      <!--menu drop down jenis tindakan-->
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label">Pilih Obat</label>
-                        <div class="col-sm-4">
-                          <select class="form-control" id="tindakan">
-                            <option value="">tindakan 1</option>
-                          </select>
-                        </div>
-                      </div>
-
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
-                    <br>
-                  </form>
-                </div>
-              </div><!-- col-lg-12-->
-            </div><!-- /row -->
-              </center>
+          		<div class="col-lg-12">
+          		<table class="table-bordered col-lg-12">
+              <thead>
+                <td>Nama Lengkap</td>
+                <td>Nomor Rekam Medis</td>
+                <td>Status Layanan</td>
+                <td>Jam Daftar</td>
+                <td>Jam Layan</td>
+                <td>Dokter</td>
+                <td>Status Pasien</td>
+              </thead>
+              <tbody>
+                <?php
+                while($antrian = $dataAntrian->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        <a href=\"diagnosa.php?no_rek_med=$antrian[no_rekam_medis]\">$antrian[nama_pasien]</a>
+                      </td>
+                      <td>
+                        $antrian[no_rekam_medis]
+                      </td>
+                      <td>
+                        $antrian[status]
+                      </td>
+                      <td>
+                        $antrian[jam_daftar]
+                      </td>
+                      <td>
+                        $antrian[jam_layan]
+                      </td>
+                      <td>
+                        $antrian[nama_dokter]
+                      </td>
+                      <td>
+                      ";
+                      if($antrian['status_pasien'] === '1'){
+                        echo "Pasien Lama";
+                      } else {
+                        echo "Pasien Baru";
+                      }
+                      echo "
+                      </td>
+                    </tr>
+                  ";
+                }
+                ?>
+              </tbody>
+              </table>
+              <button style="float: right"><a href="add_antrian.php">Tambah</a></button>
           		</div>
           	</div>
-
+			
 		      </section>
       </section><!-- /MAIN CONTENT -->
-
-      <!--main content end-->
-      <!--footer start-->
-      <!--
-      <footer class="site-footer">
-          <div class="text-center">
-              2014 - Alvarez.is
-              <a href="blank.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
-    -->
-      <!--footer end-->
-  </section>
 
       <!--main content end-->
       <!--footer start-->
@@ -256,7 +220,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-
+    
   <script>
       //custom select box
 

@@ -100,9 +100,9 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="diagnosa.php" >
+                      <a href="antrian.php" >
                           <i class="fa"></i>
-                          <span>DIAGNOSA</span>
+                          <span>ANTRIAN</span>
                       </a>
                   </li>
                   <li class="sub-menu">
