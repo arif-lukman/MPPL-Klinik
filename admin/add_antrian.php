@@ -35,6 +35,10 @@
       return false;
     }
   }
+
+date_default_timezone_set("Asia/Jakarta");
+$jamdaftar = date('h:i:s');
+
 ?>
 
 <!DOCTYPE html>
@@ -71,19 +75,14 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
+      </header>
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************
@@ -131,6 +130,12 @@
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="../process/logout.php" >
+                          <i class="fa fa-sign-out"></i>
+                          <span>LOGOUT</span>
+                      </a>
                   </li>
 
               </ul>
@@ -191,7 +196,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Jam Daftar</label>
                       <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam_daftar" id="jam_daftar" required>
+                        <!--<input type="time" class="form-control" name="jam_daftar" id="jam_daftar" required>-->
+                        <input type="text" class="form-control" id="jam_daftar" name="jam_daftar" value="<?php echo $jamdaftar;?>" disabled>
                       </div>
                     </div>
 

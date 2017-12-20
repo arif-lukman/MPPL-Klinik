@@ -78,12 +78,7 @@
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
+       </header>
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************

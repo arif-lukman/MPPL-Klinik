@@ -70,19 +70,14 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
+       </header>
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************
@@ -130,6 +125,12 @@
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="../process/logout.php" >
+                          <i class="fa fa-sign-out"></i>
+                          <span>LOGOUT</span>
+                      </a>
                   </li>
 
               </ul>
@@ -217,15 +218,10 @@
                       <label class="col-sm-2 col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" name="email" id="email" required>
+                        <span class="help-block">contoh : email@example.com</span>
                       </div>
                     </div>
 
-                    <div class="form-group">
-                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
-                      <div class="col-lg-10">
-                      <p class="form-control-static">email@example.com</p>
-                      </div>
-                    </div>
 
                     <!--status-->
                     <div class="form-group">

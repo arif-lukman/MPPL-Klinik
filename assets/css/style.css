@@ -229,11 +229,13 @@ ul.top-menu > li > .logout {
 /*sidebar navigation*/
 
 #sidebar {
+    /*warna sidebar*/
     width: 210px;
     height: 100%;
     position: fixed;
     background: #5e426a;
 }
+
 
 #sidebar h5 {
 	color: #f2f2f2;
@@ -294,8 +296,9 @@ ul.sidebar-menu {
     display: block;
 }
 
+/*warna dropdown sidebar*/
 ul.sidebar-menu li ul.sub li{
-    background: #424a5d;
+    background: #442f4d;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;

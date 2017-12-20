@@ -56,6 +56,7 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
+    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -151,16 +152,23 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
+                <form role="search">
+      <div class="form-group">
+        <div id="tabeldata_filter" class="dataTables_filter">
+          <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata"></label>
+        </div>
+      </div>
+    </form>
+          		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
-                <td>Nama</td>
-                <td>Nomor Registrasi</td>
-                <td>Alamat</td>
-                <td>Tanggal Lahir</td>
-                <td>Jenis Kelamin</td>
-                <td>Nomor Telpon</td>
-                <td>Email</td>
-                <td>Status</td>
+                <th>Nama</th>
+                <th>Nomor Registrasi</th>
+                <th>Alamat</th>
+                <th>Tanggal Lahir</th>
+                <th>Jenis Kelamin</th>
+                <th>Nomor Telpon</th>
+                <th>Email</th>
+                <th><center>Status</center></th>
               </thead>
               <tbody>
                 <?php
@@ -188,21 +196,23 @@
                       <td>
                         $dokter[email]
                       </td>
-                      <td>
+                      <td align =\"center\">
                   ";
 
                   if($dokter['status'] === '1'){
-                    echo "Aktif";
+                    //echo "Aktif";
+                    echo "<span class=\"label label-success\">aktif</span>";
                   } else {
-                    echo "Pasif";
+                    echo "<span class=\"label label-danger\">non-aktif</span>";
+
                   }
+                   
                   echo "
                       </td>
-                      <td>
-                      	<a href=\"edit_dokter.php?id_dokter=$dokter[id_dokter]\">Edit</a>
-                      </td>
-                      <td>
-                      	<a href=\"act/hapus_dokter.php?id_dokter=$dokter[id_dokter]\">Hapus</a>
+                      <td align =\"right\">
+                        <a href=\"edit_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      
+                      	<a href=\"act/hapus_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";
