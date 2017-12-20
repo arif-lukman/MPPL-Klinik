@@ -70,14 +70,18 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header blue-bg">
+      <header class="header black-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            
+            <div class="top-menu">
+            	<ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
+            	</ul>
+            </div>
         </header>
       <!--header end-->
 
@@ -100,14 +104,14 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="antrian.php" >
+                      <a href="diagnosa.php" >
                           <i class="fa"></i>
-                          <span>ANTRIAN</span>
+                          <span>DIAGNOSA</span>
                       </a>
                   </li>
                   <li class="sub-menu">
                       <a href="../process/logout.php" >
-                          <i class="fa fa-sign-out"></i>
+                          <i class="fa"></i>
                           <span>LOGOUT</span>
                       </a>
                   </li>
@@ -129,87 +133,46 @@
               </div>
           		<div class="col-lg-8">
             		<center>
-
-                  <!--menu tabs-->
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a href="index.php">Rekam Medis</a></li>
-                    <li><a href="#">Riwayat Rekam Medis</a></li>
-                  </ul>
-                  <!-- end tabs-->
-
-                  <div class="form-panel">
-                  <h4 class="mb"><center>Diagnosa Pasien</center></h4>
-                  <br>
-                  <form class="form-horizontal style-form" method="post" action = "act/diagnosa.php">
-
-                    <!--no rekam medis pasien-->
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">No Rekam Medis</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
-                      </div>
-                    </div>
-
-                    <!--diagnosa dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Diagnosa</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="diagnosa" id="diagnosa" style="max-width: 100%; min-width: 100%"></textarea required>
-                      </div>
-                    </div>
-
-                  <!--Form terapi-->
-                  <div class="form-inline">
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Terapi</label>
-
-                  <!--menu drop down jenis tindakan-->
-                  <div class="col-sm-4">
-                    <select class="form-control" id="tindakan">
-                      <option value="">tindakan 1</option>
-                    </select>
-                    </div>
-                    <!-- end menu drop down jenis tindakan-->
-
-                        <!--tarif-->
-                        <label class="col-sm-2 control-label">Tarif</label>
-                        <div class="col-sm-2">
-                          <input type="text" class="form-control" name="tarif" id="tarif" required>
-                        </div>
-                        </div>
-                      </div>
-                      <!--end form terapi-->
-
-                      <!--form keterangan-->
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Keterangan</label>
-                        <div class="col-sm-10">
-                          <textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
-                        </div>
-                      </div>
-                      <!-- end form keterangan-->
-
-                      <!--menu drop down jenis tindakan-->
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label">Pilih Obat</label>
-                        <div class="col-sm-4">
-                          <select class="form-control" id="tindakan">
-                            <option value="">tindakan 1</option>
-                          </select>
-                        </div>
-                      </div>
-
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
-                    <br>
-                  </form>
-                </div>
-              </div><!-- col-lg-12-->
-            </div><!-- /row -->
-              </center>
-          		</div>
-          	</div>
-
-		      </section>
+					<div class="form-panel">
+						<h4 class="mb"><center>Change Password</center></h4>
+						<form class="form-horizontal style-form" method="post" action = "act/gantipass.php">
+						
+							<!--- Password saat ini ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Password Saat Ini</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="pass" id="pass" required>
+							<br>
+							</div>
+							</div>
+							
+							<!--- Password Baru ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Password Baru</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="passbaru" id="passbaru" required>
+							<br>
+							</div>
+							</div>
+							
+							<!--- Verifikasi Password ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="verpass" id="verpass" required>
+							<br>
+							</div>
+							</div>
+							
+							<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+							<br>
+							</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+		</section>
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->

@@ -100,9 +100,9 @@
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="diagnosa.php" >
+                      <a href="antrian.php" >
                           <i class="fa"></i>
-                          <span>DIAGNOSA</span>
+                          <span>ANTRIAN</span>
                       </a>
                   </li>
                   <li class="sub-menu">
@@ -127,7 +127,7 @@
           	<h2><center>Profile</center></h2>
             <hr>
 			<?php
-				$sql = "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+				$sql  = "SELECT * FROM user_klinik, detail_akun_dokter, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=detail_akun_dokter.id_user_klinik and detail_akun_dokter.id_dokter=dokter.id_dokter";
 				$result = mysqli_query($conn, $sql);
 			?>
 			
@@ -165,7 +165,9 @@
 				?>
           		</table>
           	</div>
-			
+			<br>
+			<button style="float: left"><a href="gantipass.php">Change Password</a></button>
+                    <br>
 		</section>
       </section><!-- /MAIN CONTENT -->
 
