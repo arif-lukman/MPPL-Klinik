@@ -6,6 +6,7 @@
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
   $resultDokter = $conn->query("SELECT nama_dokter, no_reg_dokter FROM dokter");
+  $pasien = GetData($conn, "SELECT id_pasien FROM pasien");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -66,6 +67,44 @@ $jamdaftar = date('h:i:s');
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style type="text/css">
+      #searchitem:hover {
+        background-color: #e6e6e6;
+        user-select: none;
+      }
+    </style>
+
+    <script type="text/javascript">
+      //ajax
+      function search(str){
+        if(str.length==0){
+          document.getElementById("livesearch").innerHTML = "";
+          return;
+        }
+
+        var xmlhttp;
+        if(window.XMLHttpRequest){
+          xmlhttp = new XMLHttpRequest();
+        } else {
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.onreadystatechange=function(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById("livesearch").innerHTML = xmlhttp.responseText;
+          }
+        }
+
+        xmlhttp.open("GET", "ajax/pasien.php?q=" + str, true);
+        xmlhttp.send();
+      }
+
+      //masukin nilai ke input
+      function setPasien(str){
+        document.getElementById("no_rekam_medis").value = str;
+      }
+    </script>
   </head>
 
   <body>
@@ -167,9 +206,11 @@ $jamdaftar = date('h:i:s');
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
+                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" onKeyUp="search(this.value)" required>
+                        <div id="livesearch"></div>
                       </div>
                     </div>
+
 
                     <!--alamat-->
                     <div class="form-group">
