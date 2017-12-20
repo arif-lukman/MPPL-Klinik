@@ -69,6 +69,12 @@ $jamdaftar = date('h:i:s');
     <![endif]-->
 
     <style type="text/css">
+      #livesearch{
+        overflow-y: scroll;
+        box-shadow: 0px 2px 4px #444;
+        max-height: 260px;
+      }
+
       #searchitem:hover {
         background-color: #e6e6e6;
         user-select: none;
