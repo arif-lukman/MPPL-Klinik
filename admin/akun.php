@@ -56,6 +56,7 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
+    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -151,7 +152,7 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
+          		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <td>Username</td>
                 <td>Hak Akses</td>

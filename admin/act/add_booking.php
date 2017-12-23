@@ -14,6 +14,7 @@
 	//SQL command
 	//antrian
 	$sql1 = "INSERT INTO booking(nama_pasien, tanggal, jam, no_telp, no_reg_dokter, status_pasien) VALUES ('$nama_pasien', '$tanggal', '$jam', '$no_telp', '$no_reg_dokter', '$status_pasien')";
+	//echo $sql1;
 
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){

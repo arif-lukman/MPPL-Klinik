@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
+  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -56,6 +56,7 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
+    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -71,7 +72,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
@@ -127,6 +128,12 @@
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
                   </li>
+                  <li class="sub-menu">
+                      <a href="../process/logout.php" >
+                          <i class="fa fa-sign-out"></i>
+                          <span>LOGOUT</span>
+                      </a>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->
@@ -147,15 +154,14 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
+          		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
-                <td>Nama Lengkap</td>
-                <td>Nomor Rekam Medis</td>
-                <td>Status Layanan</td>
-                <td>Jam Daftar</td>
-                <td>Jam Layan</td>
-                <td>Dokter</td>
-                <td>Status Pasien</td>
+                <th>Nama Lengkap</th>
+                <th>Status Layanan</th>
+                <th>Jam Daftar</th>
+                <th>Jam Layan</th>
+                <th>Dokter</th>
+                <th>Status Pasien</th>
               </thead>
               <tbody>
                 <?php
@@ -164,9 +170,6 @@
                     <tr>
                       <td>
                         $antrian[nama_pasien]
-                      </td>
-                      <td>
-                        $antrian[no_rekam_medis]
                       </td>
                       <td>
                         $antrian[status]

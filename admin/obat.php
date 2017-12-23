@@ -56,6 +56,7 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
+    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -71,7 +72,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
@@ -132,6 +133,12 @@
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
                   </li>
+                  <li class="sub-menu">
+                      <a href="../process/logout.php" >
+                          <i class="fa fa-sign-out"></i>
+                          <span>LOGOUT</span>
+                      </a>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->
@@ -149,12 +156,12 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
+          		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
-                <td>Nama Obat</td>
-                <td>Satuan</td>
-                <td>Stok</td>
-                <td>Harga Per Satuan</td>
+                <th>Nama Obat</th>
+                <th>Satuan</th>
+                <th>Stok</th>
+                <th>Harga Per Satuan</th>
               </thead>
               <tbody>
                 <?php
