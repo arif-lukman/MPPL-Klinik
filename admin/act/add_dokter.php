@@ -18,22 +18,15 @@
 	$password = md5($_POST['password']);
 
 	//SQL command
-	//ambil max value id dari tabel dokter ama user_klinik
-	$dok = GetData($conn, "SELECT MAX(id_dokter) AS max FROM dokter");
-
 	$usr = GetData($conn, "SELECT MAX(id_user_klinik) AS max FROM user_klinik");
-
-	$maxDok = $dok['max'] + 1;
 	$maxUsr = $usr['max'] + 1;
 	//dokter
-	$sql1 = "INSERT INTO dokter(no_reg_dokter, nama_dokter, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status) VALUES ('$no_reg_dokter', '$nama_dokter', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status')";
+	$sql1 = "INSERT INTO dokter(no_reg_dokter, nama_dokter, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status, id_user_klinik) VALUES ('$no_reg_dokter', '$nama_dokter', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status', '$maxUsr')";
 	//username
 	$sql2 = "INSERT INTO user_klinik(username, password, jenis_user) VALUES ('$username', '$password', 2)";
-	//link
-	$sql3 = "INSERT INTO detail_akun_dokter VALUES ('$maxDok', '$maxUsr')";
 
 	//Masukkan data
-	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE){
+	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE){
 		echo "<script> alert('Data berhasil diinputkan');
 		location='../dokter.php';
 		</script>";

@@ -5,7 +5,8 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataDokter = $conn->query("SELECT * FROM dokter, detail_akun_dokter, user_klinik WHERE dokter.id_dokter = detail_akun_dokter.id_dokter AND detail_akun_dokter.id_user_klinik = user_klinik.id_user_klinik AND dokter.id_dokter = $_GET[id_dokter]");
+  $dataDokter = $conn->query("SELECT * FROM dokter, user_klinik WHERE dokter.id_user_klinik = user_klinik.id_user_klinik AND dokter.id_dokter = $_GET[id_dokter]");
+  //echo "SELECT * FROM dokter, detail_akun_dokter, user_klinik WHERE dokter.id_dokter = detail_akun_dokter.id_dokter AND detail_akun_dokter.id_user_klinik = user_klinik.id_user_klinik AND dokter.id_dokter = $_GET[id_dokter]";
   $dokter = $dataDokter->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
@@ -58,11 +59,126 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- my script -->
+    <script type="text/javascript">
+      //JS Biasa
+      function CekForm(){
+        if(confirm("Apakah anda yakin ingin melanjutkan?")){
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      //cek email
+      function CekEmail(){
+        var mail = document.getElementById("email").value;
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (filter.test(mail)) {
+          $("#vld-email").html("");
+          return true;
+        }
+        else {
+          $("#vld-email").html("<div class=\"col-sm-12 alert alert-danger\">" +
+              "Email tidak valid." +
+              "<span class=\"glyphicon glyphicon-remove\"></span>" +
+            "</div>");
+          return false;
+        }
+      }
+
+      function CekTelpon(){
+        var telp = document.getElementById("no_telp").value;
+        if(isNaN(telp) || telp === "" || telp === null){
+          $("#vld-telp").html("<div class=\"col-sm-12 alert alert-danger\">" +
+              "Nomor telpon tidak valid." +
+              "<span class=\"glyphicon glyphicon-remove\"></span>" +
+            "</div>");
+          return false;
+        } else {
+          $("#vld-telp").html("");
+          return true;
+        }
+      }
+
+      //JQUERY
+      $(document).ready(function(){
+        //cek telpon valid apa enga
+        $("#no_telp").keyup(function(){
+          CekTelpon();
+        });
+
+        //cek email valid apa enga
+        $("#email").keyup(function(){
+          CekEmail();
+        });
+
+        //validasi form
+        $("form").keyup(function(){
+          var formFull = false;
+
+          //CEK PENUH ENGGANYA FORM
+          //jadiin data form jadi JSON object
+          var formValues = $("form").serializeArray().reduce(function(obj, item){
+            obj[item.name] = item.value;
+            return obj;
+          }, {});
+          //console.log(formValues);
+
+          //cek satu2 key value dari JSON objectnya
+          var count = 0;
+          Object.keys(formValues).forEach(function(key){
+            //console.log("Key : " + key + ", Value : " + formValues[key]);
+            if(formValues[key] != ""){
+              count ++;
+            }
+          });
+
+          //kasih true kalo udah penuh, kasih false kalo belum
+          if(count < Object.keys(formValues).length-1){
+            //console.log("count : " + count + ", formValues.length : " + Object.keys(formValues).length-1);
+            console.log("Form belum penuh");
+            formFull = false;
+          } else {
+            //console.log("count : " + count + ", formValues.length : " + Object.keys(formValues).length-1);
+            console.log("Form sudah penuh");
+            formFull = true;
+          }
+
+          //CEK BENER ENGGANYA FORM
+          var telp = false;
+          var email = false;
+
+          telp = CekTelpon();
+          email = CekEmail();
+
+          //console.log("telp : " + telp);
+          //console.log("email : " + email);
+          //console.log("username : " + username);
+          //console.log("password : " + password);
+          //console.log("formFull : " + formFull);
+
+          //GABUNGIN!!!!!
+          if(telp && email && formFull){
+            $("#submit").prop("disabled", false);
+            //console.log("BERHASIL");
+          } else {
+            $("#submit").prop("disabled", true);
+            //console.log("ISI DULU FORMNYA");
+          }
+
+        });
+      });
+    </script>
   </head>
 
   <body>
@@ -163,7 +279,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Dokter</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_dokter" id="nama_dokter" value=<?php echo "\"$dokter[nama_dokter]\"";?> required>
+                        <input type="text" class="form-control" name="nama_dokter" id="nama_dokter" value=<?php echo "\"$dokter[nama_dokter]\"";?> autocomplete="off" required>
                       </div>
                     </div>
 
@@ -171,7 +287,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Dokter</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_reg_dokter" id="no_reg_dokter" value=<?php echo "\"$dokter[no_reg_dokter]\"";?> required>
+                        <input type="text" class="form-control" name="no_reg_dokter" id="no_reg_dokter" value=<?php echo "\"$dokter[no_reg_dokter]\"";?> autocomplete="off">
                       </div>
                     </div>
 
@@ -179,7 +295,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"><?php echo "$dokter[alamat]";?></textarea required>
+                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"><?php echo "$dokter[alamat]";?></textarea autocomplete="off" required>
                       </div>
                     </div>
 
@@ -187,7 +303,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
                       <div class="col-sm-10">
-                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value=<?php echo "\"$dokter[tanggal_lahir]\"";?> required>
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value=<?php echo "\"$dokter[tanggal_lahir]\"";?> autocomplete="off" required>
                       </div>
                     </div>
 
@@ -222,7 +338,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\"$dokter[no_telp]\"";?> required>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\"$dokter[no_telp]\"";?> autocomplete="off" required>
+                        <span id="vld-telp"></span>
                       </div>
                     </div>
 
@@ -230,14 +347,9 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" name="email" id="email" value=<?php echo "\"$dokter[email]\"";?> required>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
-                      <div class="col-lg-10">
-                      <p class="form-control-static">email@example.com</p>
+                        <input type="email" class="form-control" name="email" id="email" value=<?php echo "\"$dokter[email]\"";?> autocomplete="off" required>
+                        <span id="vld-email"></span>
+                        <span class="help-block">contoh : email@example.com</span>
                       </div>
                     </div>
 
@@ -252,7 +364,7 @@
                       </div>
                     </div>
 
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit" disabled="false">Submit</button></center>
                     <br>
                   </form>
                 </div>
