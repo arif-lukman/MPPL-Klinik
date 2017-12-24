@@ -62,7 +62,7 @@
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- Our Javascript -->
-    <script src="../assets/js/ours/validation.js"></script>
+    <script src="../assets/js/ours/validation_edit.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
