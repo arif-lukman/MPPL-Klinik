@@ -82,9 +82,9 @@
               "<div class='col-sm-4'> \n" +
                 "<input type='text' class='form-control' name='tarif' id='tarif' required> \n" +
               "</div> \n"+
-              "<div class='col-sm-1'> \n" +
-                "<input type='button' class='btn' name='btn-hapus' id='btn-hapus' value='-'> \n" +
-              "</div> \n"+
+              //"<div class='col-sm-1'> \n" +
+                //"<input type='button' class='btn' name='btn-hapus' id='btn-hapus' value='-'> \n" +
+              //"</div> \n"+
             "</div>");
         })
     });
