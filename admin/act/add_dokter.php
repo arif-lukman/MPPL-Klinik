@@ -32,7 +32,7 @@
 		</script>";
 	} else {
 		echo "<script> alert('Data gagal diinputkan');
-		location='../add_dokter.php';
+		location='../dokter.php';
 		</script>";
 	}
 
