@@ -56,6 +56,12 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Our Javascript -->
+    <script src="../assets/js/ours/validation_add.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -167,7 +173,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Perawat</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_perawat" id="nama_perawat" required>
+                        <input type="text" class="form-control" name="nama_perawat" id="nama_perawat" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -175,7 +181,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Perawat</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_reg_perawat" id="no_reg_perawat" required>
+                        <input type="text" class="form-control" name="no_reg_perawat" id="no_reg_perawat" autocomplete="off">
                       </div>
                     </div>
 
@@ -183,7 +189,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Alamat</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>
+                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea autocomplete="off" required>
                       </div>
                     </div>
 
@@ -191,7 +197,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
                       <div class="col-sm-10">
-                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" required>
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -214,7 +220,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off" required>
+                        <span id="vld-telp"></span>
                       </div>
                     </div>
 
@@ -222,7 +229,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
-                        <input type="email" class="form-control" name="email" id="email" required>
+                        <input type="email" class="form-control" name="email" id="email" autocomplete="off" required>
+                        <span id="vld-email"></span>
                         <span class="help-block">contoh : email@example.com</span>
                       </div>
                     </div>
@@ -244,7 +252,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Username</label>
                       <div class="col-sm-10">
-                        <input type="text"  class="form-control" placeholder="" name="username" id="username" required>
+                        <input type="text"  class="form-control" placeholder="" name="username" id="username" autocomplete="off" required>
+                        <span id="uname-status"></span>
                       </div>
                     </div>
 
@@ -252,14 +261,15 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Password</label>
                       <div class="col-sm-10">
-                        <input type="password"  class="form-control" placeholder="" name="password" id="password" required>
+                        <input type="password"  class="form-control" placeholder="" name="password" id="password" autocomplete="off" required>
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
                       <div class="col-sm-10">
-                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw"  required>
+                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw" autocomplete="off" required>
+                        <span id="pw-status"></span>
                       </div>
                     </div>
 

@@ -3,8 +3,8 @@
 	include "../../connection/connect.php";
 
 	//SQL command
-	//ambil max value id dari tabel dokter ama user_klinik
-	$sql1 = "DELETE perawat, user_klinik FROM perawat INNER JOIN detail_akun_perawat ON detail_akun_perawat.id_perawat = perawat.id_perawat INNER JOIN user_klinik ON user_klinik.id_user_klinik = detail_akun_perawat.id_user_klinik WHERE perawat.id_perawat = detail_akun_perawat.id_perawat AND detail_akun_perawat.id_user_klinik = user_klinik.id_user_klinik AND perawat.id_perawat = '$_GET[id_perawat]'";
+	//ambil max value id dari tabel perawat ama user_klinik
+	$sql1 = "DELETE perawat, user_klinik FROM perawat INNER JOIN user_klinik ON user_klinik.id_user_klinik = perawat.id_user_klinik WHERE  perawat.id_user_klinik = user_klinik.id_user_klinik AND perawat.id_perawat = '$_GET[id_perawat]'";
 	//echo $sql1;
 
 	//Masukkan data

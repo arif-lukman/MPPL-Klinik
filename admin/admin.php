@@ -58,11 +58,30 @@
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- my script -->
+    <script type="text/javascript">
+      //JQUERY
+      $(document).ready(function(){
+        //search
+        $("#search").keyup(function(){
+          var search = document.getElementById("search").value;
+
+          //console.log("ajax/uname_status.php?uname=" + uname);
+
+          $.get("ajax/search_admin.php?q=" + search, function(data, status){
+            $("tbody").html(data);
+          });
+        });
+      });
+    </script>
   </head>
 
   <body>
@@ -152,6 +171,15 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
+
+              <form role="search">
+                <div class="form-group">
+                  <div id="tabeldata_filter" class="dataTables_filter">
+                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
+                  </div>
+                </div>
+              </form>
+              
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <th>Nama</th>
@@ -188,18 +216,19 @@
                       <td>
                   ";
 
-                  if($admin['status'] === '1'){
-                    echo "Aktif";
+                   if($admin['status'] === '1'){
+                    //echo "Aktif";
+                    echo "<span class=\"label label-success\">aktif</span>";
                   } else {
-                    echo "Pasif";
+                    echo "<span class=\"label label-danger\">non-aktif</span>";
+
                   }
                   echo "
                       </td>
-                      <td>
-                      	<a href=\"edit_admin.php?id_admin=$admin[id_admin]\">Edit</a>
-                      </td>
-                      <td>
-                      	<a href=\"act/hapus_admin.php?id_admin=$admin[id_admin]\">Hapus</a>
+                      <td align =\"right\">
+                        <a href=\"edit_admin.php?id_admin=$admin[id_admin]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      
+                        <a href=\"act/hapus_admin.php?id_admin=$admin[id_admin]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";

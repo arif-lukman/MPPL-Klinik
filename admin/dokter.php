@@ -180,6 +180,7 @@
                   </div>
                 </div>
               </form>
+              
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <th>Nama</th>

@@ -62,123 +62,14 @@
     <!-- Offline JQuery -->
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
+    <!-- Our Javascript -->
+    <script src="../assets/js/ours/validation_edit.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- my script -->
-    <script type="text/javascript">
-      //JS Biasa
-      function CekForm(){
-        if(confirm("Apakah anda yakin ingin melanjutkan?")){
-          return true;
-        } else {
-          return false;
-        }
-      }
-
-      //cek email
-      function CekEmail(){
-        var mail = document.getElementById("email").value;
-        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-        if (filter.test(mail)) {
-          $("#vld-email").html("");
-          return true;
-        }
-        else {
-          $("#vld-email").html("<div class=\"col-sm-12 alert alert-danger\">" +
-              "Email tidak valid." +
-              "<span class=\"glyphicon glyphicon-remove\"></span>" +
-            "</div>");
-          return false;
-        }
-      }
-
-      function CekTelpon(){
-        var telp = document.getElementById("no_telp").value;
-        if(isNaN(telp) || telp === "" || telp === null){
-          $("#vld-telp").html("<div class=\"col-sm-12 alert alert-danger\">" +
-              "Nomor telpon tidak valid." +
-              "<span class=\"glyphicon glyphicon-remove\"></span>" +
-            "</div>");
-          return false;
-        } else {
-          $("#vld-telp").html("");
-          return true;
-        }
-      }
-
-      //JQUERY
-      $(document).ready(function(){
-        //cek telpon valid apa enga
-        $("#no_telp").keyup(function(){
-          CekTelpon();
-        });
-
-        //cek email valid apa enga
-        $("#email").keyup(function(){
-          CekEmail();
-        });
-
-        //validasi form
-        $("form").keyup(function(){
-          var formFull = false;
-
-          //CEK PENUH ENGGANYA FORM
-          //jadiin data form jadi JSON object
-          var formValues = $("form").serializeArray().reduce(function(obj, item){
-            obj[item.name] = item.value;
-            return obj;
-          }, {});
-          //console.log(formValues);
-
-          //cek satu2 key value dari JSON objectnya
-          var count = 0;
-          Object.keys(formValues).forEach(function(key){
-            //console.log("Key : " + key + ", Value : " + formValues[key]);
-            if(formValues[key] != ""){
-              count ++;
-            }
-          });
-
-          //kasih true kalo udah penuh, kasih false kalo belum
-          if(count < Object.keys(formValues).length-1){
-            //console.log("count : " + count + ", formValues.length : " + Object.keys(formValues).length-1);
-            console.log("Form belum penuh");
-            formFull = false;
-          } else {
-            //console.log("count : " + count + ", formValues.length : " + Object.keys(formValues).length-1);
-            console.log("Form sudah penuh");
-            formFull = true;
-          }
-
-          //CEK BENER ENGGANYA FORM
-          var telp = false;
-          var email = false;
-
-          telp = CekTelpon();
-          email = CekEmail();
-
-          //console.log("telp : " + telp);
-          //console.log("email : " + email);
-          //console.log("username : " + username);
-          //console.log("password : " + password);
-          //console.log("formFull : " + formFull);
-
-          //GABUNGIN!!!!!
-          if(telp && email && formFull){
-            $("#submit").prop("disabled", false);
-            //console.log("BERHASIL");
-          } else {
-            $("#submit").prop("disabled", true);
-            //console.log("ISI DULU FORMNYA");
-          }
-
-        });
-      });
-    </script>
   </head>
 
   <body>
@@ -188,18 +79,13 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
         </header>
       <!--header end-->
       
@@ -249,6 +135,12 @@
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
                   </li>
+                  <li class="sub-menu">
+                      <a href="../process/logout.php" >
+                          <i class="fa fa-sign-out"></i>
+                          <span>LOGOUT</span>
+                      </a>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->
@@ -270,7 +162,7 @@
           		<div class="col-lg-8">
             		<center>
                   <div class="form-panel">
-                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <h4 class="mb"><center>Pengubahan Data</center></h4>
                   <br>
 
                   <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_dokter.php?id_dokter=$dokter[id_dokter]\""?>>
@@ -364,7 +256,7 @@
                       </div>
                     </div>
 
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit" disabled="false">Submit</button></center>
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
                     <br>
                   </form>
                 </div>

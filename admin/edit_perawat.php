@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat, detail_akun_perawat, user_klinik WHERE perawat.id_perawat = detail_akun_perawat.id_perawat AND detail_akun_perawat.id_user_klinik = user_klinik.id_user_klinik AND perawat.id_perawat = $_GET[id_perawat]");
+  $dataPerawat = $conn->query("SELECT * FROM perawat, user_klinik WHERE perawat.id_user_klinik = user_klinik.id_user_klinik AND perawat.id_perawat = $_GET[id_perawat]");
   $perawat = $dataPerawat->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
@@ -58,6 +58,12 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Our Javascript -->
+    <script src="../assets/js/ours/validation.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -72,18 +78,13 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
         </header>
       <!--header end-->
       
@@ -133,6 +134,12 @@
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
                   </li>
+                  <li class="sub-menu">
+                      <a href="../process/logout.php" >
+                          <i class="fa fa-sign-out"></i>
+                          <span>LOGOUT</span>
+                      </a>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->
@@ -154,7 +161,7 @@
           		<div class="col-lg-8">
             		<center>
                   <div class="form-panel">
-                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <h4 class="mb"><center>Pengubahan Data</center></h4>
                   <br>
 
                   <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_perawat.php?id_perawat=$perawat[id_perawat]\""?>>
@@ -171,7 +178,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Registrasi Perawat</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_reg_perawat" id="no_reg_perawat" value=<?php echo "\"$perawat[no_reg_perawat]\"";?> required>
+                        <input type="text" class="form-control" name="no_reg_perawat" id="no_reg_perawat" value=<?php echo "\"$perawat[no_reg_perawat]\"";?>>
                       </div>
                     </div>
 
@@ -223,6 +230,7 @@
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\"$perawat[no_telp]\"";?> required>
+                        <span id="vld-telp"></span>
                       </div>
                     </div>
 
@@ -231,13 +239,8 @@
                       <label class="col-sm-2 col-sm-2 control-label">Email</label>
                       <div class="col-sm-10">
                         <input type="email" class="form-control" name="email" id="email" value=<?php echo "\"$perawat[email]\"";?> required>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-lg-2 col-sm-2 control-label">Contoh:</label>
-                      <div class="col-lg-10">
-                      <p class="form-control-static">email@example.com</p>
+                        <span id="vld-email"></span>
+                        <span class="help-block">contoh : email@example.com</span>
                       </div>
                     </div>
 

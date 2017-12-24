@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAdmin = $conn->query("SELECT * FROM admin, detail_akun_admin, user_klinik WHERE admin.id_admin = detail_akun_admin.id_admin AND detail_akun_admin.id_user_klinik = user_klinik.id_user_klinik AND admin.id_admin = $_GET[id_admin]");
+  $dataAdmin = $conn->query("SELECT * FROM admin, user_klinik WHERE admin.id_user_klinik = user_klinik.id_user_klinik AND admin.id_admin = $_GET[id_admin]");
   $admin = $dataAdmin->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
@@ -72,7 +72,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>

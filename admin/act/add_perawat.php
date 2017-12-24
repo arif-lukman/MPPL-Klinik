@@ -18,28 +18,23 @@
 	$password = md5($_POST['password']);
 
 	//SQL command
-	//ambil max value id dari tabel dokter ama user_klinik
-	$per = GetData($conn, "SELECT MAX(id_perawat) AS max FROM perawat");
-
-	$usr = GetData($conn, "SELECT MAX(id_user_klinik) AS max FROM user_klinik");
-
-	$maxPer = $per['max'] + 1;
+	$usr = GetData($conn, "SELECT AUTO_INCREMENT AS max FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'klinik' AND TABLE_NAME = 'user_klinik'");
 	$maxUsr = $usr['max'] + 1;
-	//dokter
-	$sql1 = "INSERT INTO perawat(no_reg_perawat, nama_perawat, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status) VALUES ('$no_reg_perawat', '$nama_perawat', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status')";
+	echo $maxUsr;
+	//perawat
+	$sql1 = "INSERT INTO perawat(no_reg_perawat, nama_perawat, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status, id_user_klinik) VALUES ('$no_reg_perawat', '$nama_perawat', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status', '$maxUsr')";
 	//username
 	$sql2 = "INSERT INTO user_klinik(username, password, jenis_user) VALUES ('$username', '$password', 3)";
 	//link
-	$sql3 = "INSERT INTO detail_akun_perawat VALUES ('$maxPer', '$maxUsr')";
 
 	//Masukkan data
-	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE){
+	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE){
 		echo "<script> alert('Data berhasil diinputkan');
 		location='../perawat.php';
 		</script>";
 	} else {
 		echo "<script> alert('Data gagal diinputkan');
-		location='../add_perawat.php';
+		location='../perawat.php';
 		</script>";
 	}
 

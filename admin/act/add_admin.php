@@ -18,21 +18,15 @@
 
 	//SQL command
 	//ambil max value id dari tabel dokter ama user_klinik
-	$adm = GetData($conn, "SELECT MAX(id_admin) AS max FROM admin");
-
-	$usr = GetData($conn, "SELECT MAX(id_user_klinik) AS max FROM user_klinik");
-
-	$maxAdm = $adm['max'] + 1;
+	$usr = GetData($conn, "SELECT AUTO_INCREMENT AS max FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'klinik' AND TABLE_NAME = 'user_klinik'");
 	$maxUsr = $usr['max'] + 1;
-	//dokter
-	$sql1 = "INSERT INTO admin(nama_admin, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status) VALUES ('$nama_admin', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status')";
+	//admin
+	$sql1 = "INSERT INTO admin(nama_admin, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status, id_user_klinik) VALUES ('$nama_admin', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status', '$maxUsr')";
 	//username
 	$sql2 = "INSERT INTO user_klinik(username, password, jenis_user) VALUES ('$username', '$password', 1)";
-	//link
-	$sql3 = "INSERT INTO detail_akun_admin VALUES ('$maxAdm', '$maxUsr')";
 
 	//Masukkan data
-	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE){
+	if($conn->query($sql1) === TRUE && $conn->query($sql2) === TRUE){
 		echo "<script> alert('Data berhasil diinputkan');
 		location='../admin.php';
 		</script>";
