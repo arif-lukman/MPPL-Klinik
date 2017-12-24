@@ -55,7 +55,40 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+
+    <!-- coba pake tombol remove, ini scriptnya-->
+    <script>
+      $(document).ready(function(){
+        $("#btn-hapus").live('click', function () {
+          $("#ap").remove();
+        });
+      });
+    </script>
+    <!--akhir script remove-->
+
+    <script>
+    $(document).ready(function(){
+        $("#btn-tarif").click(function(){
+            $("#appendtarif").append("<div class='ap'> \n" +
+              "<br><br><br><label class='col-sm-2 control-label'>Terapi</label> \n" +
+        "<div class='col-sm-4'> \n" +
+          "<select class='form-control' id='tindakan'> \n" +
+            "<option value=''>tindakan 1</option> \n" +
+          "</select> \n" +
+          "</div> \n" +
+              "<label class='col-sm-1 control-label'>Tarif</label> \n" +
+              "<div class='col-sm-4'> \n" +
+                "<input type='text' class='form-control' name='tarif' id='tarif' required> \n" +
+              "</div> \n"+
+              "<div class='col-sm-1'> \n" +
+                "<input type='button' class='btn' name='btn-hapus' id='btn-hapus' value='-'> \n" +
+              "</div> \n"+
+            "</div>");
+        })
+    });
+    </script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -77,7 +110,7 @@
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            
+
         </header>
       <!--header end-->
 
@@ -158,27 +191,31 @@
                       </div>
                     </div>
 
-                  <!--Form terapi-->
-                  <div class="form-inline">
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Terapi</label>
+                    <!--Form terapi-->
+                      <div class="form-group">
+                        <div id="appendtarif" class="col-sm-12">
+                        <label class="col-sm-2 control-label">Terapi</label>
 
-                  <!--menu drop down jenis tindakan-->
-                  <div class="col-sm-4">
-                    <select class="form-control" id="tindakan">
-                      <option value="">tindakan 1</option>
-                    </select>
-                    </div>
-                    <!-- end menu drop down jenis tindakan-->
-
-                        <!--tarif-->
-                        <label class="col-sm-2 control-label">Tarif</label>
-                        <div class="col-sm-2">
-                          <input type="text" class="form-control" name="tarif" id="tarif" required>
-                        </div>
-                        </div>
+                    <!--menu drop down jenis tindakan-->
+                    <div class="col-sm-4">
+                      <select class="form-control" id="tindakan">
+                        <option value="">tindakan 1</option>
+                      </select>
                       </div>
-                      <!--end form terapi-->
+                      <!-- end menu drop down jenis tindakan-->
+
+                          <!--tarif-->
+                          <label class="col-sm-1 control-label">Tarif</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="form-control" name="tarif" id="tarif" required>
+                          </div>
+
+                          <div class="col-sm-1">
+                            <input type="button" class="btn" name="btn-tarif" id="btn-tarif" value="+">
+                          </div>
+                          </div>
+                        </div>
+                        <!--end form terapi-->
 
                       <!--form keterangan-->
                       <div class="form-group">
