@@ -5,8 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataJasa = $conn->query("SELECT * FROM jasa WHERE id_jasa = $_GET[id_jasa]");
-  $jasa = $dataJasa->fetch_assoc();
+  $dataSatuan = $conn->query("SELECT * FROM satuan");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -57,12 +56,33 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
+    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- my script -->
+    <script type="text/javascript">
+      //JQUERY
+      $(document).ready(function(){
+        //search
+        $("#search").keyup(function(){
+          var search = document.getElementById("search").value;
+
+          //console.log("ajax/uname_status.php?uname=" + uname);
+
+          $.get("ajax/search_dokter.php?q=" + search, function(data, status){
+            $("tbody").html(data);
+          });
+        });
+      });
+    </script>
   </head>
 
   <body>
@@ -72,18 +92,14 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
+            
         </header>
       <!--header end-->
       
@@ -108,6 +124,8 @@
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="admin.php">Admin</a></li>
+                          <li><a href="satuan_obat.php">Satuan Obat</a></li>
+                          <li><a href="kategori_terapi.php">Kategori Terapi</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -133,6 +151,12 @@
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
                   </li>
+                  <li class="sub-menu">
+                      <a href="../process/logout.php" >
+                          <i class="fa fa-sign-out"></i>
+                          <span>LOGOUT</span>
+                      </a>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->
@@ -146,42 +170,45 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Jasa</center></h2>
+          	<h2><center>Data Satuan Obat</center></h2>
             <hr>
           	<div class="row mt">
-              <div class="col-lg-2">
-              </div>
-          		<div class="col-lg-8">
-            		<center>
-                  <div class="form-panel">
-                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
-                  <br>
-
-                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_jasa.php?id_jasa=$jasa[id_jasa]\"" ?>>
-
-                    <!--nama_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Jasa</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_jasa" id="nama_jasa" value=<?php echo "\"$jasa[nama_jasa]\"";?> required>
-                      </div>
-                    </div>
-
-                    <!--no_reg_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Tarif (Rp)</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="tarif" id="tarif" value=<?php echo "\"$jasa[tarif]\"";?> required>
-                      </div>
-                    </div>
-
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
-                    <br>
-                  </form>
+              <div class="col-lg-3"></div>
+          		<div class="col-lg-6">
+                
+              <form role="search">
+                <div class="form-group">
+                  <div id="tabeldata_filter" class="dataTables_filter">
+                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
+                  </div>
                 </div>
-              </div><!-- col-lg-12-->       
-            </div><!-- /row -->
-              </center>
+              </form>
+              
+          		<table class="table table-striped table-advance table-hover col-lg-12">
+              <thead>
+                <th>Nama Satuan</th>
+              </thead>
+              <tbody>
+                <?php
+                while($satuan = $dataSatuan->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        $satuan[nama_satuan]
+                      </td>
+                      </td>
+                      <td align =\"right\">
+                        <a href=\"edit_satuan.php?id_satuan=$satuan[id_satuan]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      
+                      	<a href=\"act/hapus_satuan.php?id_satuan=$satuan[id_satuan]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                      </td>
+                    </tr>
+                  ";
+                }
+                ?>
+              </tbody>
+              </table>
+              <button style="float: right"><a href="add_satuan.php">Tambah</a></button>
           		</div>
           	</div>
 			

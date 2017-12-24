@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataObat = $conn->query("SELECT * FROM obat, satuan WHERE obat.id_satuan = satuan.id_satuan");
+  $dataTerapi = $conn->query("SELECT * FROM terapi, kategori_terapi WHERE kategori_terapi.id_kategori_terapi = terapi.kategori");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -16,8 +16,8 @@
         return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 2:
-        //Dokter
-        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+        //terapi
+        return "SELECT * FROM terapi WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
@@ -100,7 +100,7 @@
                           <span>DATABASE</span>
                       </a>
                       <ul class="sub">
-                          <li><a href="dokter.php">Dokter</a></li>
+                          <li><a href="terapi.php">terapi</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="admin.php">Admin</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
@@ -112,7 +112,7 @@
                           <span>LAYANAN</span>
                       </a>
                       <ul class="sub"> 
-                          <li><a  href="jasa.php">Daftar Jasa</a></li>
+                          <li><a  href="terapi.php">Daftar terapi</a></li>
                           <li><a  href="obat.php">Daftar Obat</a></li>
                       </ul>
                   </li>
@@ -147,7 +147,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Obat</center></h2>
+          	<h2><center>Daftar terapi</center></h2>
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
@@ -162,32 +162,28 @@
 
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
-                <th>Nama Obat</th>
-                <th>Satuan</th>
-                <th>Stok</th>
-                <th>Harga Per Satuan</th>
+                <th>Nama Terapi</th>
+                <th>Kategori</th>
+                <th>Tarif</th>
               </thead>
               <tbody>
                 <?php
-                while($obat = $dataObat->fetch_assoc()){
+                while($terapi = $dataTerapi->fetch_assoc()){
                   echo "
                     <tr>
                       <td>
-                        $obat[nama_obat]
+                        $terapi[nama_terapi]
                       </td>
                       <td>
-                        $obat[nama_satuan]
+                        $terapi[nama_kategori_terapi]
                       </td>
                       <td>
-                        $obat[stok]
-                      </td>
-                      <td>
-                        $obat[harga]
+                        $terapi[tarif]
                       </td>
                       <td align =\"right\">
-                        <a href=\"edit_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                        <a href=\"edit_terapi.php?id_terapi=$terapi[id_terapi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                         
-                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                        <a href=\"act/hapus_terapi.php?id_terapi=$terapi[id_terapi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";
@@ -195,7 +191,7 @@
                 ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_obat.php">Tambah</a></button>
+              <button style="float: right"><a href="add_terapi.php">Tambah</a></button>
           		</div>
           	</div>
 			

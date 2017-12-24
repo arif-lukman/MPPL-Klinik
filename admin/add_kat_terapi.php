@@ -5,7 +5,6 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $resultKat = $conn->query("SELECT id_kategori_jasa, nama_kategori_jasa FROM kategori_jasa");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -102,6 +101,8 @@
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="admin.php">Admin</a></li>
+                          <li><a href="satuan_obat.php">Satuan Obat</a></li>
+                          <li><a href="kategori_terapi.php">Kategori Terapi</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -146,7 +147,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Jasa</center></h2>
+          	<h2><center>Daftar Kategori Terapi</center></h2>
             <hr>
           	<div class="row mt">
               <div class="col-lg-2">
@@ -157,38 +158,13 @@
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = "act/add_jasa.php">
+                  <form class="form-horizontal style-form" method="post" action = "act/add_kat_terapi.php">
 
                     <!--nama_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nama Jasa</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Kategori Terapi</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_jasa" id="nama_jasa" required>
-                      </div>
-                    </div>
-
-                    <!--nomor_telpon-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
-                      <div class="col-sm-10">
-                        <!--DROPDOWN NAMA DOKTER-->
-                        <select class="form-control" name="kat" id="kat">
-                          <?php
-                            while($kat = $resultKat->fetch_assoc()){
-                              echo "
-                                <option value=\"$kat[id_kategori_jasa]\">$kat[nama_kategori_jasa]</option>
-                              ";
-                            }
-                          ?>
-                        </select>
-                      </div>
-                    </div>
-
-                    <!--no_reg_dokter-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Tarif (Rp)</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="tarif" id="tarif" required>
+                        <input type="text" class="form-control" name="nama_kat" id="nama_kat" required>
                       </div>
                     </div>
 

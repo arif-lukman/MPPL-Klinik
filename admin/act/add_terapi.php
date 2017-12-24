@@ -4,23 +4,22 @@
 
 	//Ambil parameter
 	//dokter
-	$nama_obat = $_POST['nama_obat'];
-	$satuan = $_POST['satuan'];
-	$jumlah = $_POST['jumlah'];
-	$harga = $_POST['harga'];
+	$nama_terapi = $_POST['nama_terapi'];
+	$kat = $_POST['kat'];
+	$tarif = $_POST['tarif'];
 
 	//SQL command
 	//username
-	$sql1 = "INSERT INTO obat(nama_obat, id_satuan, stok, harga) VALUES ('$nama_obat', '$satuan', '$jumlah', '$harga')";
+	$sql1 = "INSERT INTO terapi(nama_terapi, kategori, tarif) VALUES ('$nama_terapi', '$kat', '$tarif')";
 
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){
 		echo "<script> alert('Data berhasil diinputkan');
-		location='../obat.php';
+		location='../terapi.php';
 		</script>";
 	} else {
 		echo "<script> alert('Data gagal diinputkan');
-		location='../add_obat.php';
+		location='../terapi.php';
 		</script>";
 	}
 

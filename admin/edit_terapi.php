@@ -5,7 +5,9 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataJasa = $conn->query("SELECT * FROM jasa, kategori_jasa WHERE kategori_jasa.id_kategori_jasa = jasa.kategori");
+  $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
+  $dataTerapi = $conn->query("SELECT * FROM terapi WHERE id_terapi = $_GET[id_terapi]");
+  $terapi = $dataTerapi->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -56,7 +58,6 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
-    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -77,8 +78,13 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
+            <div class="top-menu">
+            	<ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
+            	</ul>
+            </div>
         </header>
       <!--header end-->
       
@@ -112,7 +118,7 @@
                           <span>LAYANAN</span>
                       </a>
                       <ul class="sub"> 
-                          <li><a  href="jasa.php">Daftar Jasa</a></li>
+                          <li><a  href="terapi.php">Daftar terapi</a></li>
                           <li><a  href="obat.php">Daftar Obat</a></li>
                       </ul>
                   </li>
@@ -128,12 +134,6 @@
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
                   </li>
-                  <li class="sub-menu">
-                      <a href="../process/logout.php" >
-                          <i class="fa fa-sign-out"></i>
-                          <span>LOGOUT</span>
-                      </a>
-                  </li>
 
               </ul>
               <!-- sidebar menu end-->
@@ -147,43 +147,66 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Jasa</center></h2>
+          	<h2><center>Daftar terapi</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
-          		<table class="table table-striped table-advance table-hover col-lg-12">
-              <thead>
-                <th>Nama Jasa</th>
-                <th>Kategori</th>
-                <th>Tarif</th>
-              </thead>
-              <tbody>
-                <?php
-                while($jasa = $dataJasa->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $jasa[nama_jasa]
-                      </td>
-                      <td>
-                        $jasa[nama_kategori_jasa]
-                      </td>
-                      <td>
-                        $jasa[tarif]
-                      </td>
-                      <td>
-                        <a href=\"edit_jasa.php?id_jasa=$jasa[id_jasa]\">Edit</a>
-                      </td>
-                      <td>
-                        <a href=\"act/hapus_jasa.php?id_jasa=$jasa[id_jasa]\">Hapus</a>
-                      </td>
-                    </tr>
-                  ";
-                }
-                ?>
-              </tbody>
-              </table>
-              <button style="float: right"><a href="add_jasa.php">Tambah</a></button>
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <br>
+
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_terapi.php?id_terapi=$terapi[id_terapi]\"" ?>>
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama terapi</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_terapi" id="nama_terapi" value=<?php echo "\"$terapi[nama_terapi]\"";?> required>
+                      </div>
+                    </div>
+
+                    <!--nomor_telpon-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+                      <div class="col-sm-10">
+                        <!--DROPDOWN NAMA DOKTER-->
+                        <select class="form-control" name="kat" id="kat">
+                          <?php
+                            while($kat = $resultKat->fetch_assoc()){
+                              if($terapi['kategori'] == $kat['id_kategori_terapi']){
+                                echo "
+                                  <option value=\"$kat[id_kategori_terapi]\" selected>$kat[nama_kategori_terapi]</option>
+                                ";
+                              } else {
+                                echo "
+                                  <option value=\"$kat[id_kategori_terapi]\">$kat[nama_kategori_terapi]</option>
+                                ";
+                              }
+                              
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!--no_reg_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Tarif (Rp)</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="tarif" id="tarif" value=<?php echo "\"$terapi[tarif]\"";?> required>
+                      </div>
+                    </div>
+
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
 			

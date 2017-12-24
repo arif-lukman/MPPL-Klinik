@@ -5,7 +5,8 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataObat = $conn->query("SELECT * FROM obat, satuan WHERE obat.id_satuan = satuan.id_satuan");
+  $dataKat = $conn->query("SELECT * FROM kategori_terapi WHERE id_kategori_terapi = '$_GET[id_kat]'");
+  $kat = $dataKat->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -56,7 +57,6 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
-    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -77,9 +77,9 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-        </header>
+      </header>
       <!--header end-->
       
       <!-- **********************************************************************************************************************************************************
@@ -103,6 +103,8 @@
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="admin.php">Admin</a></li>
+                          <li><a href="satuan_obat.php">Satuan Obat</a></li>
+                          <li><a href="kategori_terapi.php">Kategori Terapi</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -147,55 +149,34 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Obat</center></h2>
+          	<h2><center>Daftar Satuan Obat</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Pengubahan Data</center></h4>
+                  <br>
 
-              <form role="search">
-                <div class="form-group">
-                  <div id="tabeldata_filter" class="dataTables_filter">
-                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
-                  </div>
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_kat_terapi.php?id_kat=$kat[id_kategori_terapi]\""?>>
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Kategori Terapi</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_kat" id="nama_kat" value=<?php echo "\"$kat[nama_kategori_terapi]\"";?> autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <br>
+                  </form>
                 </div>
-              </form>
-
-          		<table class="table table-striped table-advance table-hover col-lg-12">
-              <thead>
-                <th>Nama Obat</th>
-                <th>Satuan</th>
-                <th>Stok</th>
-                <th>Harga Per Satuan</th>
-              </thead>
-              <tbody>
-                <?php
-                while($obat = $dataObat->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $obat[nama_obat]
-                      </td>
-                      <td>
-                        $obat[nama_satuan]
-                      </td>
-                      <td>
-                        $obat[stok]
-                      </td>
-                      <td>
-                        $obat[harga]
-                      </td>
-                      <td align =\"right\">
-                        <a href=\"edit_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                        
-                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                      </td>
-                    </tr>
-                  ";
-                }
-                ?>
-              </tbody>
-              </table>
-              <button style="float: right"><a href="add_obat.php">Tambah</a></button>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
 			

@@ -5,6 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $resultSat = $conn->query("SELECT id_satuan, nama_satuan FROM satuan");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -169,7 +170,16 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="satuan" id="satuan" required>
+                        <!--DROPDOWN NAMA DOKTER-->
+                        <select class="form-control" name="satuan" id="satuan">
+                          <?php
+                            while($sat = $resultSat->fetch_assoc()){
+                              echo "
+                                <option value=\"$sat[id_satuan]\">$sat[nama_satuan]</option>
+                              ";
+                            }
+                          ?>
+                        </select>
                       </div>
                     </div>
 
