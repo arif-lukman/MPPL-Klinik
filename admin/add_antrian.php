@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $resultDokter = $conn->query("SELECT nama_dokter, no_reg_dokter FROM dokter");
+  $resultDokter = $conn->query("SELECT nama_dokter, id_dokter FROM dokter");
   $pasien = GetData($conn, "SELECT id_pasien FROM pasien");
   //echo SelectTarget($_SESSION['tgt']);
 
@@ -38,7 +38,8 @@
   }
 
 date_default_timezone_set("Asia/Jakarta");
-$jamdaftar = date('h:i:s');
+$jamdaftar = date('H:i');
+$tanggal = date('Y-m-d');
 
 ?>
 
@@ -107,8 +108,10 @@ $jamdaftar = date('h:i:s');
       }
 
       //masukin nilai ke input
-      function setPasien(str){
-        document.getElementById("no_rekam_medis").value = str;
+      function setPasien(str, id){
+        document.getElementById("nama_pasien").value = str;
+        document.getElementById("id_pasien").value = id;
+        document.getElementById("livesearch").innerHTML = "";
       }
     </script>
   </head>
@@ -212,32 +215,21 @@ $jamdaftar = date('h:i:s');
 
                     <!--no_reg_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Pasien</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" onKeyUp="search(this.value)" required>
+                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" onKeyUp="search(this.value)" autocomplete="off" onblur="" required>
+                        <input type="hidden" name="id_pasien" id="id_pasien">
                         <div id="livesearch"></div>
                       </div>
                     </div>
-
 
                     <!--alamat-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
                       <div class="col-sm-10">
                         <!--<textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>-->
-                        <input type="date" class="form-control" name="tanggal" id="tanggal" required>
-                      </div>
-                    </div>
-
-                    <!--email-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status Layanan</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="status" id="status" required>
-                          <option>Menunggu</option>
-                          <option>Sedang Dilayani</option>
-                          <option>Selesai</option>
-                        </select>
+                        <input type="date" class="form-control" name="tanggal" id="tanggal" autocomplete="off" value="<?php echo $tanggal;?>" readonly>
+                        <input type="hidden" name="status" id="status" value="Menunggu">
                       </div>
                     </div>
 
@@ -246,7 +238,7 @@ $jamdaftar = date('h:i:s');
                       <label class="col-sm-2 col-sm-2 control-label">Jam Daftar</label>
                       <div class="col-sm-10">
                         <!--<input type="time" class="form-control" name="jam_daftar" id="jam_daftar" required>-->
-                        <input type="text" class="form-control" id="jam_daftar" name="jam_daftar" value="<?php echo $jamdaftar;?>" disabled>
+                        <input type="text" class="form-control" id="jam_daftar" name="jam_daftar" value="<?php echo $jamdaftar;?>" autocomplete="off" readonly>
                       </div>
                     </div>
 
@@ -254,7 +246,7 @@ $jamdaftar = date('h:i:s');
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Jam Layan</label>
                       <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam_layan" id="jam_layan" required>
+                        <input type="time" class="form-control" name="jam_layan" id="jam_layan" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -263,25 +255,14 @@ $jamdaftar = date('h:i:s');
                       <label class="col-sm-2 col-sm-2 control-label">Dokter</label>
                       <div class="col-sm-10">
                         <!--DROPDOWN NAMA DOKTER-->
-                        <select class="form-control" name="no_reg_dokter" id="no_reg_dokter">
+                        <select class="form-control" name="id_dokter" id="id_dokter">
                           <?php
                             while($dokter = $resultDokter->fetch_assoc()){
                               echo "
-                                <option value=\"$dokter[no_reg_dokter]\">$dokter[nama_dokter]</option>
+                                <option value=\"$dokter[id_dokter]\">$dokter[nama_dokter]</option>
                               ";
                             }
                           ?>
-                        </select>
-                      </div>
-                    </div>
-
-                    <!--status-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status Pasien</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="status_pasien" id="status_pasien" required>
-                          <option value="1">Pasien Lama</option>
-                          <option value="2">Pasien Baru</option>
                         </select>
                       </div>
                     </div>

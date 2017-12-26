@@ -5,7 +5,9 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
+  $dataPasien = $conn->query("SELECT * FROM pasien WHERE pasien.id_pasien = $_GET[id_pasien]");
+  //echo "SELECT * FROM dokter, detail_akun_dokter, user_klinik WHERE dokter.id_dokter = detail_akun_dokter.id_dokter AND detail_akun_dokter.id_user_klinik = user_klinik.id_user_klinik AND dokter.id_dokter = $_GET[id_dokter]";
+  $pasien = $dataPasien->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -56,7 +58,12 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
-    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Our Javascript -->
+    <script src="../assets/js/ours/validation_pasien.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -77,7 +84,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.html" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
        </header>
       <!--header end-->
@@ -124,8 +131,7 @@
                           <span>PASIEN</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="antrian_hari_ini.php">Antrian Hari Ini</a></li>
-                          <li><a  href="antrian_semua.php">Antrian Keseluruhan</a></li>
+                          <li><a  href="antrian.php">Antrian</a></li>
                           <li><a  href="booking.php">Booking</a></li>
                           <li><a  href="pasien.php">Data Pasien</a></li>
                       </ul>
@@ -149,63 +155,102 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-            <center>
-          	<h2>Daftar Antrian</h2>
-            <h4><?php echo date("l - d/M/Y")?><h4>
-            </center>
+          	<h2><center>Data Pasien</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
-          		<table class="table table-striped table-advance table-hover col-lg-12">
-              <thead>
-                <th>Nama Lengkap</th>
-                <th>Status Layanan</th>
-                <th>Jam Daftar</th>
-                <th>Jam Layan</th>
-                <th>Jam Selesai</th>
-                <th>Dokter</th>
-              </thead>
-              <tbody>
-                <?php
-                while($antrian = $dataAntrian->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $antrian[nama_pasien]
-                      </td>
-                      <td>
-                        $antrian[status]
-                      </td>
-                      <td>
-                        $antrian[jam_daftar]
-                      </td>
-                      <td>
-                        $antrian[jam_layan]
-                      </td>
-                      <td>
-                      ";
-                      if(is_null($antrian['jam_selesai'])){
-                        echo $antrian['status'];
-                      } else {
-                        echo $antrian['jam_selesai'];
-                      }
-                      echo "
-                      </td>
-                      <td>
-                        $antrian[nama_dokter]
-                      </td>
-                      <td align =\"right\">
-                        <a href=\"edit_antrian.php?id_antrian=$antrian[id_antrian]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                        <a href=\"act/hapus_antrian.php?id_antrian=$antrian[id_antrian]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                      </td>
-                    </tr>
-                  ";
-                }
-                ?>
-              </tbody>
-              </table>
-              <button style="float: right"><a href="add_antrian.php">Tambah</a></button>
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <br>
+
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_pasien.php?id_pasien=$pasien[id_pasien]\""?>>
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Pasien</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" value=<?php echo "\"$pasien[nama_pasien]\"";?> autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <!--no_reg_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Alamat Pasien</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"><?php echo "$pasien[alamat]"?></textarea autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <!--alamat-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
+                      <div class="col-sm-10">
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value=<?php echo "\"$pasien[tanggal_lahir]\"";?> autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <!--tanggal_lahir-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Pekerjaan</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" value=<?php echo "\"$pasien[pekerjaan]\"";?> autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <!--jenis_kelamin-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" value=<?php echo "\"$pasien[no_telp]\"";?> autocomplete="off" required>
+                        <span id="vld-telp"></span>
+                      </div>
+                    </div>
+
+                    <!--nomor_telpon-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jenis Kelamin</label>
+                      <div class="radio col-sm-10">
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios1" value="L" required
+                        <?php 
+                          if($pasien['jenis_kelamin'] == "L"){
+                            echo "checked";
+                          }
+                        ?>
+                        >
+                      Laki-laki
+                      </label>
+                      <label>
+                        <input type="radio" name="jenis_kelamin" id="optionsRadios2" value="P"
+                        <?php 
+                          if($pasien['jenis_kelamin'] == "P"){
+                            echo "checked";
+                          }
+                        ?>
+                        >
+                      Perempuan
+                      </label>
+                      </div>
+                    </div>
+
+                    <!--email-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" value=<?php echo "\"$pasien[no_rekam_medis]\"";?> autocomplete="off" required>
+                      </div>
+                    </div>
+
+                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->       
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
 			

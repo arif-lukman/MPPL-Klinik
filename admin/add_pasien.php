@@ -56,6 +56,12 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Our Javascript -->
+    <script src="../assets/js/ours/validation_pasien.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -163,7 +169,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Pasien</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" required>
+                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -171,7 +177,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Alamat Pasien</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>
+                        <textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea autocomplete="off" required>
                       </div>
                     </div>
 
@@ -179,7 +185,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal Lahir</label>
                       <div class="col-sm-10">
-                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" required>
+                        <input type="date" class="form-control" name="tanggal_lahir" id="tanggal_lahir" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -187,7 +193,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Pekerjaan</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" required>
+                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -195,7 +201,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off" required>
+                        <span id="vld-telp"></span>
                       </div>
                     </div>
 
@@ -218,7 +225,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
+                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" autocomplete="off" required>
                       </div>
                     </div>
 

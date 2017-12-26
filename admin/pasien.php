@@ -190,11 +190,10 @@
                       <td>
                         $pasien[no_rekam_medis]
                       </td>
-                      <td>
-                        <a href=\"act/edit_pasien.php?id_pasien=$pasien[id_pasien]\">Edit</a>
-                      </td>
-                      <td>
-                        <a href=\"act/hapus_pasien.php?id_pasien=$pasien[id_pasien]\">Hapus</a>
+                      <td align =\"right\">
+                        <a href=\"edit_pasien.php?id_pasien=$pasien[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      
+                        <a href=\"act/hapus_pasien.php?id_pasien=$pasien[id_pasien]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";

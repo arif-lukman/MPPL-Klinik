@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter");
+  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -161,7 +161,6 @@
                 <th>Jam Daftar</th>
                 <th>Jam Layan</th>
                 <th>Dokter</th>
-                <th>Status Pasien</th>
               </thead>
               <tbody>
                 <?php
@@ -170,9 +169,6 @@
                     <tr>
                       <td>
                         $antrian[nama_pasien]
-                      </td>
-                      <td>
-                        $antrian[tanggal]
                       </td>
                       <td>
                         $antrian[status]
@@ -184,22 +180,21 @@
                         $antrian[jam_layan]
                       </td>
                       <td>
-                        $antrian[nama_dokter]
-                      </td>
-                      <td>
                       ";
-                      if($antrian['status_pasien'] === '1'){
-                        echo "Pasien Lama";
+                      if(is_null($antrian['jam_selesai'])){
+                        echo $antrian['status'];
                       } else {
-                        echo "Pasien Baru";
+                        echo $antrian['jam_selesai'];
                       }
                       echo "
                       </td>
                       <td>
-                        <a href=\"edit_antrian.php?id_antrian=$antrian[id_antrian]\">Edit</a>
+                        $antrian[nama_dokter]
                       </td>
-                      <td>
-                        <a href=\"act/hapus_antrian.php?id_antrian=$antrian[id_antrian]\">Hapus</a>
+                      <td align =\"right\">
+                        <a href=\"edit_antrian.php?id_antrian=$antrian[id_antrian]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      
+                        <a href=\"act/hapus_antrian.php?id_antrian=$antrian[id_antrian]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";

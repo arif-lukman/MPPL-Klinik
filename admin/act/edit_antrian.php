@@ -4,18 +4,16 @@
 
 	//Ambil parameter
 	//pasien
-	$no_rekam_medis = $_POST['no_rekam_medis'];
+	$nama_pasien = $_POST['nama_pasien'];
+	$id_pasien = $_POST['id_pasien'];
+	$id_dokter = $_POST['id_dokter'];
 	$tanggal = $_POST['tanggal'];
-	$status = $_POST['status'];
 	$jam_daftar = $_POST['jam_daftar'];
 	$jam_layan = $_POST['jam_layan'];
-	$no_reg_dokter = $_POST['no_reg_dokter'];
-	$status_pasien = $_POST['status_pasien'];
 
 	//SQL command
 	//antrian
-	//$sql1 = "INSERT INTO antrian(no_rekam_medis, tanggal, status, jam_daftar, jam_layan, no_reg_dokter, status_pasien) VALUES ('$no_rekam_medis', '$tanggal', '$status', '$jam_daftar', '$jam_layan', '$no_reg_dokter', '$status_pasien')";
-	$sql1 = "UPDATE antrian SET no_rekam_medis = '$no_rekam_medis', tanggal = '$tanggal', status = '$status', jam_daftar = '$jam_daftar', jam_layan = '$jam_layan', no_reg_dokter = '$no_reg_dokter', status_pasien = '$status'  WHERE id_antrian = '$_GET[id_antrian]'";
+	$sql1 = "UPDATE antrian SET id_pasien = '$id_pasien', nama_pasien = '$nama_pasien', id_dokter = '$id_dokter', tanggal = '$tanggal', jam_daftar = '$jam_daftar', jam_layan = '$jam_layan'  WHERE id_antrian = '$_GET[id_antrian]'";
 	//echo $sql1;
 
 	//Masukkan data
