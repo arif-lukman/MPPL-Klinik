@@ -4,16 +4,17 @@
 
 	//Ambil parameter
 	//pasien
+	$id_pasien = $_POST['id_pasien'];
 	$nama_pasien = $_POST['nama_pasien'];
+	$id_dokter = $_POST['id_dokter'];
 	$tanggal = $_POST['tanggal'];
 	$jam = $_POST['jam'];
 	$no_telp = $_POST['no_telp'];
-	$no_reg_dokter = $_POST['no_reg_dokter'];
 	$status_pasien = $_POST['status_pasien'];
 
 	//SQL command
 	//antrian
-	$sql1 = "INSERT INTO booking(nama_pasien, tanggal, jam, no_telp, no_reg_dokter, status_pasien) VALUES ('$nama_pasien', '$tanggal', '$jam', '$no_telp', '$no_reg_dokter', '$status_pasien')";
+	$sql1 = "INSERT INTO booking(id_pasien, nama_pasien, id_dokter, tanggal, jam, no_telp, status_pasien) VALUES ('$id_pasien', '$nama_pasien', '$id_dokter', '$tanggal', '$jam', '$no_telp', '$status_pasien')";
 	//echo $sql1;
 
 	//Masukkan data

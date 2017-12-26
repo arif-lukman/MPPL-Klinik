@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $resultDokter = $conn->query("SELECT nama_dokter, no_reg_dokter FROM dokter");
+  $resultDokter = $conn->query("SELECT nama_dokter, id_dokter FROM dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -62,6 +62,66 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style type="text/css">
+      #livesearch{
+        overflow-y: scroll;
+        box-shadow: 0px 2px 4px #444;
+        max-height: 260px;
+      }
+
+      #searchitem:hover {
+        background-color: #e6e6e6;
+        user-select: none;
+      }
+    </style>
+
+    <script type="text/javascript">
+      //ajax
+      function search(str){
+        if(str.length==0){
+          document.getElementById("livesearch").innerHTML = "";
+          document.getElementById("id_pasien").value = null;
+          return;
+        }
+
+        var xmlhttp;
+        if(window.XMLHttpRequest){
+          xmlhttp = new XMLHttpRequest();
+        } else {
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.onreadystatechange=function(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById("livesearch").innerHTML = xmlhttp.responseText;
+          }
+        }
+
+        xmlhttp.open("GET", "ajax/pasien.php?q=" + str, true);
+        xmlhttp.send();
+      }
+
+      //masukin nilai ke input
+      function setPasien(str, id){
+        document.getElementById("nama_pasien").value = str;
+        document.getElementById("id_pasien").value = id;
+        document.getElementById("livesearch").innerHTML = "";
+      }
+
+      function checkStat(){
+        var str = document.getElementById("nama_pasien").value;
+        var stat = document.getElementById("status_pasien").value;
+        console.log(stat);
+
+        if(stat == 1){
+          search(str);
+        } else {
+          document.getElementById("id_pasien").value = null;
+        }
+      }
+    </script>
+
   </head>
 
   <body>
@@ -161,11 +221,24 @@
 
                   <form class="form-horizontal style-form" method="post" action = "act/add_booking.php">
 
+                    <!--status-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Status Pasien</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="status_pasien" id="status_pasien" onchange="checkStat()" required>
+                          <option value="1">Pasien Lama</option>
+                          <option value="2">Pasien Baru</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <!--nama_dokter-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Lengkap Pasien</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" required>
+                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" onkeyup="checkStat()"  autocomplete="off" required>
+                        <input type="hidden" name="id_pasien" id="id_pasien">
+                        <div id="livesearch"></div>
                       </div>
                     </div>
 
@@ -174,7 +247,7 @@
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
                       <div class="col-sm-10">
                         <!--<textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>-->
-                        <input type="date" class="form-control" name="tanggal" id="tanggal" required>
+                        <input type="date" class="form-control" name="tanggal" id="tanggal" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -182,7 +255,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Jam</label>
                       <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam" id="jam" required>
+                        <input type="time" class="form-control" name="jam" id="jam" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -190,7 +263,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" required>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off" required>
                       </div>
                     </div>
 
@@ -203,21 +276,10 @@
                           <?php
                             while($dokter = $resultDokter->fetch_assoc()){
                               echo "
-                                <option value=\"$dokter[no_reg_dokter]\">$dokter[nama_dokter]</option>
+                                <option value=\"$dokter[id_dokter]\">$dokter[nama_dokter]</option>
                               ";
                             }
                           ?>
-                        </select>
-                      </div>
-                    </div>
-
-                    <!--status-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Status Pasien</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="status_pasien" id="status_pasien" required>
-                          <option value="1">Pasien Lama</option>
-                          <option value="2">Pasien Baru</option>
                         </select>
                       </div>
                     </div>
