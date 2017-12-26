@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.no_rekam_medis as no_rekam_medis, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.no_rekam_medis = pasien.no_rekam_medis AND antrian.no_reg_dokter = dokter.no_reg_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
+  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -71,18 +71,14 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header blue-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
+            
         </header>
       <!--header end-->
       
@@ -136,7 +132,7 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
-          		<table class="table-bordered col-lg-12">
+          		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <td>Nama Lengkap</td>
                 <td>Nomor Rekam Medis</td>
@@ -184,7 +180,7 @@
                 ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_antrian.php">Tambah</a></button>
+              
           		</div>
           	</div>
 			
