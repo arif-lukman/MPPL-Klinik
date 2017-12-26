@@ -112,7 +112,7 @@
                           <span>LAYANAN</span>
                       </a>
                       <ul class="sub"> 
-                          <li><a  href="jasa.php">Daftar Jasa</a></li>
+                          <li><a  href="terapi.php">Daftar Terapi</a></li>
                           <li><a  href="obat.php">Daftar Obat</a></li>
                       </ul>
                   </li>

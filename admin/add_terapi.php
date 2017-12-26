@@ -98,10 +98,12 @@
                           <i class="fa fa-desktop"></i>
                           <span>DATABASE</span>
                       </a>
-                      <ul class="sub">
+                     <ul class="sub">
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="admin.php">Admin</a></li>
+                          <li><a href="satuan_obat.php">Satuan Obat</a></li>
+                          <li><a href="kategori_terapi.php">Kategori Terapi</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -111,7 +113,7 @@
                           <span>LAYANAN</span>
                       </a>
                       <ul class="sub"> 
-                          <li><a  href="terapi.php">Daftar terapi</a></li>
+                          <li><a  href="terapi.php">Daftar Terapi</a></li>
                           <li><a  href="obat.php">Daftar Obat</a></li>
                       </ul>
                   </li>
