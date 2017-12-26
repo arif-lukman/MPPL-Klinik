@@ -5,7 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataAntrian = $conn->query("SELECT antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter, antrian.status_pasien as status_pasien FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
+  $dataAntrian = $conn->query("SELECT * FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
