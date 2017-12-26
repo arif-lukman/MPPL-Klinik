@@ -70,14 +70,18 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header blue-bg">
+      <header class="header black-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            
+            <div class="top-menu">
+            	<ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
+            	</ul>
+            </div>
         </header>
       <!--header end-->
 
@@ -124,51 +128,164 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Profile</center></h2>
-            <hr>
-			<?php
-				$sql  = "SELECT * FROM user_klinik, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=dokter.id_user_klinik";
-				$result = mysqli_query($conn, $sql);
-			?>
+			<div class="row mt">
+				<div class="col-lg-2">
+				</div>
 			
-          	<div class="container">
+				<div class="col-lg-8">
+			
+				<h4><center>Data Pasien</center></h4>
+				
+				<?php
+					$norekam = $_GET["no_rek_med"];
+					$sql  = "SELECT * FROM pasien WHERE no_rekam_medis='$norekam'";
+					$result = mysqli_query($conn, $sql);
+					
+				?>
+				
 				<table class="table table-striped">
 				<?php
-				while($row=mysqli_fetch_assoc($result))
-				echo "
-				<tr>
-					<td> Nama </td>
-					<td> : </td>
-					<td> ".$row['nama_dokter']."</td>
-				</tr>
-				<tr>
-					<td> Alamat </td>
-					<td> : </td>
-					<td> ".$row['alamat']."</td>
-				</tr>
-				<tr>
-					<td> Tanggal Lahir </td>
-					<td> : </td>
-					<td> ".$row['tanggal_lahir']."</td>
-				</tr>
-				<tr>
-					<td> No. Telepon </td>
-					<td> : </td>
-					<td> ".$row['no_telp']."</td>
-				</tr>
-				<tr>
-					<td> Email </td>
-					<td> : </td>
-					<td> ".$row['email']."</td>
-				</tr>
-				";
+					while($row=mysqli_fetch_assoc($result))
+						//$umur= YEAR(curdate()) - YEAR($row['tgllahir']);
+						/*$lahir = new DateTime($row['tanggal_lahir']);
+						$today = new DateTime();
+						$umur = $today->diff($lahir);*/
+						
+					echo "
+					<tr>
+						<td> Nama </td>
+						<td> : </td>
+						<td> ".$row['nama_pasien']."</td>
+						<td> Pekerjaan </td>
+						<td> : </td>
+						<td> ".$row['pekerjaan']."</td>
+					</tr>
+					<tr>
+						<td> Alamat </td>
+						<td> : </td>
+						<td> ".$row['alamat']."</td>
+						<td> No. Telepon </td>
+						<td> : </td>
+						<td> ".$row['no_telp']."</td>
+					</tr>
+					<tr>
+						<td> Tanggal Lahir </td>
+						<td> : </td>
+						<td> ".$row['tanggal_lahir'] ."</td>
+						<td> Jenis Kelamin </td>
+						<td> : </td>
+						<td> ".$row['jenis_kelamin']."</td>
+					</tr>
+					";
 				?>
-          		</table>
+				</table>
+				
+				<br>
+				<br>
+				
+				<h4><center>Rekam Medis</center></h4>
+				<?php
+					
+					$sql  = "SELECT * FROM transaksi WHERE no_rekam_medis='$norekam'";
+					$result = mysqli_query($conn, $sql);
+				?>
+				
+				<table class="table col-lg-12">
+				<thead>
+					<td>Tanggal</td>
+					<td>Diagnosa</td>
+					<td>Terapi</td>
+					<td>Harga</td>
+					<td>Dokter</td>
+				</thead>
+				<tbody>
+				</table>
+
+				<div class="container">
+				<table class="table table-striped">
+				
+				</table>
+				</div>
+				
+            	<center>
+                  
+				  <br>
+				  <br>
+				  
+                  <div class="form-panel">
+					<h3 class="mb"><center>Diagnosa Pasien</center></h3>
+					<br>
+					<form class="form-horizontal style-form" method="post" action = "act/diagnosa.php">
+
+						<!--no rekam medis pasien-->
+						<div class="form-group">
+						<label class="col-sm-2 control-label">No Rekam Medis</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
+							</div>
+						</div>
+
+						<!--diagnosa dokter-->
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Diagnosa</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" name="diagnosa" id="diagnosa" style="max-width: 100%; min-width: 100%"></textarea required>
+							</div>
+						</div>
+
+						<!--Form terapi-->
+						<div class="form-inline">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Terapi</label>
+
+								<!--menu drop down jenis tindakan-->
+								<div class="col-sm-4">
+									<select class="form-control" id="tindakan">
+									<option value="">tindakan 1</option>
+									</select>
+								</div>
+								<!-- end menu drop down jenis tindakan-->
+
+								<!--tarif-->
+								<label class="col-sm-2 control-label">Tarif</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" name="tarif" id="tarif" required>
+								</div>
+							</div>
+						</div>
+						<!--end form terapi-->
+
+						<!--form keterangan-->
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Keterangan</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
+							</div>
+						</div>
+						<!-- end form keterangan-->
+
+						<!--menu drop down jenis tindakan-->
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Pilih Obat</label>
+							<div class="col-sm-4">
+								<select class="form-control" id="tindakan">
+									<option value="">tindakan 1</option>
+								</select>
+							</div>
+						</div>
+
+						<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+						<br>
+					</form>
+					</div>
+				</div><!-- col-lg-12-->
+            </div><!-- /row -->
+              </center>
+          		</div>
+				
           	</div>
-			<br>
-			<button style="float: left"><a href="gantipass.php">Change Password</a></button>
-                    <br>
-		</section>
+
+		      </section>
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
