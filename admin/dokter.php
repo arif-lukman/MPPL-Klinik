@@ -35,6 +35,7 @@
       return false;
     }
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -85,9 +86,9 @@
     </script>
   </head>
 
-  <body>
+  <body onload="startTime()">
 
-  <section id="container" >
+  <section id="container">
       <!-- **********************************************************************************************************************************************************
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
@@ -97,8 +98,11 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
+            <a href="index.php" class="logo"><b>Sistem Informasi Riona Dental Care</b></a>
             <!--logo end-->
+              <ul class="nav pull-right">
+                  <span class="label label-purple"><h4><div id="waktu"></div></h4></span>
+              </ul>   
             
         </header>
       <!--header end-->
@@ -244,7 +248,7 @@
                 ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_dokter.php">Tambah</a></button>
+              <a href="add_dokter.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
 			
@@ -289,6 +293,33 @@
       });
 
   </script>
+  <!--script untuk fungsi waktu-->
+  <script>
+        function startTime() 
+        {
+          var today = new Date();
+          var d = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+          var D = today.getDate();
+          var M = ["Desember","Januari","Februari","Maret","April","May","Juni","Juli","Agustus","September","Oktober","November"];
+          var Y = today.getFullYear();
+          var h = today.getHours();
+          var m = today.getMinutes();
+          var s = today.getSeconds();
+          D = checkTime(D);
+          m = checkTime(m);
+          s = checkTime(s);
+          document.getElementById('waktu').innerHTML =
+          d[today.getDay()] + " , " + D + " " + M[today.getMonth()] + " " + Y +  "  |  " + h + ":" + m + ":" + s;
+          var t = setTimeout(startTime, 500);
+        }
+      function checkTime(i) 
+      {
+          if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+          return i;
+      }
+
+        
+    </script>
 
   </body>
 </html>

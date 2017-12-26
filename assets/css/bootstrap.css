@@ -4477,6 +4477,13 @@ a.label:focus {
 .label-primary[href]:focus {
   background-color: #3071a9;
 }
+.label-purple {
+  background-color: #a472b9;
+}
+.label-purple[href]:hover,
+.label-purple[href]:focus {
+  background-color: #a472b9;
+}
 .label-success {
   background-color: #5cb85c;
 }

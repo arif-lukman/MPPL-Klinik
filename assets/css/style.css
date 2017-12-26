@@ -2045,6 +2045,9 @@ label {
 
 
 /*badge*/
+.badge.bg-purple{
+    background: #a472b9;
+}
 .badge.bg-primary {
     background: #8075c4;
 }
