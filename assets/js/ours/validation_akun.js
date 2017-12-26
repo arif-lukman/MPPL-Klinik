@@ -9,6 +9,7 @@ function CekForm(){
 
 function CekUsername(){
   var uname = document.getElementById("username").value;
+  var id = document.getElementById("id").value;
 
   if(uname.length == 0){
     $("#uname-status").html("");
@@ -17,7 +18,7 @@ function CekUsername(){
 
   //console.log("ajax/uname_status.php?uname=" + uname);
 
-  $.get("ajax/uname_status.php?uname=" + uname, function(data, status){
+  $.get("ajax/edit_akun.php?id=" + id + "&uname=" + uname, function(data, status){
     $("#uname-status").html(data);
   });
 
@@ -45,47 +46,23 @@ function CekKonfirmasiPassword(){
     }
 }
 
-//cek email
-function CekEmail(){
-  var mail = document.getElementById("email").value;
-  var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-  if (filter.test(mail)) {
-    $("#vld-email").html("");
-    return true;
-  }
-  else {
-    $("#vld-email").html("<div class=\"col-sm-12 alert alert-danger\">" +
-        "Email tidak valid." +
-        "<span class=\"glyphicon glyphicon-remove\"></span>" +
-      "</div>");
-    return false;
-  }
-}
-
-function CekTelpon(){
-  var telp = document.getElementById("no_telp").value;
-  if(isNaN(telp) || telp === "" || telp === null){
-    $("#vld-telp").html("<div class=\"col-sm-12 alert alert-danger\">" +
-        "Nomor telpon tidak valid." +
-        "<span class=\"glyphicon glyphicon-remove\"></span>" +
-      "</div>");
-    return false;
-  } else {
-    $("#vld-telp").html("");
-    return true;
-  }
-}
-
 //JQUERY
 $(document).ready(function(){
-  //cek telpon valid apa enga
-  $("#no_telp").keyup(function(){
-    CekTelpon();
+  //cek username ada apa enga
+  $("#username").keyup(function(){
+    CekUsername();
   });
 
-  //cek email valid apa enga
-  $("#email").keyup(function(){
-    CekEmail();
+  //cek pw sama apa enga
+  $("#cnf_pw").keyup(function(){
+    CekKonfirmasiPassword();
+  });
+  $("#password").keyup(function(){
+    var pw = document.getElementById("password").value;
+
+    if(pw == ""){
+      $("#pw-status").html("");
+    }
   });
 
   //validasi form
@@ -110,7 +87,7 @@ $(document).ready(function(){
     });
 
     //kasih true kalo udah penuh, kasih false kalo belum
-    if(count < Object.keys(formValues).length-1){
+    if(count < Object.keys(formValues).length){
       //console.log("count : " + count + ", formValues.length : " + Object.keys(formValues).length-1);
       //console.log("Form belum penuh");
       formFull = false;
@@ -121,11 +98,11 @@ $(document).ready(function(){
     }
 
     //CEK BENER ENGGANYA FORM
-    var telp = false;
-    var email = false;
+    var username = false;
+    var password = false;
 
-    telp = CekTelpon();
-    email = CekEmail();
+    username = CekUsername();
+    password = CekKonfirmasiPassword();
 
     //console.log("telp : " + telp);
     //console.log("email : " + email);
@@ -134,7 +111,7 @@ $(document).ready(function(){
     //console.log("formFull : " + formFull);
 
     //GABUNGIN!!!!!
-    if(telp && email && formFull){
+    if(username && password && formFull){
       $("#submit").prop("disabled", false);
       //console.log("BERHASIL");
     } else {

@@ -58,6 +58,12 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Our Javascript -->
+    <script src="../assets/js/ours/validation_akun.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -72,7 +78,7 @@
       TOP BAR CONTENT & NOTIFICATIONS
       *********************************************************************************************************************************************************** -->
       <!--header start-->
-      <header class="header black-bg">
+      <header class="header purple1-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
@@ -154,7 +160,7 @@
               <div class="col-lg-8">
                 <center>
                   <div class="form-panel">
-                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
+                  <h4 class="mb"><center>Pengubahan Data</center></h4>
                   <br>
 
                   <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_akun.php?id_akun=$akun[id_user_klinik]\""?>>
@@ -163,7 +169,9 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Username</label>
                       <div class="col-sm-10">
-                        <input type="text"  class="form-control" placeholder="" name="username" id="username" value=<?php echo "\"$akun[username]\"";?> required>
+                        <input type="text"  class="form-control" placeholder="" name="username" id="username" value=<?php echo "\"$akun[username]\"";?> autocomplete="off" required>
+                        <input type="hidden" name="id" id="id" value=<?php echo "\"$_GET[id_akun]\"";?>>
+                        <span id="uname-status"></span>
                       </div>
                     </div>
 
@@ -178,7 +186,8 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
                       <div class="col-sm-10">
-                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw"  required>
+                        <input type="password"  class="form-control" placeholder="" name="cnf_pw" id="cnf_pw" required>
+                        <span id="pw-status"></span>
                       </div>
                     </div>
 

@@ -104,6 +104,8 @@
                           <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="admin.php">Admin</a></li>
+                          <li><a href="satuan_obat.php">Satuan Obat</a></li>
+                          <li><a href="kategori_terapi.php">Kategori Terapi</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
@@ -185,7 +187,7 @@
                   echo "
                       </td>
                       <td>
-                        <a href=\"edit_akun.php?id_akun=$akun[id_user_klinik]\">Edit</a>
+                        <a href=\"edit_akun.php?id_akun=$akun[id_user_klinik]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                       </td>
                     </tr>
                   ";

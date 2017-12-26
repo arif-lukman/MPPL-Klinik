@@ -16,8 +16,8 @@
         return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 2:
-        //terapi
-        return "SELECT * FROM terapi WHERE username = '$_SESSION[uid]'";
+        //Dokter
+        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
@@ -100,9 +100,11 @@
                           <span>DATABASE</span>
                       </a>
                       <ul class="sub">
-                          <li><a href="terapi.php">terapi</a></li>
+                          <li><a href="dokter.php">Dokter</a></li>
                           <li><a href="perawat.php">Perawat</a></li>
                           <li><a href="admin.php">Admin</a></li>
+                          <li><a href="satuan_obat.php">Satuan Obat</a></li>
+                          <li><a href="kategori_terapi.php">Kategori Terapi</a></li>
                           <li><a href="akun.php">Akun Pengguna Sistem</a></li>
                       </ul>
                   </li>
