@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23 Des 2017 pada 05.17
+-- Generation Time: 26 Des 2017 pada 08.42
 -- Versi Server: 10.1.28-MariaDB
--- PHP Version: 7.1.10
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,6 +39,13 @@ CREATE TABLE `admin` (
   `status` int(1) NOT NULL,
   `id_user_klinik` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `admin`
+--
+
+INSERT INTO `admin` (`id_admin`, `nama_admin`, `alamat`, `tanggal_lahir`, `jenis_kelamin`, `no_telp`, `email`, `status`, `id_user_klinik`) VALUES
+(1, 'Roby Esta Sunara', 'Jl. Bangau Sakti', '1997-07-04', 'L', '089988776655', 'roby@gmail.com', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -109,7 +116,7 @@ CREATE TABLE `detail_transaksi_obat` (
 
 CREATE TABLE `dokter` (
   `id_dokter` int(11) NOT NULL,
-  `no_reg_dokter` varchar(12) NOT NULL,
+  `no_reg_dokter` varchar(12) DEFAULT NULL,
   `nama_dokter` text NOT NULL,
   `alamat` text NOT NULL,
   `tanggal_lahir` date NOT NULL,
@@ -120,35 +127,29 @@ CREATE TABLE `dokter` (
   `id_user_klinik` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `jasa`
+-- Dumping data untuk tabel `dokter`
 --
 
-CREATE TABLE `jasa` (
-  `id_jasa` int(11) NOT NULL,
-  `nama_jasa` text NOT NULL,
-  `kategori` int(11) NOT NULL,
-  `tarif` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `dokter` (`id_dokter`, `no_reg_dokter`, `nama_dokter`, `alamat`, `tanggal_lahir`, `jenis_kelamin`, `no_telp`, `email`, `status`, `id_user_klinik`) VALUES
+(1, '', 'Arif Lukman Hakim', 'Jl. Bangau Sakti no. 84', '1997-12-01', 'L', '081267357649', 'goodgamerasep@gmail.com', 1, 3);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori_jasa`
+-- Struktur dari tabel `kategori_terapi`
 --
 
-CREATE TABLE `kategori_jasa` (
-  `id_kategori_jasa` int(11) NOT NULL,
-  `nama_kategori_jasa` text NOT NULL
+CREATE TABLE `kategori_terapi` (
+  `id_kategori_terapi` int(11) NOT NULL,
+  `nama_kategori_terapi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `kategori_jasa`
+-- Dumping data untuk tabel `kategori_terapi`
 --
 
-INSERT INTO `kategori_jasa` (`id_kategori_jasa`, `nama_kategori_jasa`) VALUES
+INSERT INTO `kategori_terapi` (`id_kategori_terapi`, `nama_kategori_terapi`) VALUES
 (1, 'Konsultasi'),
 (2, 'Pembersihan Karang Gigi'),
 (3, 'Pencabutan Gigi'),
@@ -168,7 +169,7 @@ INSERT INTO `kategori_jasa` (`id_kategori_jasa`, `nama_kategori_jasa`) VALUES
 CREATE TABLE `obat` (
   `id_obat` int(11) NOT NULL,
   `nama_obat` text NOT NULL,
-  `satuan` text NOT NULL,
+  `id_satuan` int(11) NOT NULL,
   `stok` int(11) NOT NULL,
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -198,7 +199,7 @@ CREATE TABLE `pasien` (
 
 CREATE TABLE `perawat` (
   `id_perawat` int(11) NOT NULL,
-  `no_reg_perawat` varchar(12) NOT NULL,
+  `no_reg_perawat` varchar(12) DEFAULT NULL,
   `nama_perawat` text NOT NULL,
   `alamat` text NOT NULL,
   `tanggal_lahir` date NOT NULL,
@@ -208,6 +209,53 @@ CREATE TABLE `perawat` (
   `status` int(1) NOT NULL,
   `id_user_klinik` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `perawat`
+--
+
+INSERT INTO `perawat` (`id_perawat`, `no_reg_perawat`, `nama_perawat`, `alamat`, `tanggal_lahir`, `jenis_kelamin`, `no_telp`, `email`, `status`, `id_user_klinik`) VALUES
+(1, '', 'Rihhadatul Aisy Frianti', 'Jl. Bangau Sakti', '1997-12-26', 'P', '0811223344', 'aisy@gmail.com', 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `satuan`
+--
+
+CREATE TABLE `satuan` (
+  `id_satuan` int(11) NOT NULL,
+  `nama_satuan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `satuan`
+--
+
+INSERT INTO `satuan` (`id_satuan`, `nama_satuan`) VALUES
+(1, 'Papan'),
+(3, 'Botol'),
+(4, 'Kapsul');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `terapi`
+--
+
+CREATE TABLE `terapi` (
+  `id_terapi` int(11) NOT NULL,
+  `nama_terapi` text NOT NULL,
+  `kategori` int(11) NOT NULL,
+  `tarif` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `terapi`
+--
+
+INSERT INTO `terapi` (`id_terapi`, `nama_terapi`, `kategori`, `tarif`) VALUES
+(1, 'Konsultasi Normal', 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -246,7 +294,10 @@ CREATE TABLE `user_klinik` (
 --
 
 INSERT INTO `user_klinik` (`id_user_klinik`, `username`, `password`, `jenis_user`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1);
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1),
+(2, 'arif', '0ff6c3ace16359e41e37d40b8301d67f', 2),
+(3, 'aisy', 'fe5f63a00e379ab137b0c658f186693f', 3),
+(4, 'roby', 'c5c5a17bbf5d31171d022fb123416d1a', 1);
 
 --
 -- Indexes for dumped tables
@@ -288,20 +339,13 @@ ALTER TABLE `detail_transaksi_obat`
 -- Indexes for table `dokter`
 --
 ALTER TABLE `dokter`
-  ADD PRIMARY KEY (`id_dokter`),
-  ADD UNIQUE KEY `no_reg` (`no_reg_dokter`);
+  ADD PRIMARY KEY (`id_dokter`);
 
 --
--- Indexes for table `jasa`
+-- Indexes for table `kategori_terapi`
 --
-ALTER TABLE `jasa`
-  ADD PRIMARY KEY (`id_jasa`);
-
---
--- Indexes for table `kategori_jasa`
---
-ALTER TABLE `kategori_jasa`
-  ADD PRIMARY KEY (`id_kategori_jasa`);
+ALTER TABLE `kategori_terapi`
+  ADD PRIMARY KEY (`id_kategori_terapi`);
 
 --
 -- Indexes for table `obat`
@@ -322,6 +366,18 @@ ALTER TABLE `pasien`
 ALTER TABLE `perawat`
   ADD PRIMARY KEY (`id_perawat`),
   ADD UNIQUE KEY `no_reg_perawat` (`no_reg_perawat`);
+
+--
+-- Indexes for table `satuan`
+--
+ALTER TABLE `satuan`
+  ADD PRIMARY KEY (`id_satuan`);
+
+--
+-- Indexes for table `terapi`
+--
+ALTER TABLE `terapi`
+  ADD PRIMARY KEY (`id_terapi`);
 
 --
 -- Indexes for table `transaksi`
@@ -347,7 +403,7 @@ ALTER TABLE `user_klinik`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `antrian`
@@ -365,19 +421,13 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dokter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `jasa`
+-- AUTO_INCREMENT for table `kategori_terapi`
 --
-ALTER TABLE `jasa`
-  MODIFY `id_jasa` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `kategori_jasa`
---
-ALTER TABLE `kategori_jasa`
-  MODIFY `id_kategori_jasa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `kategori_terapi`
+  MODIFY `id_kategori_terapi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `obat`
@@ -395,7 +445,19 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `perawat`
 --
 ALTER TABLE `perawat`
-  MODIFY `id_perawat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_perawat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `satuan`
+--
+ALTER TABLE `satuan`
+  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `terapi`
+--
+ALTER TABLE `terapi`
+  MODIFY `id_terapi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
@@ -407,7 +469,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `user_klinik`
 --
 ALTER TABLE `user_klinik`
-  MODIFY `id_user_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
