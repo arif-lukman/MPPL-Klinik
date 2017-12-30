@@ -77,7 +77,7 @@
       <section id="main-content">
           <section class="wrapper">
             <center>
-          	<h2>Daftar Antrian</h2>
+          	<h2>Daftar Antrian Hari Ini</h2>
             <h4><?php echo date("l - d/M/Y")?><h4>
             </center>
             <hr>
@@ -132,7 +132,7 @@
                 ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_antrian.php">Tambah</a></button>
+              <a href="add_antrian.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
 			

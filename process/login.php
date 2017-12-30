@@ -45,7 +45,7 @@
 		switch ($usrType) {
 			case 1:
 				//Admin
-				return "../admin/";
+				return "../admin/antrian_hari_ini.php";
 				break;
 			case 2:
 				//Dokter

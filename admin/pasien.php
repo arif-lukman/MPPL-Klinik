@@ -127,7 +127,7 @@
                 ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_pasien.php">Tambah</a></button>
+              <a href="add_pasien.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
 			

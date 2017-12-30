@@ -2,7 +2,7 @@
   //Library
   include "../connection/connect.php";
   include "../process/session_check.php";
-  include "headside.php"
+  include "headside.php";
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
@@ -120,7 +120,7 @@
                 ?>
               </tbody>
               </table>
-              <button style="float: right"><a href="add_terapi.php">Tambah</a></button>
+              <a href="add_terapi.php"  style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
 			
