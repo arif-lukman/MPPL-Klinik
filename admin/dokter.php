@@ -2,6 +2,7 @@
   //Library
   include "../connection/connect.php";
   include "../process/session_check.php";
+  include "headside.php";
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
@@ -59,9 +60,6 @@
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
-    <!-- Offline JQuery -->
-    <script src="../assets/js/jquery-3.2.1.min.js"></script>
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -89,201 +87,114 @@
   <body onload="startTime()">
 
   <section id="container">
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header purple1-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Riona Dental Care</b></a>
-            <!--logo end-->
-              <ul class="nav pull-right">
-                  <span class="label label-purple"><h4><div id="waktu"></div></h4></span>
-              </ul>   
-            
-        </header>
-      <!--header end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
+    <?php
+      //DISPLAY HEADBAR AND SIDEBAR
+      echo $headbar;
+      echo $sidebar;
+    ?>
+    <!--MAIN CONTENT START-->
+    <section id="main-content">
+        <section class="wrapper">
+        	<h2><center>Data Dokter</center></h2>
+          <hr>
+        	<div class="row mt">
+        		<div class="col-lg-12">
               
-              	  <p class="centered"><a href="profile.html"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
-
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>DATABASE</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a href="dokter.php">Dokter</a></li>
-                          <li><a href="perawat.php">Perawat</a></li>
-                          <li><a href="admin.php">Admin</a></li>
-                          <li><a href="satuan_obat.php">Satuan Obat</a></li>
-                          <li><a href="kategori_terapi.php">Kategori Terapi</a></li>
-                          <li><a href="akun.php">Akun Pengguna Sistem</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-tasks"></i>
-                          <span>LAYANAN</span>
-                      </a>
-                      <ul class="sub"> 
-                          <li><a  href="terapi.php">Daftar Terapi</a></li>
-                          <li><a  href="obat.php">Daftar Obat</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-users"></i>
-                          <span>PASIEN</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="antrian_hari_ini.php">Antrian Hari Ini</a></li>
-                          <li><a  href="antrian_semua.php">Antrian Keseluruhan</a></li>
-                          <li><a  href="booking.php">Booking</a></li>
-                          <li><a  href="pasien.php">Data Pasien</a></li>
-                      </ul>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="../process/logout.php" >
-                          <i class="fa fa-sign-out"></i>
-                          <span>LOGOUT</span>
-                      </a>
-                  </li>
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-      
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-          	<h2><center>Data Dokter</center></h2>
-            <hr>
-          	<div class="row mt">
-          		<div class="col-lg-12">
-                
-              <form role="search">
-                <div class="form-group">
-                  <div id="tabeldata_filter" class="dataTables_filter">
-                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
-                  </div>
+            <form role="search">
+              <div class="form-group">
+                <div id="tabeldata_filter" class="dataTables_filter">
+                  <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
                 </div>
-              </form>
-              
-          		<table class="table table-striped table-advance table-hover col-lg-12">
-              <thead>
-                <th>Nama</th>
-                <th>Nomor Registrasi</th>
-                <th>Alamat</th>
-                <th>Tanggal Lahir</th>
-                <th>Jenis Kelamin</th>
-                <th>Nomor Telpon</th>
-                <th>Email</th>
-                <th><center>Status</center></th>
-              </thead>
-              <tbody>
-                <?php
-                while($dokter = $dataDokter->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $dokter[nama_dokter]
-                      </td>
-                      <td>
-                        $dokter[no_reg_dokter]
-                      </td>
-                      <td>
-                        $dokter[alamat]
-                      </td>
-                      <td>
-                        $dokter[tanggal_lahir]
-                      </td>
-                      <td>
-                        $dokter[jenis_kelamin]
-                      </td>
-                      <td>
-                        $dokter[no_telp]
-                      </td>
-                      <td>
-                        $dokter[email]
-                      </td>
-                      <td align =\"center\">
-                  ";
+              </div>
+            </form>
+            
+        		<table class="table table-striped table-advance table-hover col-lg-12">
+            <thead>
+              <th>Nama</th>
+              <th>Nomor Registrasi</th>
+              <th>Alamat</th>
+              <th>Tanggal Lahir</th>
+              <th>Jenis Kelamin</th>
+              <th>Nomor Telpon</th>
+              <th>Email</th>
+              <th><center>Status</center></th>
+            </thead>
+            <tbody>
+              <?php
+              while($dokter = $dataDokter->fetch_assoc()){
+                echo "
+                  <tr>
+                    <td>
+                      $dokter[nama_dokter]
+                    </td>
+                    <td>
+                      $dokter[no_reg_dokter]
+                    </td>
+                    <td>
+                      $dokter[alamat]
+                    </td>
+                    <td>
+                      $dokter[tanggal_lahir]
+                    </td>
+                    <td>
+                      $dokter[jenis_kelamin]
+                    </td>
+                    <td>
+                      $dokter[no_telp]
+                    </td>
+                    <td>
+                      $dokter[email]
+                    </td>
+                    <td align =\"center\">
+                ";
 
-                  if($dokter['status'] === '1'){
-                    //echo "Aktif";
-                    echo "<span class=\"label label-success\">aktif</span>";
-                  } else {
-                    echo "<span class=\"label label-danger\">non-aktif</span>";
+                if($dokter['status'] === '1'){
+                  //echo "Aktif";
+                  echo "<span class=\"label label-success\">aktif</span>";
+                } else {
+                  echo "<span class=\"label label-danger\">non-aktif</span>";
 
-                  }
-                   
-                  echo "
-                      </td>
-                      <td align =\"right\">
-                        <a href=\"edit_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                      	<a href=\"act/hapus_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                      </td>
-                    </tr>
-                  ";
                 }
-                ?>
-              </tbody>
-              </table>
-              <a href="add_dokter.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
-          		</div>
-          	</div>
-			
-		      </section>
-      </section><!-- /MAIN CONTENT -->
-
-      <!--main content end-->
-      <!--footer start-->
-      <!--
-      <footer class="site-footer">
-          <div class="text-center">
-              2014 - Alvarez.is
-              <a href="blank.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
-    -->
-      <!--footer end-->
+                 
+                echo "
+                    </td>
+                    <td align =\"right\">
+                      <a href=\"edit_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                    
+                    	<a href=\"act/hapus_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                    </td>
+                  </tr>
+                ";
+              }
+              ?>
+            </tbody>
+            </table>
+            <a href="add_dokter.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
+        		</div>
+        	</div>
+		
+	      </section>
+    </section>
+    <!--MAIN CONTENT END-->
   </section>
 
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
-    <script class="include" type="text/javascript" src="../assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="../assets/js/jquery.scrollTo.min.js"></script>
-    <script src="../assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!-- Offline JQuery -->
+  <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
+  <!-- Our Javascript -->
+  <script src="../assets/js/ours/jam.js"></script>
 
-    <!--common script for all pages-->
-    <script src="../assets/js/common-scripts.js"></script>
-
-    <!--script for this page-->
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="../assets/js/jquery.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+  <script src="../assets/js/jquery.ui.touch-punch.min.js"></script>
+  <script class="include" type="text/javascript" src="../assets/js/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="../assets/js/jquery.scrollTo.min.js"></script>
+  <script src="../assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--common script for all pages-->
+  <script src="../assets/js/common-scripts.js"></script>
+  <!--script for this page-->
     
   <script>
       //custom select box
@@ -293,33 +204,5 @@
       });
 
   </script>
-  <!--script untuk fungsi waktu-->
-  <script>
-        function startTime() 
-        {
-          var today = new Date();
-          var d = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-          var D = today.getDate();
-          var M = ["Desember","Januari","Februari","Maret","April","May","Juni","Juli","Agustus","September","Oktober","November"];
-          var Y = today.getFullYear();
-          var h = today.getHours();
-          var m = today.getMinutes();
-          var s = today.getSeconds();
-          D = checkTime(D);
-          m = checkTime(m);
-          s = checkTime(s);
-          document.getElementById('waktu').innerHTML =
-          d[today.getDay()] + " , " + D + " " + M[today.getMonth()] + " " + Y +  "  |  " + h + ":" + m + ":" + s;
-          var t = setTimeout(startTime, 500);
-        }
-      function checkTime(i) 
-      {
-          if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-          return i;
-      }
-
-        
-    </script>
-
   </body>
 </html>

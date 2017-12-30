@@ -7,6 +7,8 @@
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
   $resultDokter = $conn->query("SELECT nama_dokter, id_dokter FROM dokter");
+  $dataBooking = $conn->query("SELECT * FROM booking, dokter WHERE booking.id_dokter = dokter.id_dokter AND booking.id_booking = $_GET[id_booking]");
+  $booking = $dataBooking->fetch_assoc();
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -99,16 +101,14 @@
           }
         }
 
-        xmlhttp.open("GET", "ajax/booking.php?q=" + str, true);
+        xmlhttp.open("GET", "ajax/pasien.php?q=" + str, true);
         xmlhttp.send();
       }
 
       //masukin nilai ke input
-      function setPasien(str, id, telp){
+      function setPasien(str, id){
         document.getElementById("nama_pasien").value = str;
         document.getElementById("id_pasien").value = id;
-        document.getElementById("no_telp").value = telp;
-        document.getElementById("no_telp").setAttributeNode(document.createAttribute("readonly"));
         document.getElementById("livesearch").innerHTML = "";
       }
 
@@ -134,6 +134,7 @@
         echo $headbar;
         echo $sidebar;
       ?>
+      <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
             <h2><center>Daftar Booking</center></h2>
@@ -147,15 +148,25 @@
                   <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
 
-                  <form class="form-horizontal style-form" method="post" action = "act/add_booking.php">
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_booking.php?id_booking=$booking[id_booking]\""?>>
 
                     <!--status-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Status Pasien</label>
                       <div class="col-sm-10">
                         <select class="form-control" name="status_pasien" id="status_pasien" onchange="checkStat()" required>
-                          <option value="1">Pasien Lama</option>
-                          <option value="2">Pasien Baru</option>
+                          <option value="1"
+                          <?php
+                            if($booking['status_pasien'] == 1)
+                              echo "selected";
+                          ?>
+                          >Pasien Lama</option>
+                          <option value="2"
+                          <?php
+                            if($booking['status_pasien'] == 2)
+                              echo "selected";
+                          ?>
+                          >Pasien Baru</option>
                         </select>
                       </div>
                     </div>
@@ -164,8 +175,13 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Lengkap Pasien</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" onkeyup="checkStat()"  autocomplete="off" required>
-                        <input type="hidden" name="id_pasien" id="id_pasien">
+                        <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" onkeyup="checkStat()"  autocomplete="off" value=<?php echo "\"$booking[nama_pasien]\"";?> required>
+                        <input type="hidden" name="id_pasien" id="id_pasien" 
+                        <?php
+                          if($booking['id_pasien'] != null)
+                            echo "value=\"$booking[id_pasien]\"";
+                        ?>
+                        >
                         <div id="livesearch"></div>
                       </div>
                     </div>
@@ -175,7 +191,7 @@
                       <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
                       <div class="col-sm-10">
                         <!--<textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>-->
-                        <input type="date" class="form-control" name="tanggal" id="tanggal" autocomplete="off" required>
+                        <input type="date" class="form-control" name="tanggal" id="tanggal" autocomplete="off" value=<?php echo "\"$booking[tanggal]\"";?> required>
                       </div>
                     </div>
 
@@ -183,7 +199,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Jam</label>
                       <div class="col-sm-10">
-                        <input type="time" class="form-control" name="jam" id="jam" autocomplete="off" required>
+                        <input type="time" class="form-control" name="jam" id="jam" autocomplete="off" value=<?php echo "\"$booking[jam]\"";?> required>
                       </div>
                     </div>
 
@@ -191,7 +207,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Telpon</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off" required>
+                        <input type="text" class="form-control" name="no_telp" id="no_telp" autocomplete="off" value=<?php echo "\"$booking[no_telp]\"";?> required>
                       </div>
                     </div>
 
@@ -203,9 +219,15 @@
                         <select class="form-control" name="id_dokter" id="id_dokter">
                           <?php
                             while($dokter = $resultDokter->fetch_assoc()){
-                              echo "
-                                <option value=\"$dokter[id_dokter]\">$dokter[nama_dokter]</option>
-                              ";
+                              if($dokter['id_dokter'] == $booking['id_dokter']){
+                                echo "
+                                  <option value=\"$dokter[id_dokter]\" selected>$dokter[nama_dokter]</option>
+                                ";
+                              } else {
+                                echo "
+                                  <option value=\"$dokter[id_dokter]\">$dokter[nama_dokter]</option>
+                                ";
+                              }
                             }
                           ?>
                         </select>
@@ -245,7 +267,7 @@
 
     <!-- Our Javascript -->
     <script src="../assets/js/ours/jam.js"></script>
-
+    
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
