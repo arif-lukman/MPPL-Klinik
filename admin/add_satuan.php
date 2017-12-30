@@ -64,7 +64,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body onload="startTime()">
 
   <section id="container" >
       <?php

@@ -117,7 +117,7 @@ $tanggal = date('Y-m-d');
     </script>
   </head>
 
-  <body>
+  <body onload="startTime()">
 
   <section id="container" >
     <?php
