@@ -57,7 +57,9 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
     <script src="../assets/js/ours/jam.js"></script>
+    <script src="../assets/js/ours/diagnosa.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -204,7 +206,7 @@
   						<div class="form-group">
   							<label class="col-sm-2 control-label">Keterangan</label>
   							<div class="col-sm-10">
-  								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%"></textarea required>
+  								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%"></textarea >
   							</div>
   						</div>
 
@@ -213,6 +215,7 @@
             <!-- TOMBOL BUAT NAMBAH DIAGNOSA -->
             <div class="form-group col-sm-12">
               <center>
+              <input type="hidden" name="diag-num" id="diag-num" value="1">
               <input type="button" class="btn" name="btn-diag" id="btn-diag" value="+">
               </center>
             </div>
@@ -220,41 +223,36 @@
 						<!--Form terapi-->
             <h4>Terapi</h4><hr>
             <h5>1 )</h5>
+            <!-- TERAPI BARU DIAPPEND KE SINI -->
             <div id="field-terapi">
-
   						<div class="form-group">
-                <!-- TERAPI BARU DIAPPEND KE SINI -->
   							<label class="col-sm-2 control-label">Terapi</label>
-  							<!--menu drop down jenis tindakan-->
   							<div class="col-sm-4">
-  								<select class="form-control" id="tindakan">
-  								<option value="">tindakan 1</option>
+  								<select class="form-control" id="idt1" name="idt1">
+  								  <option value="tindakan 1">tindakan 1</option>
+                    <option value="tindakan 2">tindakan 2</option>
+                    <option value="tindakan 3">tindakan 3</option>
   								</select>
   							</div>
-  							<!-- end menu drop down jenis tindakan-->
 
-  							<!--tarif-->
   							<label class="col-sm-2 control-label">Tarif</label>
   							<div class="col-sm-4">
-  								<input type="text" class="form-control" name="tarif" id="tarif" required>
+  								<input type="text" class="form-control" name="tarift1" id="tarift1" >
   							</div>
               </div>
 						
-						  <!--end form terapi-->
-
-  						<!--form keterangan-->
   						<div class="form-group">
   							<label class="col-sm-2 control-label">Keterangan</label>
   							<div class="col-sm-10">
-  								<textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
+  								<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%"></textarea>
   							</div>
   						</div>
-  						<!-- end form keterangan-->
             </div>
 
             <!-- BUTTON BUAT NAMBAH TERAPI -->
             <div class="form-group col-sm-12">
               <center>
+              <input type="hidden" name="terapi-num" id="terapi-num" value="1">
               <input type="button" class="btn" name="btn-terapi" id="btn-terapi" value="+">
               </center>
             </div>
@@ -264,12 +262,15 @@
             <h5>1 )</h5>
 						<!--menu drop down jenis tindakan-->
             <div id="field-obat">
+
   						<div class="form-group">
                 <div class="col-sm-3"></div>
   							<label class="col-sm-2 control-label">Pilih Obat</label>
   							<div class="col-sm-4">
-  								<select class="form-control" id="tindakan">
-  									<option value="">tindakan 1</option>
+  								<select class="form-control" id="ido1" name="ido1">
+  									<option value="tindakan 1">tindakan 1</option>
+                    <option value="tindakan 2">tindakan 2</option>
+                    <option value="tindakan 3">tindakan 3</option>
   								</select>
   							</div>
   						</div>
@@ -278,14 +279,16 @@
                 <div class="col-sm-3"></div>
                 <label class="control-label col-sm-2">Jumlah</label>
                 <div class="col-sm-4">
-                  <input type="number" class="form-control" name="k1d1" id="k1d1">
+                  <input type="number" class="form-control" name="jumo1" id="jumo1">
                 </div>
               </div>
+              
             </div>
 
             <!-- BUTTON BUAT NAMBAH OBAT -->
             <div class="form-group col-sm-12">
               <center>
+              <input type="hidden" name="obat-num" id="obat-num" value="1">
               <input type="button" class="btn" name="btn-obat" id="btn-obat" value="+">
               </center>
             </div>
