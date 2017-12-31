@@ -75,8 +75,11 @@
       ?>
       <!--main content start-->
       <section id="main-content">
-          <section class="wrapper">
-			<div class="row mt">
+        <section class="wrapper">
+			  <div class="row mt">
+        <div class="col-lg-12">
+        <a href="antrian.php" style="float: left" class="btn btn-round btn-theme02" role="button"><< Kembali ke Daftar Antrian</a>
+        </div>
 				<div class="col-lg-2">
 				</div>
 
