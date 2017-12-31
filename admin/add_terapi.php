@@ -115,9 +115,16 @@
 
                     <!--no_reg_dokter-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Tarif (Rp)</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Tarif Minimal(Rp)</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="tarif" id="tarif" required>
+                        <input type="text" class="form-control" name="tarif_min" id="tarif_min" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Tarif Maksimal(Rp)</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="tarif_max" id="tarif_max" required>
                       </div>
                     </div>
 

@@ -93,7 +93,8 @@
               <thead>
                 <th>Nama Terapi</th>
                 <th>Kategori</th>
-                <th>Tarif</th>
+                <th>Tarif Minimal</th>
+                <th>Tarif Maksimal</th>
               </thead>
               <tbody>
                 <?php
@@ -107,7 +108,10 @@
                         $terapi[nama_kategori_terapi]
                       </td>
                       <td>
-                        $terapi[tarif]
+                        $terapi[tarif_min]
+                      </td>
+                      <td>
+                        $terapi[tarif_max]
                       </td>
                       <td align =\"right\">
                         <a href=\"edit_terapi.php?id_terapi=$terapi[id_terapi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
