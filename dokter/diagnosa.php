@@ -263,15 +263,25 @@
             <h4>Obat</h4><hr>
             <h5>1 )</h5>
 						<!--menu drop down jenis tindakan-->
-						<div class="form-group">
-              <div class="col-sm-3"></div>
-							<label class="col-sm-2 control-label">Pilih Obat</label>
-							<div class="col-sm-4">
-								<select class="form-control" id="tindakan">
-									<option value="">tindakan 1</option>
-								</select>
-							</div>
-						</div>
+            <div id="field-obat">
+  						<div class="form-group">
+                <div class="col-sm-3"></div>
+  							<label class="col-sm-2 control-label">Pilih Obat</label>
+  							<div class="col-sm-4">
+  								<select class="form-control" id="tindakan">
+  									<option value="">tindakan 1</option>
+  								</select>
+  							</div>
+  						</div>
+
+              <div class="form-group">
+                <div class="col-sm-3"></div>
+                <label class="control-label col-sm-2">Jumlah</label>
+                <div class="col-sm-4">
+                  <input type="number" class="form-control" name="k1d1" id="k1d1">
+                </div>
+              </div>
+            </div>
 
             <!-- BUTTON BUAT NAMBAH OBAT -->
             <div class="form-group col-sm-12">
