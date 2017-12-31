@@ -78,7 +78,6 @@
           <section class="wrapper">
             <center>
           	<h2>Daftar Antrian Hari Ini</h2>
-            <h4><?php echo date("l - d/M/Y")?><h4>
             </center>
             <hr>
           	<div class="row mt">

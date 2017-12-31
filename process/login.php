@@ -49,7 +49,7 @@
 				break;
 			case 2:
 				//Dokter
-				return "../dokter/";
+				return "../dokter/antrian.php";
 				break;
 			case 3:
 				//Perawat

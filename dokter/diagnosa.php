@@ -2,6 +2,7 @@
   //Library
   include "../connection/connect.php";
   include "../process/session_check.php";
+  include "headside.php";
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
@@ -56,6 +57,8 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <script src="../assets/js/ours/jam.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -63,84 +66,30 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body onload="startTime()">
 
   <section id="container" >
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
-            <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
-      <!--header end-->
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-
-              	  <p class="centered"><a href="profile.php"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
-
-                  <li class="sub-menu">
-                      <a href="profile.php" >
-                          <i class="fa"></i>
-                          <span>PROFILE</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="antrian.php" >
-                          <i class="fa"></i>
-                          <span>ANTRIAN</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="../process/logout.php" >
-                          <i class="fa"></i>
-                          <span>LOGOUT</span>
-                      </a>
-                  </li>
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
+      <?php
+        echo $headbar;
+        echo $sidebar;
+      ?>
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
 			<div class="row mt">
 				<div class="col-lg-2">
 				</div>
-			
+
+			 <!-- DATA PASIEN -->
 				<div class="col-lg-8">
 			
-				<h4><center>Data Pasien</center></h4>
+				<h3><center>Data Pasien</center></h3><hr>
 				
 				<?php
-					$norekam = $_GET["no_rek_med"];
-					$sql  = "SELECT * FROM pasien WHERE no_rekam_medis='$norekam'";
+					$id_pasien = $_GET["id_pasien"];
+					$sql  = "SELECT * FROM pasien WHERE id_pasien='$id_pasien'";
 					$result = mysqli_query($conn, $sql);
-					
+          $no_rekam = mysqli_fetch_assoc(mysqli_query($conn, "SELECT no_rekam_medis FROM pasien WHERE id_pasien='$id_pasien'"));
 				?>
 				
 				<table class="table table-striped">
@@ -183,20 +132,20 @@
 				<br>
 				<br>
 				
-				<h4><center>Rekam Medis</center></h4>
-				<?php
-					
-					$sql  = "SELECT * FROM transaksi WHERE no_rekam_medis='$norekam'";
+        <!-- REKAM MEDIS PASIEN -->
+				<h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
+				<?php					
+					$sql  = "SELECT * FROM transaksi WHERE id_pasien='$id_pasien'";
 					$result = mysqli_query($conn, $sql);
 				?>
 				
-				<table class="table col-lg-12">
+				<table class="table table-striped table-advance table-hover col-lg-12">
 				<thead>
-					<td>Tanggal</td>
-					<td>Diagnosa</td>
-					<td>Terapi</td>
-					<td>Harga</td>
-					<td>Dokter</td>
+					<th>Tanggal</th>
+					<th>Diagnosa</th>
+					<th>Terapi</th>
+					<th>Harga</th>
+					<th>Dokter</th>
 				</thead>
 				<tbody>
 				</table>
@@ -212,60 +161,107 @@
 				  <br>
 				  <br>
 				  
-                  <div class="form-panel">
-					<h3 class="mb"><center>Diagnosa Pasien</center></h3>
+          <div class="form-panel">
+					<h3 class="mb"><center>Diagnosa Pasien</center></h3><hr>
 					<br>
-					<form class="form-horizontal style-form" method="post" action = "act/diagnosa.php">
-
-						<!--no rekam medis pasien-->
-						<div class="form-group">
-						<label class="col-sm-2 control-label">No Rekam Medis</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" required>
-							</div>
-						</div>
+					<form class="form-horizontal style-form" method="post" action = "act/diagnosa.php?">
 
 						<!--diagnosa dokter-->
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Diagnosa</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" name="diagnosa" id="diagnosa" style="max-width: 100%; min-width: 100%"></textarea required>
-							</div>
-						</div>
+            <h4>Diagnosa</h4><hr>
+
+            <h5>1 )</h5>
+
+            <!-- DIAGNOSA BARU DIAPPEND KE SINI -->
+            <div id="field-diagnosa">
+
+              <center>
+                <div class="form-group">
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 1</label>
+                    <input type="text" class="form-control" name="k1d1" id="k1d1">
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 2</label>
+                    <input type="text" class="form-control" name="k2d1" id="k2d1">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 3</label>
+                    <input type="text" class="form-control" name="k3d1" id="k3d1">
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 4</label>
+                    <input type="text" class="form-control" name="k4d1" id="k4d1">
+                  </div>
+                </div>
+              </center>
+
+  						<div class="form-group">
+  							<label class="col-sm-2 control-label">Keterangan</label>
+  							<div class="col-sm-10">
+  								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%"></textarea required>
+  							</div>
+  						</div>
+
+            </div>
+
+            <!-- TOMBOL BUAT NAMBAH DIAGNOSA -->
+            <div class="form-group col-sm-12">
+              <center>
+              <input type="button" class="btn" name="btn-diag" id="btn-diag" value="+">
+              </center>
+            </div>
 
 						<!--Form terapi-->
-						<div class="form-inline">
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Terapi</label>
+            <h4>Terapi</h4><hr>
+            <h5>1 )</h5>
+            <div id="field-terapi">
 
-								<!--menu drop down jenis tindakan-->
-								<div class="col-sm-4">
-									<select class="form-control" id="tindakan">
-									<option value="">tindakan 1</option>
-									</select>
-								</div>
-								<!-- end menu drop down jenis tindakan-->
+  						<div class="form-group">
+                <!-- TERAPI BARU DIAPPEND KE SINI -->
+  							<label class="col-sm-2 control-label">Terapi</label>
+  							<!--menu drop down jenis tindakan-->
+  							<div class="col-sm-4">
+  								<select class="form-control" id="tindakan">
+  								<option value="">tindakan 1</option>
+  								</select>
+  							</div>
+  							<!-- end menu drop down jenis tindakan-->
 
-								<!--tarif-->
-								<label class="col-sm-2 control-label">Tarif</label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control" name="tarif" id="tarif" required>
-								</div>
-							</div>
-						</div>
-						<!--end form terapi-->
+  							<!--tarif-->
+  							<label class="col-sm-2 control-label">Tarif</label>
+  							<div class="col-sm-4">
+  								<input type="text" class="form-control" name="tarif" id="tarif" required>
+  							</div>
+              </div>
+						
+						  <!--end form terapi-->
 
-						<!--form keterangan-->
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Keterangan</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
-							</div>
-						</div>
-						<!-- end form keterangan-->
+  						<!--form keterangan-->
+  						<div class="form-group">
+  							<label class="col-sm-2 control-label">Keterangan</label>
+  							<div class="col-sm-10">
+  								<textarea class="form-control" name="keterangan" id="keterangan" style="max-width: 100%; min-width: 100%"></textarea>
+  							</div>
+  						</div>
+  						<!-- end form keterangan-->
+            </div>
 
+            <!-- BUTTON BUAT NAMBAH TERAPI -->
+            <div class="form-group col-sm-12">
+              <center>
+              <input type="button" class="btn" name="btn-terapi" id="btn-terapi" value="+">
+              </center>
+            </div>
+
+            <!--Form obat-->
+            <h4>Obat</h4><hr>
+            <h5>1 )</h5>
 						<!--menu drop down jenis tindakan-->
 						<div class="form-group">
+              <div class="col-sm-3"></div>
 							<label class="col-sm-2 control-label">Pilih Obat</label>
 							<div class="col-sm-4">
 								<select class="form-control" id="tindakan">
@@ -273,6 +269,13 @@
 								</select>
 							</div>
 						</div>
+
+            <!-- BUTTON BUAT NAMBAH OBAT -->
+            <div class="form-group col-sm-12">
+              <center>
+              <input type="button" class="btn" name="btn-obat" id="btn-obat" value="+">
+              </center>
+            </div>
 
 						<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
 						<br>

@@ -4,7 +4,7 @@
   include "../process/session_check.php";
 
   //Ambil data
-  $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -12,14 +12,17 @@
     switch ($usrType) {
       case 1:
         //Admin
+        echo "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 2:
         //Dokter
+        echo "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
+        echo "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         return "SELECT * FROM perawat WHERE username = '$_SESSION[uid]'";
         break;
     }
@@ -27,6 +30,9 @@
 
   function GetData($conn, $sql){
     $result = $conn -> query($sql);
+    if (!$result) {
+      trigger_error('Invalid query: ' . $conn->error);
+    }
     //echo $result -> num_rows;
     if($result -> num_rows > 0){
       return $result -> fetch_assoc();
