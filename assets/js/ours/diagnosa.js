@@ -4,7 +4,6 @@ $(document).ready(function(){
 
 	//APPEND DIAGNOSA
     $("#btn-diag").click(function(){
-    	console.log($("#diag-num").val());
     	var val = parseInt($("#diag-num").val()) + 1;
 
         $("#field-diagnosa").append("" +
@@ -45,13 +44,11 @@ $(document).ready(function(){
     	"");
 
     	$("#diag-num").val(val);
-        $("#btn-diag-min").hide();
-    	console.log($("#diag-num").val());
+        $("#btn-diag-").show();
     });
 
     //APPEND TERAPI
     $("#btn-terapi").click(function(){
-    	console.log($("#terapi-num").val());
     	var val = parseInt($("#terapi-num").val()) + 1;
 
         $("#field-terapi").append("" +
@@ -85,12 +82,10 @@ $(document).ready(function(){
 
     	$("#terapi-num").val(val);
         $("#btn-terapi-").show();
-    	console.log($("#terapi-num").val());
     });
 
     //APPEND OBAT
     $("#btn-obat").click(function(){
-    	console.log($("#obat-num").val());
     	var val = parseInt($("#obat-num").val()) + 1;
 
         $("#field-obat").append("" +
@@ -122,9 +117,43 @@ $(document).ready(function(){
 
     	$("#obat-num").val(val);
         $("#btn-obat-").show();
-    	console.log($("#obat-num").val());
     });
 
     //KURANG
     
+    //DIAGNOSA
+    $("#btn-diag-").click(function(){
+        var val = parseInt($("#diag-num").val());
+
+        $(".appdiag" + val).remove();
+
+        val--;
+        if(val === 1)
+            $("#btn-diag-").hide();
+        $("#diag-num").val(val);
+    });
+
+    //TERAPI
+    $("#btn-terapi-").click(function(){
+        var val = parseInt($("#terapi-num").val());
+
+        $(".appterapi" + val).remove();
+
+        val--;
+        if(val === 1)
+            $("#btn-terapi-").hide();
+        $("#terapi-num").val(val);
+    });
+
+    //OBAT
+    $("#btn-obat-").click(function(){
+        var val = parseInt($("#obat-num").val());
+
+        $(".appobat" + val).remove();
+
+        val--;
+        if(val === 1)
+            $("#btn-obat-").hide();
+        $("#obat-num").val(val);
+    });
 });
