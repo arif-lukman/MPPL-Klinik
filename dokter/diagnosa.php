@@ -5,7 +5,7 @@
   include "headside.php";
 
   //Ambil data
-  $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -176,40 +176,39 @@
 
             <h5>1 )</h5>
 
+            <center>
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label class="control-label">Kuadran 1</label>
+                  <input type="text" class="form-control" name="k1d1" id="k1d1">
+                </div>
+                <div class="col-sm-6">
+                  <label class="control-label">Kuadran 2</label>
+                  <input type="text" class="form-control" name="k2d1" id="k2d1">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-6">
+                  <label class="control-label">Kuadran 3</label>
+                  <input type="text" class="form-control" name="k3d1" id="k3d1">
+                </div>
+                <div class="col-sm-6">
+                  <label class="control-label">Kuadran 4</label>
+                  <input type="text" class="form-control" name="k4d1" id="k4d1">
+                </div>
+              </div>
+            </center>
+
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Keterangan</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%"></textarea >
+							</div>
+						</div>
+
             <!-- DIAGNOSA BARU DIAPPEND KE SINI -->
             <div id="field-diagnosa">
-
-              <center>
-                <div class="form-group">
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 1</label>
-                    <input type="text" class="form-control" name="k1d1" id="k1d1">
-                  </div>
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 2</label>
-                    <input type="text" class="form-control" name="k2d1" id="k2d1">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 3</label>
-                    <input type="text" class="form-control" name="k3d1" id="k3d1">
-                  </div>
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 4</label>
-                    <input type="text" class="form-control" name="k4d1" id="k4d1">
-                  </div>
-                </div>
-              </center>
-
-  						<div class="form-group">
-  							<label class="col-sm-2 control-label">Keterangan</label>
-  							<div class="col-sm-10">
-  								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%"></textarea >
-  							</div>
-  						</div>
-
             </div>
 
             <!-- TOMBOL BUAT NAMBAH DIAGNOSA -->
@@ -217,36 +216,38 @@
               <center>
               <input type="hidden" name="diag-num" id="diag-num" value="1">
               <input type="button" class="btn" name="btn-diag" id="btn-diag" value="+">
+              <input type="button" class="btn" name="btn-diag-" id="btn-diag-" value="-" style="display:none;">
               </center>
             </div>
 
 						<!--Form terapi-->
             <h4>Terapi</h4><hr>
             <h5>1 )</h5>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Terapi</label>
+							<div class="col-sm-4">
+								<select class="form-control" id="idt1" name="idt1">
+								  <option value="tindakan 1">tindakan 1</option>
+                  <option value="tindakan 2">tindakan 2</option>
+                  <option value="tindakan 3">tindakan 3</option>
+								</select>
+							</div>
+
+							<label class="col-sm-2 control-label">Tarif</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" name="tarift1" id="tarift1">
+							</div>
+            </div>
+					
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Keterangan</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%"></textarea>
+							</div>
+						</div>
+
             <!-- TERAPI BARU DIAPPEND KE SINI -->
             <div id="field-terapi">
-  						<div class="form-group">
-  							<label class="col-sm-2 control-label">Terapi</label>
-  							<div class="col-sm-4">
-  								<select class="form-control" id="idt1" name="idt1">
-  								  <option value="tindakan 1">tindakan 1</option>
-                    <option value="tindakan 2">tindakan 2</option>
-                    <option value="tindakan 3">tindakan 3</option>
-  								</select>
-  							</div>
-
-  							<label class="col-sm-2 control-label">Tarif</label>
-  							<div class="col-sm-4">
-  								<input type="text" class="form-control" name="tarift1" id="tarift1" >
-  							</div>
-              </div>
-						
-  						<div class="form-group">
-  							<label class="col-sm-2 control-label">Keterangan</label>
-  							<div class="col-sm-10">
-  								<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%"></textarea>
-  							</div>
-  						</div>
             </div>
 
             <!-- BUTTON BUAT NAMBAH TERAPI -->
@@ -254,35 +255,35 @@
               <center>
               <input type="hidden" name="terapi-num" id="terapi-num" value="1">
               <input type="button" class="btn" name="btn-terapi" id="btn-terapi" value="+">
+              <input type="button" class="btn" name="btn-terapi-" id="btn-terapi-" value="-" style="display:none;">
               </center>
             </div>
 
             <!--Form obat-->
             <h4>Obat</h4><hr>
             <h5>1 )</h5>
-						<!--menu drop down jenis tindakan-->
-            <div id="field-obat">
+						<div class="form-group">
+              <div class="col-sm-3"></div>
+							<label class="col-sm-2 control-label">Pilih Obat</label>
+							<div class="col-sm-4">
+								<select class="form-control" id="ido1" name="ido1">
+									<option value="tindakan 1">tindakan 1</option>
+                  <option value="tindakan 2">tindakan 2</option>
+                  <option value="tindakan 3">tindakan 3</option>
+								</select>
+							</div>
+						</div>
 
-  						<div class="form-group">
-                <div class="col-sm-3"></div>
-  							<label class="col-sm-2 control-label">Pilih Obat</label>
-  							<div class="col-sm-4">
-  								<select class="form-control" id="ido1" name="ido1">
-  									<option value="tindakan 1">tindakan 1</option>
-                    <option value="tindakan 2">tindakan 2</option>
-                    <option value="tindakan 3">tindakan 3</option>
-  								</select>
-  							</div>
-  						</div>
-
-              <div class="form-group">
-                <div class="col-sm-3"></div>
-                <label class="control-label col-sm-2">Jumlah</label>
-                <div class="col-sm-4">
-                  <input type="number" class="form-control" name="jumo1" id="jumo1">
-                </div>
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <label class="control-label col-sm-2">Jumlah</label>
+              <div class="col-sm-4">
+                <input type="number" class="form-control" name="jumo1" id="jumo1">
               </div>
-              
+            </div>
+            
+            <!--menu drop down jenis tindakan-->
+            <div id="field-obat">
             </div>
 
             <!-- BUTTON BUAT NAMBAH OBAT -->
@@ -290,6 +291,7 @@
               <center>
               <input type="hidden" name="obat-num" id="obat-num" value="1">
               <input type="button" class="btn" name="btn-obat" id="btn-obat" value="+">
+              <input type="button" class="btn" name="btn-obat-" id="btn-obat-" value="-" style="display:none;">
               </center>
             </div>
 
