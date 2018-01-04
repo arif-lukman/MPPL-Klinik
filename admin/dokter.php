@@ -54,12 +54,13 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -99,7 +100,7 @@
           <hr>
         	<div class="row mt">
         		<div class="col-lg-12">
-              
+
             <form role="search">
               <div class="form-group">
                 <div id="tabeldata_filter" class="dataTables_filter">
@@ -107,7 +108,7 @@
                 </div>
               </div>
             </form>
-            
+
         		<table class="table table-striped table-advance table-hover col-lg-12">
             <thead>
               <th>Nama</th>
@@ -155,12 +156,12 @@
                   echo "<span class=\"label label-danger\">non-aktif</span>";
 
                 }
-                 
+
                 echo "
                     </td>
                     <td align =\"right\">
                       <a href=\"edit_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                    
+
                     	<a href=\"act/hapus_dokter.php?id_dokter=$dokter[id_dokter]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                     </td>
                   </tr>
@@ -172,7 +173,7 @@
             <a href="add_dokter.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
         		</div>
         	</div>
-		
+
 	      </section>
     </section>
     <!--MAIN CONTENT END-->
@@ -195,7 +196,7 @@
   <!--common script for all pages-->
   <script src="../assets/js/common-scripts.js"></script>
   <!--script for this page-->
-    
+
   <script>
       //custom select box
 
