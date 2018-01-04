@@ -8,7 +8,6 @@
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
   //
   $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
-  $resultTerapi = $conn->query("SELECT id_terapi, nama_terapi, kategori FROM terapi");
   $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
   //echo SelectTarget($_SESSION['tgt']);
 
@@ -60,10 +59,6 @@
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
-
-    <script src="../assets/js/jquery-3.2.1.min.js"></script>
-    <script src="../assets/js/ours/jam.js"></script>
-    <script src="../assets/js/ours/diagnosa.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -248,25 +243,17 @@
               <label class="col-sm-2 col-sm-2 control-label">Jenis Terapi</label>
               <div class="col-sm-10">
                 <!--DROPDOWN NAMA DOKTER-->
-                <select class="form-control" name="idt1" id="idt1">
+                <select class="form-control" name="idt1" id="idt1" onchange="LoadTarifTerapi(this);">
                   <option disabled selected hidden>Pilih kategori terlebih dahulu</option>
-                  <?php
-                    /*
-                    while($terapi = $resultTerapi->fetch_assoc()){
-                      echo "
-                        <option value=\"$terapi[id_terapi]\" id=\"$terapi[kategori]\">$terapi[nama_terapi]</option>
-                      ";
-                    }
-                    */
-                  ?>
                 </select>
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tarif</label>
+              <label class="col-sm-2 control-label">Tarif (Rp)</label>
               <div class="col-sm-10">
                 <input type="number" class="form-control" name="tarift1" id="tarift1">
+                <div id="minmaxt1"></div>
               </div>
             </div>
 					
@@ -295,12 +282,17 @@
             <h5>1 )</h5>
 						<div class="form-group">
               <div class="col-sm-3"></div>
-							<label class="col-sm-2 control-label">Pilih Obat</label>
+							<label class="col-sm-2 control-label">Nama Obat</label>
 							<div class="col-sm-4">
-								<select class="form-control" id="ido1" name="ido1">
-									<option value="tindakan 1">tindakan 1</option>
-                  <option value="tindakan 2">tindakan 2</option>
-                  <option value="tindakan 3">tindakan 3</option>
+								<select class="form-control" id="ido1" name="ido1" onchange="CalcHargaObat(this);">
+                  <option disabled selected hidden>Pilih Nama Obat</option>
+									<?php
+                    while($obat = $resultObat->fetch_assoc()){
+                      echo "
+                        <option value=\"$obat[id_obat]\">$obat[nama_obat]</option>
+                      ";
+                    }
+                  ?>
 								</select>
 							</div>
 						</div>
@@ -312,7 +304,12 @@
                 <input type="number" class="form-control" name="jumo1" id="jumo1">
               </div>
             </div>
-            
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="hargao1" style="text-align: center;"></div>
+            </div>
+
             <!--menu drop down jenis tindakan-->
             <div id="field-obat">
             </div>
@@ -384,6 +381,9 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+    <script src="../assets/js/ours/jam.js"></script>
+    <script src="../assets/js/ours/diagnosa.js"></script>
 
   <script>
       //custom select box

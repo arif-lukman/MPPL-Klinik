@@ -84,7 +84,8 @@ $(document).ready(function(){
               "<label class=\"col-sm-2 col-sm-2 control-label\">Kategori</label>" +
               "<div class=\"col-sm-10\">" +
                 "<select class=\"form-control\" name=\"idk" + val + "\" id=\"idk" + val + "\" onclick=\"SetChildOpt(this);\">" +
-                  katOpts +
+                    "<option disabled selected hidden>-- Pilih Kategori Terapi --</option>" +
+                    katOpts +
                 "</select>" +
               "</div>" +
             "</div>" +
@@ -93,16 +94,17 @@ $(document).ready(function(){
               "<label class=\"col-sm-2 col-sm-2 control-label\">Jenis Terapi</label>" +
               "<div class=\"col-sm-10\">" +
                 "<!--DROPDOWN NAMA DOKTER-->" +
-                "<select class=\"form-control\" name=\"idt" + val + "\" id=\"idt" + val + "\">" +
-                  terapi +
+                "<select class=\"form-control\" name=\"idt" + val + "\" id=\"idt" + val + "\" onchange=\"LoadTarifTerapi(this);\">" +
+                  "<option disabled selected hidden>Pilih kategori terlebih dahulu</option>" +
                 "</select>" +
               "</div>" +
             "</div>" +
     		
             "<div class=\"form-group\">" +
-                "<label class=\"col-sm-2 control-label\">Tarif</label>" +
+                "<label class=\"col-sm-2 control-label\">Tarif (Rp)</label>" +
                 "<div class=\"col-sm-10\">" +
-                    "<textarea class=\"form-control\" name=\"tarift" + val + "\" id=\"tarift" + val + "\" style=\"max-width: 100%; min-width: 100%\"></textarea>" +
+                    "<input type=\"number\" class=\"form-control\" name=\"tarift" + val + "\" id=\"tarift" + val + "\">" +
+                    "<div id=\"minmaxt" + val + "\"></div>" +
                 "</div>" +
             "</div>" +
 
@@ -122,6 +124,15 @@ $(document).ready(function(){
     //APPEND OBAT
     $("#btn-obat").click(function(){
     	var val = parseInt($("#obat-num").val()) + 1;
+        var batOpts = "";
+
+        $.ajax({
+            async:false,
+            url:'ajax/obat.php',
+            success: function(data){
+                batOpts = data;
+            }
+        });
 
         $("#field-obat").append("" +
     	//isi
@@ -132,10 +143,9 @@ $(document).ready(function(){
                 "<div class=\"col-sm-3\"></div>" +
     			"<label class=\"col-sm-2 control-label\">Pilih Obat</label>" +
     			"<div class=\"col-sm-4\">" +
-    				"<select class=\"form-control\" id=\"ido" + val + "\" name=\"ido" + val + "\">" +
-    					"<option value=\"tindakan 1\">tindakan 1</option>" +
-    					"<option value=\"tindakan 2\">tindakan 2</option>" +
-    					"<option value=\"tindakan 3\">tindakan 3</option>" +
+    				"<select class=\"form-control\" id=\"ido" + val + "\" name=\"ido" + val + "\" onchange=\"CalcHargaObat(this);\">" +
+                        "<option disabled selected hidden>Pilih Nama Obat</option>" +
+    					batOpts +
     				"</select>" +
     			"</div>" +
     		"</div>" +
@@ -147,6 +157,11 @@ $(document).ready(function(){
     	          	"<input type=\"number\" class=\"form-control\" name=\"jumo" + val + "\" id=\"jumo" + val + "\">" +
     	        "</div>" +
           	"</div>" +
+
+            "<div class=\"form-group\">" +
+              "<div class=\"col-sm-3\"></div>" +
+              "<div class=\"col-sm-6\" id=\"hargao" + val + "\" style=\"text-align: center;\"></div>" +
+            "</div>" +
         "</div>" +
     	"");
 
@@ -202,6 +217,7 @@ $(document).ready(function(){
 });
 
 //Non jquery functions that will be called
+//Nested option on terapi
 function SetChildOpt(elm){
     //var idknum = elm.id.slice(-1);
     //var elmHtml = elm.innerHTML;
@@ -210,11 +226,40 @@ function SetChildOpt(elm){
     //console.log(elmHtml);
     //$("#idt" + elm).prop("disabled", false);
 
-    console.log(elm);
+    //console.log(elm);
     $.get("ajax/terapi.php?id_kat=" + elm.value, function(data, status){
         $("#idt" + elm.id.slice(-1)).html(data);
-        console.log("#idt"+elm);
-        console.log(status);
-        console.log(data);
+        //LoadTarifTerapi($("#idt" + elm.id.slice(-1));
+        //console.log("#idt"+elm);
+        //console.log(status);
+        //console.log(data);
     });
 }
+
+//Terapi price
+function LoadTarifTerapi(elm){
+    //console.log(elm);
+    $.get("ajax/harga_terapi.php?id_terapi=" + elm.value, function(data, status){
+        $("#tarift" + elm.id.slice(-1)).val(data);
+        //console.log("#tarift"+elm);
+        //console.log(status);
+        //console.log(data);
+    });
+
+    $.get("ajax/min_max_tarif.php?id_terapi=" + elm.value, function(data, status){
+        $("#minmaxt" + elm.id.slice(-1)).html(data);
+        //console.log("#minmaxt1t"+elm);
+        //console.log(status);
+        //console.log(data);
+    });
+}
+
+//Hitung harga obat
+function CalcHargaObat(elm){
+    $.get("ajax/harga_obat.php?id_obat=" + elm.value, function(data, status){
+        $("#hargao" + elm.id.slice(-1)).html(data);
+    });
+}
+
+//Cek terapi price
+//function 

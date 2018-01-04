@@ -8,8 +8,8 @@
 	//balikin
 	$s = "";
 	
-	while($kat = $result->fetch_assoc()){
-		$s = $s . "<option value=\"$kat[id_kategori_terapi]\">$kat[nama_kategori_terapi]</option>";
+	while($obat = $result->fetch_assoc()){
+		$s = $s . "<option value=\"$obat[id_obat]\">$obat[nama_obat]</option>";
 	}
 
 	echo $s;
