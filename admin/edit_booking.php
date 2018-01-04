@@ -55,7 +55,7 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
@@ -176,7 +176,7 @@
                       <label class="col-sm-2 col-sm-2 control-label">Nama Lengkap Pasien</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="nama_pasien" id="nama_pasien" onkeyup="checkStat()"  autocomplete="off" value=<?php echo "\"$booking[nama_pasien]\"";?> required>
-                        <input type="hidden" name="id_pasien" id="id_pasien" 
+                        <input type="hidden" name="id_pasien" id="id_pasien"
                         <?php
                           if($booking['id_pasien'] != null)
                             echo "value=\"$booking[id_pasien]\"";
@@ -234,16 +234,19 @@
                       </div>
                     </div>
 
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <center>
+                      <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                      <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+                    </center>
                     <br>
                   </form>
                 </div>
-              </div><!-- col-lg-12-->       
+              </div><!-- col-lg-12-->
             </div><!-- /row -->
               </center>
               </div>
             </div>
-      
+
           </section>
       </section><!-- /MAIN CONTENT -->
 
@@ -267,7 +270,7 @@
 
     <!-- Our Javascript -->
     <script src="../assets/js/ours/jam.js"></script>
-    
+
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -282,7 +285,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+
   <script>
       //custom select box
 

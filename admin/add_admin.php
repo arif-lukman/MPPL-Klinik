@@ -52,7 +52,7 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
@@ -190,16 +190,19 @@
                       </div>
                     </div>
 
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <center>
+                      <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                      <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+                    </center>
                     <br>
                   </form>
                 </div>
-              </div><!-- col-lg-12-->       
+              </div><!-- col-lg-12-->
             </div><!-- /row -->
               </center>
           		</div>
           	</div>
-			
+
 		      </section>
       </section><!-- /MAIN CONTENT -->
 
@@ -223,7 +226,7 @@
 
     <!-- Our Javascript -->
     <script src="../assets/js/ours/jam.js"></script>
-    
+
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -235,7 +238,7 @@
 
     <!--common script for all pages-->
     <script src="../assets/js/common-scripts.js"></script>
-    
+
     <script>
         //custom select box
 

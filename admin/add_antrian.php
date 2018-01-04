@@ -59,10 +59,11 @@ $tanggal = date('Y-m-d');
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
+
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -195,16 +196,19 @@ $tanggal = date('Y-m-d');
                       </div>
                     </div>
 
-                    <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+                    <center>
+                      <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                      <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+                    </center>
                     <br>
                   </form>
                 </div>
-              </div><!-- col-lg-12-->       
+              </div><!-- col-lg-12-->
             </div><!-- /row -->
               </center>
           		</div>
           	</div>
-			
+
 		      </section>
       </section><!-- /MAIN CONTENT -->
 
@@ -228,7 +232,7 @@ $tanggal = date('Y-m-d');
 
     <!-- Our Javascript -->
     <script src="../assets/js/ours/jam.js"></script>
-    
+
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -243,7 +247,7 @@ $tanggal = date('Y-m-d');
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+
   <script>
       //custom select box
 
