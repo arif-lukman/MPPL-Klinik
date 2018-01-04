@@ -6,6 +6,10 @@
 
   //Ambil data
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
+  //
+  $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
+  $resultTerapi = $conn->query("SELECT id_terapi, nama_terapi, kategori FROM terapi");
+  $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -224,19 +228,46 @@
             <h4>Terapi</h4><hr>
             <h5>1 )</h5>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Terapi</label>
-							<div class="col-sm-4">
-								<select class="form-control" id="idt1" name="idt1">
-								  <option value="tindakan 1">tindakan 1</option>
-                  <option value="tindakan 2">tindakan 2</option>
-                  <option value="tindakan 3">tindakan 3</option>
-								</select>
-							</div>
+              <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+              <div class="col-sm-10">
+                <!--DROPDOWN NAMA DOKTER-->
+                <select class="form-control" name="idk1" id="idk1" onchange="SetChildOpt(this);">
+                  <option disabled selected hidden>-- Pilih Kategori Terapi --</option>
+                  <?php
+                    while($kat = $resultKat->fetch_assoc()){
+                      echo "
+                        <option value=\"$kat[id_kategori_terapi]\">$kat[nama_kategori_terapi]</option>
+                      ";
+                    }
+                  ?>
+                </select>
+              </div>
+            </div>
 
-							<label class="col-sm-2 control-label">Tarif</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" name="tarift1" id="tarift1">
-							</div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Jenis Terapi</label>
+              <div class="col-sm-10">
+                <!--DROPDOWN NAMA DOKTER-->
+                <select class="form-control" name="idt1" id="idt1">
+                  <option disabled selected hidden>Pilih kategori terlebih dahulu</option>
+                  <?php
+                    /*
+                    while($terapi = $resultTerapi->fetch_assoc()){
+                      echo "
+                        <option value=\"$terapi[id_terapi]\" id=\"$terapi[kategori]\">$terapi[nama_terapi]</option>
+                      ";
+                    }
+                    */
+                  ?>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Tarif</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" name="tarift1" id="tarift1">
+              </div>
             </div>
 					
 						<div class="form-group">

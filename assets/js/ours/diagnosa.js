@@ -50,27 +50,62 @@ $(document).ready(function(){
     //APPEND TERAPI
     $("#btn-terapi").click(function(){
     	var val = parseInt($("#terapi-num").val()) + 1;
+        var katOpts = "";
+        var terapi = "";
 
+        //data kategori terapi
+        //$.get("ajax/kategori_terapi.php", function(data, status){
+         //   katOpts = data;
+        //});
+
+        $.ajax({
+            async:false,
+            url:'ajax/kategori_terapi.php',
+            success: function(data){
+                katOpts = data;
+            }
+        });
+
+        //data terapi
+        $.ajax({
+            async:false,
+            url:'ajax/terapi.php',
+            success: function(data){
+                terapi = data;
+            }
+        });
+
+        //console.log(katOpts);
         $("#field-terapi").append("" +
     	//isi
         "<div class=\"appterapi" + val + "\">" +
         	"<h5>" + val + " )</h5>" +
-        	"<div class=\"form-group\">" +
-    			"<label class=\"col-sm-2 control-label\">Terapi</label>" +
-    			"<div class=\"col-sm-4\">" +
-    				"<select class=\"form-control\" id=\"idt" + val + "\" name=\"idt" + val + "\">" +
-    				  "<option value=\"tindakan 1\">tindakan 1</option>" +
-    				  "<option value=\"tindakan 2\">tindakan 2</option>" +
-    				  "<option value=\"tindakan 3\">tindakan 3</option>" +
-    				"</select>" +
-    			"</div>" +
+            "<div class=\"form-group\">" +
+              "<label class=\"col-sm-2 col-sm-2 control-label\">Kategori</label>" +
+              "<div class=\"col-sm-10\">" +
+                "<select class=\"form-control\" name=\"idk" + val + "\" id=\"idk" + val + "\" onclick=\"SetChildOpt(this);\">" +
+                  katOpts +
+                "</select>" +
+              "</div>" +
+            "</div>" +
 
-    			"<label class=\"col-sm-2 control-label\">Tarif</label>" +
-    			"<div class=\"col-sm-4\">" +
-    				"<input type=\"text\" class=\"form-control\" name=\"tarift" + val + "\" id=\"tarift" + val + "\" >" +
-    			"</div>" +
-          	"</div>" +
-    				
+            "<div class=\"form-group\">" +
+              "<label class=\"col-sm-2 col-sm-2 control-label\">Jenis Terapi</label>" +
+              "<div class=\"col-sm-10\">" +
+                "<!--DROPDOWN NAMA DOKTER-->" +
+                "<select class=\"form-control\" name=\"idt" + val + "\" id=\"idt" + val + "\">" +
+                  terapi +
+                "</select>" +
+              "</div>" +
+            "</div>" +
+    		
+            "<div class=\"form-group\">" +
+                "<label class=\"col-sm-2 control-label\">Tarif</label>" +
+                "<div class=\"col-sm-10\">" +
+                    "<textarea class=\"form-control\" name=\"tarift" + val + "\" id=\"tarift" + val + "\" style=\"max-width: 100%; min-width: 100%\"></textarea>" +
+                "</div>" +
+            "</div>" +
+
     		"<div class=\"form-group\">" +
     			"<label class=\"col-sm-2 control-label\">Keterangan</label>" +
     			"<div class=\"col-sm-10\">" +
@@ -156,4 +191,30 @@ $(document).ready(function(){
             $("#btn-obat-").hide();
         $("#obat-num").val(val);
     });
+
+    //SELECT OPTION
+    
+    //TERAPI
+    //$("select[id*='idk']").change(function(){
+    //    SetChildOpt(this);
+    //});
+
 });
+
+//Non jquery functions that will be called
+function SetChildOpt(elm){
+    //var idknum = elm.id.slice(-1);
+    //var elmHtml = elm.innerHTML;
+    //console.log(idknum);
+    //console.log("#idt" + idknum + " > option");
+    //console.log(elmHtml);
+    //$("#idt" + elm).prop("disabled", false);
+
+    console.log(elm);
+    $.get("ajax/terapi.php?id_kat=" + elm.value, function(data, status){
+        $("#idt" + elm.id.slice(-1)).html(data);
+        console.log("#idt"+elm);
+        console.log(status);
+        console.log(data);
+    });
+}
