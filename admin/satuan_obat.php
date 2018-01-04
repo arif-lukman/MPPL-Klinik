@@ -78,7 +78,7 @@
 
           //console.log("ajax/uname_status.php?uname=" + uname);
 
-          $.get("ajax/search_dokter.php?q=" + search, function(data, status){
+          $.get("ajax/search_satuanobat.php?q=" + search, function(data, status){
             $("tbody").html(data);
           });
         });
