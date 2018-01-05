@@ -15,11 +15,11 @@
 
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){
-		echo "<script> alert('Data berhasil diinputkan');
+		echo "<script> alert('Data berhasil diupdate');
 		location='../obat.php';
 		</script>";
 	} else {
-		echo "<script> alert('Data gagal diinputkan');
+		echo "<script> alert('Data gagal diupdate');
 		location='../obat.php';
 		</script>";
 	}

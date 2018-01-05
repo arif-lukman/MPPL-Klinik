@@ -104,9 +104,15 @@
                         <select class="form-control" name="satuan" id="satuan">
                           <?php
                             while($sat = $resultSat->fetch_assoc()){
-                              echo "
-                                <option value=\"$sat[id_satuan]\">$sat[nama_satuan]</option>
-                              ";
+							  if($obat['id_satuan'] == $sat['id_satuan']){
+                                echo "
+                                  <option value=\"$sat[id_satuan]\" selected>$sat[nama_satuan]</option>
+                                ";
+                              } else {
+                                echo "
+                                  <option value=\"$sat[id_satuan]\">$sat[nama_satuan]</option>
+                                ";
+                              }
                             }
                           ?>
                         </select>
