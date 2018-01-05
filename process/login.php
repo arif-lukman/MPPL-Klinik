@@ -45,11 +45,11 @@
 		switch ($usrType) {
 			case 1:
 				//Admin
-				return "../admin/antrian_hari_ini.php";
+				return "../admin/dashboard.php";
 				break;
 			case 2:
 				//Dokter
-				return "../dokter/antrian.php";
+				return "../dokter/dashboard.php";
 				break;
 			case 3:
 				//Perawat

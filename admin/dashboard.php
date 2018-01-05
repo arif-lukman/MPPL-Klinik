@@ -127,7 +127,7 @@
                   <p>Jenis Terapi Riona Dental Care</p>
                   </div></a>
           </div><!-- /row mt -->
-          <center>
+          
           <div class="row mt">
           <div class="col-lg-12">
             <div class="row">
@@ -143,13 +143,13 @@
                 <div class="profile-01 centered">
                   <a href="antrian_semua.php"><p>ANTRIAN KESELURUHAN</p></a>
                 </div>
-              </div><!--/content-panel -->
-            </div><!--/col-md-4 -->
-
+              </div>
+            </div>
+            <!--panel booking-->
             <a href="booking.php">
             <div class="col-md-4 col-sm-4 mb">
               <div class="weather pn">
-                <i class="fa fa-cloud fa-4x"></i>
+                <i class="fa fa-bell-o fa-4x"></i>
                 <h1>BOOKING</h1>
               </div>
             </div>
@@ -157,7 +157,7 @@
 
          </div>
        </div>
-     </div></center>
+     </div>
  </section>
     </section>
     <!--MAIN CONTENT END-->
