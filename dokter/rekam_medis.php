@@ -85,9 +85,6 @@
       <section id="main-content">
         <section class="wrapper">
 			  <div class="row mt">
-        <div class="col-lg-12">
-        <a href="antrian.php" style="float: left" class="btn btn-round btn-theme02" role="button"><< Kembali ke Daftar Antrian</a>
-        </div>
 				<div class="col-lg-2">
 				</div>
 
@@ -185,9 +182,9 @@
                           $diagnosa[diagnosa]
                         </td>
                         <td align =\"right\" rowspan=\"2\">
-                          <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                          <a href=\"edit_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                         
-                          <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                          <a href=\"act/hapus_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                         </td>
                       </tr>
                       <tr>
@@ -245,9 +242,9 @@
                           Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
                         </td>
                         <td align =\"right\">
-                          <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                          <a href=\"edit_terapi.php?id_terapi=$terapi[id_detail_transaksi_terapi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                         
-                          <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                          <a href=\"act/hapus_terapi.php?id_terapi=$terapi[id_detail_transaksi_terapi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                         </td>
                       </tr>
                     ";
@@ -300,9 +297,9 @@
                           Rp " . number_format($obat['biaya'], 0 , ",", ".") . "
                         </td>
                         <td align =\"right\">
-                        <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                        <a href=\"edit_obat.php?id_obat=$obat[id_detail_transaksi_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                       
-                        <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_detail_transaksi_obat]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                       </tr>
                     ";
@@ -354,9 +351,9 @@
                       $transaksi[diskon]%
                     </td>
                     <td align =\"right\" rowspan=\"2\">
-                      <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      <a href=\"edit_transaksi.php?id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                     
-                      <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                      <a href=\"act/hapus_transaksi.php?id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                     </td>
                   <tr>
                 ";
