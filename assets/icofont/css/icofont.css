@@ -1,0 +1,258 @@
+/**
+ * @package IcoFont by ThemeHunt - https://themehunt.com
+ * @version 1.0.0 Beta
+ * @author IcoFont http://icofont.com
+ * @copyright Copyright (c) 2018 IcoFont
+ * @license - http://icofont.com/license/
+*/
+
+@font-face {
+    font-family: 'icofont';
+    src: url('../fonts/icofont.eot?v=1.0.0-beta');
+    src: url('../fonts/icofont.eot?v=1.0.0-beta#iefix') format('embedded-opentype'),
+    url('../fonts/icofont.ttf?v=1.0.0-beta') format('truetype'),
+    url('../fonts/icofont.woff?v=1.0.0-beta') format('woff'),
+    url('../fonts/icofont.svg?v=1.0.0-beta#icofont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icofont {
+    font-family: 'IcoFont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icofont-aids:before {
+	content: "\ece9";
+}
+.icofont-ambulance:before {
+	content: "\ecea";
+}
+.icofont-autism:before {
+	content: "\eceb";
+}
+.icofont-bandage:before {
+	content: "\ecec";
+}
+.icofont-bed-patient:before {
+	content: "\eced";
+}
+.icofont-blind:before {
+	content: "\ecee";
+}
+.icofont-blood-drop:before {
+	content: "\ecef";
+}
+.icofont-blood-test:before {
+	content: "\ecf0";
+}
+.icofont-blood:before {
+	content: "\ecf1";
+}
+.icofont-capsule:before {
+	content: "\ecf2";
+}
+.icofont-crutches:before {
+	content: "\ecf3";
+}
+.icofont-dna-alt-1:before {
+	content: "\ecf4";
+}
+.icofont-dna:before {
+	content: "\ecf5";
+}
+.icofont-doctor-alt:before {
+	content: "\ecf6";
+}
+.icofont-doctor:before {
+	content: "\ecf7";
+}
+.icofont-drug-pack:before {
+	content: "\ecf8";
+}
+.icofont-drug:before {
+	content: "\ecf9";
+}
+.icofont-eye-alt:before {
+	content: "\ecfa";
+}
+.icofont-first-aid-alt:before {
+	content: "\ecfb";
+}
+.icofont-garbage:before {
+	content: "\ecfc";
+}
+.icofont-heart-alt:before {
+	content: "\ecfd";
+}
+.icofont-heartbeat:before {
+	content: "\ecfe";
+}
+.icofont-herbal:before {
+	content: "\ecff";
+}
+.icofont-hospital:before {
+	content: "\ed00";
+}
+.icofont-icu:before {
+	content: "\ed01";
+}
+.icofont-injection-syringe:before {
+	content: "\ed02";
+}
+.icofont-laboratory:before {
+	content: "\ed03";
+}
+.icofont-medical-sign-alt:before {
+	content: "\ed04";
+}
+.icofont-medical-sign:before {
+	content: "\ed05";
+}
+.icofont-nurse-alt:before {
+	content: "\ed06";
+}
+.icofont-nurse:before {
+	content: "\ed07";
+}
+.icofont-nursing-home:before {
+	content: "\ed08";
+}
+.icofont-operation-theater:before {
+	content: "\ed09";
+}
+.icofont-paralysis-disability:before {
+	content: "\ed0a";
+}
+.icofont-pills:before {
+	content: "\ed0b";
+}
+.icofont-prescription:before {
+	content: "\ed0c";
+}
+.icofont-pulse:before {
+	content: "\ed0d";
+}
+.icofont-stethoscope-alt:before {
+	content: "\ed0e";
+}
+.icofont-stethoscope:before {
+	content: "\ed0f";
+}
+.icofont-stretcher:before {
+	content: "\ed10";
+}
+.icofont-surgeon-alt:before {
+	content: "\ed11";
+}
+.icofont-surgeon:before {
+	content: "\ed12";
+}
+.icofont-tablets:before {
+	content: "\ed13";
+}
+.icofont-test-bottle:before {
+	content: "\ed14";
+}
+.icofont-test-tube:before {
+	content: "\ed15";
+}
+.icofont-thermometer-alt:before {
+	content: "\ed16";
+}
+.icofont-tooth:before {
+	content: "\ed17";
+}
+.icofont-xray:before {
+	content: "\ed18";
+}
+
+/*Font size*/
+.icofont-lg {
+    font-size: 1.33333333em;
+    line-height: .75em;
+    vertical-align: -15%
+}
+
+.icofont-2x {
+    font-size: 2em
+}
+
+.icofont-3x {
+    font-size: 3em
+}
+
+.icofont-4x {
+    font-size: 4em
+}
+
+.icofont-5x {
+    font-size: 5em
+}
+
+.icofont-fw {
+    display: inline-block;
+    width: 1.28571429em;
+    text-align: center
+}
+
+/*Fixed Width Icons*/
+.icofont-fw {
+    width: 1.28571429em;
+    text-align: center;
+}
+
+/*Custom list icons*/
+.icofont-ul {
+    padding-left: 0;
+    margin-left: 2.14285714em;
+    list-style-type: none;
+}
+.icofont-ul>li {
+    position: relative;
+}
+.icofont-li {
+    position: absolute;
+    left: -2.14285714em;
+    width: 2.14285714em;
+    top: .14285714em;
+    text-align: center;
+}
+
+/*Animation*/
+.icofont-rotate {
+    display: inline-block;
+    -webkit-animation: icofont-rotate 2s infinite linear;
+    animation: icofont-rotate 2s infinite linear
+}
+
+@-webkit-keyframes icofont-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
+}
+
+@keyframes icofont-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
+}

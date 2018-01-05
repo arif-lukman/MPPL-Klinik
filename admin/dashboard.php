@@ -54,6 +54,7 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" >
+    <link href="../assets/icofont/css/icofont.css" rel="stylesheet" >
     <link rel="stylesheet" type="text/css" href="../assets/lineicons/style.css"> 
 
     <!-- Custom styles for this template -->
@@ -80,7 +81,7 @@
                   <a href="dokter.php"> 
                   <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                     <div class="box1">
-                      <span class="li_heart"></span>
+                      <span class="icofont icofont-doctor"></span>
                       <h3>DOKTER</h3>
                     </div>
                   <p>Data Dokter Riona Dental Care</p>
@@ -90,7 +91,7 @@
                   <a href="perawat.php"> 
                   <div class="col-md-2 col-sm-2 box0">
                     <div class="box1">
-                      <span class="li_heart"></span>
+                      <span class="icofont icofont-nurse-alt"></span>
                       <h3>PERAWAT</h3>
                     </div>
                   <p>Data Perawat Riona Dental Care</p>
@@ -100,7 +101,7 @@
                   <a href="pasien.php"> 
                   <div class="col-md-2 col-sm-2 box0">
                     <div class="box1">
-                      <span class="li_heart"></span>
+                      <span class="fa fa-users"></span>
                       <h3>PASIEN</h3>
                     </div>
                   <p>Data Pasien Riona Dental Care</p>
@@ -110,7 +111,7 @@
                   <a href="obat.php"> 
                   <div class="col-md-2 col-sm-2 box0">
                     <div class="box1">
-                      <span class="li_heart"></span>
+                      <span class="icofont icofont-pills"></span>
                       <h3>OBAT</h3>
                     </div>
                   <p>Daftar Obat Riona Dental Care</p>
@@ -120,7 +121,7 @@
                   <a href="terapi.php"> 
                   <div class="col-md-2 col-sm-2 box0">
                     <div class="box1">
-                      <span class="fa fa-home"></span>
+                      <span class="icofont icofont-prescription"></span>
                       <h3>TERAPI</h3>
                     </div>
                   <p>Jenis Terapi Riona Dental Care</p>
