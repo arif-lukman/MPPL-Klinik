@@ -5,6 +5,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $dataDokter  = $conn->query("SELECT * FROM user_klinik, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=dokter.id_user_klinik");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -77,7 +78,7 @@
             <!--logo start-->
             <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
             <!--logo end-->
-            
+
         </header>
       <!--header end-->
 
@@ -126,15 +127,11 @@
           <section class="wrapper">
           	<h2><center>Profile</center></h2>
             <hr>
-			<?php
-				$sql  = "SELECT * FROM user_klinik, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=dokter.id_user_klinik";
-				$result = mysqli_query($conn, $sql);
-			?>
-			
-          	<div class="container">
+
+      <div class="container">
 				<table class="table table-striped">
 				<?php
-				while($row=mysqli_fetch_assoc($result))
+				while($row = $dataDokter->fetch_assoc()){
 				echo "
 				<tr>
 					<td> Nama </td>
@@ -162,9 +159,10 @@
 					<td> ".$row['email']."</td>
 				</tr>
 				";
+      }
 				?>
           		</table>
-          	</div>
+            </div>
 			<br>
 			<button style="float: left"><a href="gantipass.php">Change Password</a></button>
                     <br>
