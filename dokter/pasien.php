@@ -122,7 +122,7 @@
                   echo "
                     <tr>
                       <td>
-                        $pasien[nama_pasien]
+                        <a href=\"rekam_medis.php?id_pasien=$pasien[id_pasien]\">$pasien[nama_pasien]</a>
                       </td>
                       <td>
                         $pasien[alamat]
