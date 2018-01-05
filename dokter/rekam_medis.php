@@ -172,29 +172,36 @@
                 ";
 
                 //diagnosa
-                while ($diagnosa = $resultDiagnosa->fetch_assoc()) {
-                  echo "
-                      <td style=\"border-right: solid 2px #000000; border-bottom: solid 2px #000000; text-align: right;\">
-                        $diagnosa[k1]
-                      </td>
-                      <td style=\"border-left: solid 2px #000000; border-bottom: solid 2px #000000; text-align: left;\">
-                        $diagnosa[k2]
-                      </td>
-                      <td rowspan=\"2\">
-                        $diagnosa[diagnosa]
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style=\"border-right: solid 2px #000000; border-top: solid 2px #000000; text-align: right;\">
-                        $diagnosa[k3]
-                      </td>
-                      <td style=\"border-left: solid 2px #000000; border-top: solid 2px #000000; text-align: left;\">
-                        $diagnosa[k4]
-                      </td>
-                    </tr>
-                  ";
-                }
+                if($rowDiagnosa != 0){
+                  while ($diagnosa = $resultDiagnosa->fetch_assoc()) {
+                    echo "
+                        <td style=\"border-right: solid 2px #000000; border-bottom: solid 2px #000000; text-align: right;\">
+                          $diagnosa[k1]
+                        </td>
+                        <td style=\"border-left: solid 2px #000000; border-bottom: solid 2px #000000; text-align: left;\">
+                          $diagnosa[k2]
+                        </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[diagnosa]
+                        </td>
+                        <td align =\"right\" rowspan=\"2\">
+                          <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                        
+                          <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style=\"border-right: solid 2px #000000; border-top: solid 2px #000000; text-align: right;\">
+                          $diagnosa[k3]
+                        </td>
+                        <td style=\"border-left: solid 2px #000000; border-top: solid 2px #000000; text-align: left;\">
+                          $diagnosa[k4]
+                        </td>
+                      </tr>
+                      ";
+                  }
               }
+            }
           ?>
         </tbody>
   			</table>
@@ -217,29 +224,35 @@
 
                 $rowTerapi = $resultTerapi->num_rows;
 
-                echo "
-                  <tr>
-                    <td rowspan=\"" . $rowTerapi . "\">
-                      $transaksi[tanggal]
-                    </td>
-                ";
-
-                //diagnosa
-                while ($terapi = $resultTerapi->fetch_assoc()) {
+                if($rowTerapi != 0){
                   echo "
-                      <td>
-                        $terapi[nama_terapi]
+                    <tr>
+                      <td rowspan=\"" . $rowTerapi . "\">
+                        $transaksi[tanggal]
                       </td>
-                      <td>
-                        $terapi[keterangan]
-                      </td>
-                      <td>
-                        Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
-                      </td>
-                    </tr>
                   ";
-                }
 
+                  //diagnosa
+                  while ($terapi = $resultTerapi->fetch_assoc()) {
+                    echo "
+                        <td>
+                          $terapi[nama_terapi]
+                        </td>
+                        <td>
+                          $terapi[keterangan]
+                        </td>
+                        <td>
+                          Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
+                        </td>
+                        <td align =\"right\">
+                          <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                        
+                          <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                        </td>
+                      </tr>
+                    ";
+                  }
+                }
               }
           ?>
         </tbody>
@@ -286,6 +299,11 @@
                         <td>
                           Rp " . number_format($obat['biaya'], 0 , ",", ".") . "
                         </td>
+                        <td align =\"right\">
+                        <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      
+                        <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                      </td>
                       </tr>
                     ";
                   }
@@ -304,7 +322,7 @@
           <th>Perawat</th>
           <th>Jam Selesai</th>
           <th>Metode Pembayaran</th>
-          <th>Biaya</th>
+          <th>Biaya Total</th>
           <th>Diskon</th>
         </thead>
         <tbody>
@@ -334,7 +352,12 @@
                     </td>
                     <td>
                       $transaksi[diskon]%
-                    </td>                    
+                    </td>
+                    <td align =\"right\" rowspan=\"2\">
+                      <a href=\"#\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                    
+                      <a href=\"#\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                    </td>
                   <tr>
                 ";
               }
