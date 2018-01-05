@@ -11,7 +11,7 @@
 
 	//SQL command
 	//username
-	$sql1 = "UPDATE obat SET nama_obat = '$nama_obat', satuan = '$satuan', stok = '$jumlah', harga = '$harga' WHERE id_obat = '$_GET[id_obat]'";
+	$sql1 = "UPDATE obat SET nama_obat = '$nama_obat', id_satuan = '$satuan', stok = '$jumlah', harga = '$harga' WHERE id_obat = '$_GET[id_obat]'";
 
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){
