@@ -114,19 +114,12 @@
                         echo "Pasien Baru";
                       }
                       echo "
-                      </td>
-                      <td align =\"right\">
-                        <a href=\"edit_booking.php?id_booking=$booking[id_booking]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                        <a href=\"act/hapus_booking.php?id_booking=$booking[id_booking]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                      </td>
                     </tr>
                   ";
                 }
                 ?>
               </tbody>
               </table>
-              <a href="add_booking.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
 			

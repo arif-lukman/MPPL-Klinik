@@ -1,7 +1,8 @@
 <?php
-  //Library
+ //Library
   include "../connection/connect.php";
   include "../process/session_check.php";
+  include "headside.php";
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
@@ -17,11 +18,11 @@
         break;
       case 2:
         //Dokter
-        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
-        return "SELECT * FROM perawat WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
     }
   }
@@ -67,61 +68,10 @@
   <body>
 
   <section id="container" >
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header blue-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
-            <!--logo end-->
-
-        </header>
-      <!--header end-->
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-
-              	  <p class="centered"><a href="profile.php"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
-
-                  <li class="sub-menu">
-                      <a href="profile.php" >
-                          <i class="fa"></i>
-                          <span>PROFILE</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="antrian.php" >
-                          <i class="fa"></i>
-                          <span>ANTRIAN</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="../process/logout.php" >
-                          <i class="fa"></i>
-                          <span>LOGOUT</span>
-                      </a>
-                  </li>
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
+       <?php
+        echo $headbar;
+        echo $sidebar;
+      ?>
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
