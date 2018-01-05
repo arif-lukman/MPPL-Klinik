@@ -154,7 +154,8 @@ $(document).ready(function(){
     	        "<div class=\"col-sm-3\"></div>" +
     	        "<label class=\"control-label col-sm-2\">Jumlah</label>" +
     	        "<div class=\"col-sm-4\">" +
-    	          	"<input type=\"number\" class=\"form-control\" name=\"jumo" + val + "\" id=\"jumo" + val + "\">" +
+    	          	"<input type=\"number\" class=\"form-control\" name=\"jumo" + val + "\" id=\"jumo" + val + "\" onkeyup=\"CalcHargaObat(document.getElementById('ido" + val + "'));\">" +
+                    "<input type=\"hidden\" name=\"hrgo" + val + "\" id=\"hrgo" + val + "\">" +
     	        "</div>" +
           	"</div>" +
 
@@ -257,9 +258,24 @@ function LoadTarifTerapi(elm){
 //Hitung harga obat
 function CalcHargaObat(elm){
     $.get("ajax/harga_obat.php?id_obat=" + elm.value, function(data, status){
-        $("#hargao" + elm.id.slice(-1)).html(data);
+        $("#hargao" + elm.id.slice(-1)).html("Harga : Rp " + addCommas(data * $("#jumo" + elm.id.slice(-1)).val()));
+        $("#hrgo" + elm.id.slice(-1)).val(data * $("#jumo" + elm.id.slice(-1)).val());
     });
 }
 
 //Cek terapi price
 //function 
+
+
+function addCommas(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}

@@ -8,7 +8,8 @@
 	//balikin
 	$data = $result->fetch_assoc();
 
-	echo "Harga: Rp " . number_format($data['harga'], 0, ".", ",");
+	//echo "Harga: Rp " . number_format($data['harga'], 0, ".", ",");
+	echo $data['harga'];
 
 	//Fungsi
 	function GetData($conn, $sql){

@@ -19,7 +19,7 @@
 
 	//SQL command
 	$usr = GetData($conn, "SELECT AUTO_INCREMENT AS max FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'klinik' AND TABLE_NAME = 'user_klinik'");
-	$maxUsr = $usr['max'] + 1;
+	$maxUsr = $usr['max'];
 	//dokter
 	$sql1 = "INSERT INTO dokter(no_reg_dokter, nama_dokter, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status, id_user_klinik) VALUES ('$no_reg_dokter', '$nama_dokter', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status', '$maxUsr')";
 	//username

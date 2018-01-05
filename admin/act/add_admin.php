@@ -19,7 +19,7 @@
 	//SQL command
 	//ambil max value id dari tabel dokter ama user_klinik
 	$usr = GetData($conn, "SELECT AUTO_INCREMENT AS max FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'klinik' AND TABLE_NAME = 'user_klinik'");
-	$maxUsr = $usr['max'] + 1;
+	$maxUsr = $usr['max'];
 	//admin
 	$sql1 = "INSERT INTO admin(nama_admin, alamat, tanggal_lahir, jenis_kelamin, no_telp, email, status, id_user_klinik) VALUES ('$nama_admin', '$alamat', '$tanggal_lahir', '$jenis_kelamin', '$no_telp', '$email', '$status', '$maxUsr')";
 	//username
