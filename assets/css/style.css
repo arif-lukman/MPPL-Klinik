@@ -9,7 +9,7 @@ Premium: http://www.gridgum.com
 /* Import fonts */
 @import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
-/* BASIC THEME CONFIGURATION */
+/* BASIC THEME CONFIsGURATION */
 body {
     color: #797979;
 	background: #f2f2f2;
@@ -1184,13 +1184,18 @@ PANELS CONFIGURATIONS
 
 /* Weather 1 */
 .weather {
-	background: url(../img/weather.jpg) no-repeat center top;
+	background: url(../img/profile-04.jpg) no-repeat center top;
 	text-align: center;
 	background-position: center center;
 }
 .weather i {
 	color: white;
 	margin-top: 45px;
+}
+.weather h1 {
+    color: white;
+    font-weight: 900;
+    letter-spacing: 1px;
 }
 .weather h2 {
 	color: white;
@@ -1504,7 +1509,7 @@ PANELS CONFIGURATIONS
 /* PROFILE PANELS */
 /* Profile 01*/
 #profile-01 {
-	background: url(../img/profile-01.jpg) no-repeat center top;
+	background: url(../img/profile-03.jpg) no-repeat center top;
 	margin-top: -15px;
 	background-attachment: relative;
 	background-position: center center;
@@ -1519,6 +1524,14 @@ PANELS CONFIGURATIONS
     -o-background-size: cover;
     background-size: cover;
 }
+#profile-01 h1 {
+    color: white;
+    font-weight: 900;
+    letter-spacing: 1px;
+    padding-top: 50px;
+    margin: 0px;
+    text-align: center;
+    }
 #profile-01 h3 {
 	color: white;
 	padding-top: 50px;
@@ -1532,11 +1545,11 @@ PANELS CONFIGURATIONS
 	font-weight: 900;
 }
 .profile-01 {
-	background: #68dff0;
+	background: #a63e87;
 	height: 50px;
 }
 .profile-01:hover {
-	background: #2f2f2f;
+	background: #7d3066;
   -webkit-transition: background-color 0.6s;
   -moz-transition: background-color 0.6s;
   -o-transition: background-color 0.6s;
@@ -1587,7 +1600,6 @@ PANELS CONFIGURATIONS
 	margin-right: 12px;
 	font-size: 20px;
 }
-
 
 /*spark line*/
 .chart {
@@ -1954,7 +1966,7 @@ label {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #68dff0;
+	background: #9c2ae4;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
