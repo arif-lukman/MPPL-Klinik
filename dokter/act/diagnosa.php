@@ -146,8 +146,11 @@
 
  	//echo "OBAT = " . $sqlObat . "<br>";
 
+ 	//AMBIL PARAM TRANSAKSI
+
+
  	//CREATE TRANSAKSI
- 	$sqlTransaksi = "";
+ 	$sqlTransaksi = "INSERT INTO transaksi(no_rekam_medis, id_dokter, id_perawat, tanggal, jam, jenis_pembayaran, biaya_total) VALUES ";
 
  	//Fungsi
 	function GetData($conn, $sql){

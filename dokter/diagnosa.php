@@ -9,6 +9,7 @@
   //
   $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
   $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
+  $resultPerawat = $conn->query("SELECT id_perawat, nama_perawat FROM perawat");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -322,6 +323,45 @@
               <input type="button" class="btn" name="btn-obat" id="btn-obat" value="+">
               <input type="button" class="btn" name="btn-obat-" id="btn-obat-" value="-" style="display:none;">
               </center>
+            </div>
+
+            <!--Form Perawat-->
+            <h4>Perawat</h4><hr>
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <label class="col-sm-2 control-label">Nama Perawat</label>
+              <div class="col-sm-4">
+                <select class="form-control" id="id_perawat" name="id_perawat" onchange="CalcHargaObat(this);">
+                  <option disabled selected hidden>Pilih Nama perawat</option>
+                  <?php
+                    while($perawat = $resultPerawat->fetch_assoc()){
+                      echo "
+                        <option value=\"$perawat[id_perawat]\">$perawat[nama_perawat]</option>
+                      ";
+                    }
+                  ?>
+                </select>
+              </div>
+            </div>
+
+            <!--Biaya Total & Metode Pembayaran-->
+            <h4>Biaya</h4><hr>
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Biaya Total : </h4></div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <label class="col-sm-2 control-label">Metode Pembayaran</label>
+              <div class="col-sm-4">
+                <select class="form-control" id="id_perawat" name="id_perawat" onchange="CalcHargaObat(this);">
+                  <option disabled selected hidden>Pilih Metode Pembayaran</option>
+                  <option>Tunai</option>
+                  <option>Kredit</option>
+                  <option>Debit</option>
+                </select>
+              </div>
             </div>
 
 						<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
