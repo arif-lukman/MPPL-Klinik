@@ -36,9 +36,21 @@
 		          	</a>
 		      	</li>
 		      	<li class=\"sub-menu\">
+		          	<a href=\"pasien.php\" >
+		              	<i class=\"fa\"></i>
+		              	<span>PASIEN</span>
+		          	</a>
+		      	</li>
+		      	<li class=\"sub-menu\">
 		          	<a href=\"antrian.php\" >
 		              	<i class=\"fa\"></i>
 		              	<span>ANTRIAN</span>
+		          	</a>
+		      	</li>
+		      	<li class=\"sub-menu\">
+		          	<a href=\"booking.php\" >
+		              	<i class=\"fa\"></i>
+		              	<span>BOOKING</span>
 		          	</a>
 		      	</li>
 		      	<li class=\"sub-menu\">
