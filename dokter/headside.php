@@ -6,7 +6,7 @@
 	            <div class=\"fa fa-bars tooltips\" data-placement=\"right\" data-original-title=\"Toggle Navigation\"></div>
 	        </div>
 	        <!--logo start-->
-	        <a href=\"index.php\" class=\"logo\"><img src=\"../assets/img/logordc2.png\" width=\"200\"></a>
+	        <a href=\"dashboard.php\" class=\"logo\"><img src=\"../assets/img/logordc2.png\" width=\"200\"></a>
 	        <!--logo end-->
 	        <div id=\"waktu\" class=\"waktu\" 
 	          style=\"
@@ -26,7 +26,7 @@
 	       	<!-- sidebar menu start-->
 	      	<ul class=\"sidebar-menu\" id=\"nav-accordion\">
 	      
-		  	  	<p class=\"centered\"><a href=\"profile.html\"><img src=\"../assets/img/ui-sam.jpg\" class=\"img-circle\" width=\"60\"></a></p>
+		  	  	<p class=\"centered\"><a href=\"dashboard.php\"><img src=\"../assets/img/ui-sam.jpg\" class=\"img-circle\" width=\"60\"></a></p>
 		  	  	<h5 class=\"centered\">$_SESSION[uid]</h5>
 
 		      	<li class=\"sub-menu\">

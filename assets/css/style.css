@@ -1108,13 +1108,16 @@ PANELS CONFIGURATIONS
 .white-panel p {
 	margin-top: 5px;
 	font-weight: 700;
-	margin-left: 15px;
+	margin-left: 0px;
 }
 .white-panel .white-header {
 	background: #4a3454;
 	padding: 3px;
 	margin-bottom: 15px;
 	color: #3a2c61;
+}
+.white-panel p {
+    color: #13356a;
 }
 .white-panel .small {
 	font-size: 12px;

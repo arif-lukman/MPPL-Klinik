@@ -98,6 +98,7 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
+                <div class="table-responsive">
 				<form role="search">
                 <div class="form-group">
                   <div id="tabeldata_filter" class="dataTables_filter">
@@ -150,6 +151,7 @@
               </table>
           		</div>
           	</div>
+          </div>
 			
 		      </section>
       </section><!-- /MAIN CONTENT -->

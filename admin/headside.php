@@ -6,7 +6,7 @@
 	            <div class=\"fa fa-bars tooltips\" data-placement=\"right\" data-original-title=\"Toggle Navigation\"></div>
 	        </div>
 	        <!--logo start-->
-	        <a href=\"index.php\" class=\"logo\"><img src=\"../assets/img/logordc2.png\" width=\"200\"></a>
+	        <a href=\"dashboard.php\" class=\"logo\"><img src=\"../assets/img/logordc2.png\" width=\"200\"></a>
 	        <!--logo end-->
 	        <div id=\"waktu\" class=\"waktu\" 
 	          style=\"
