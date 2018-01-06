@@ -100,7 +100,7 @@
 
  	//NILAI MAKSIMUM DARI MASING2 KOLOM
  	$maxDiag = max(sizeof($k1d), sizeof($k2d), sizeof($k3d), sizeof($k4d), sizeof($ketd));
- 	$maxTerapi = max(sizeof($idk), sizeof($idt), sizeof($tarift), sizeof($kett));
+ 	$maxTerapi = max(sizeof($idt), sizeof($tarift), sizeof($kett));
  	$maxObat = max(sizeof($ido), sizeof($jumo));
 
  	//echo $maxDiag;
@@ -118,7 +118,7 @@
 
  	//CREATE DIAGNOSA
  	for ($i=0; $i < $maxDiag; $i++) { 
- 		$sqlDiag = $sqlDiag . "('$maxTransaksi', '$k1d[$i]', '$k2d[$i]', '$k3d[$i]', '$k4d[$i]')";
+ 		$sqlDiag = $sqlDiag . "('$maxTransaksi', '$k1d[$i]', '$k2d[$i]', '$k3d[$i]', '$k4d[$i]', '$ketd[$i]')";
  		if($i < $maxDiag - 1){
  			$sqlDiag = $sqlDiag . ", ";
  		}
@@ -137,8 +137,13 @@
  	//echo "TERAPI = " . $sqlTerapi . "<br>";
 
  	//CREATE OBAT
- 	for ($i=0; $i < $maxObat; $i++) { 
- 		$sqlObat = $sqlObat . "('$maxTransaksi', '$ido[$i]', '$jumo[$i]', '$hrgo[$i]')";
+ 	for ($i=0; $i < $maxObat; $i++) {
+ 		if(isset($ido[$i]) && isset($jumo[$i]) && isset($hrgo[$i]))
+ 			$sqlObat = $sqlObat . "('$maxTransaksi', '$ido[$i]', '$jumo[$i]', '$hrgo[$i]')";
+ 		//echo $i;
+ 		//echo $ido[$i];
+ 		//echo $jumo[$i];
+ 		//echo $hrgo[$i];
  		if($i < $maxObat - 1){
  			$sqlObat = $sqlObat . ", ";
  		}
@@ -147,10 +152,44 @@
  	//echo "OBAT = " . $sqlObat . "<br>";
 
  	//AMBIL PARAM TRANSAKSI
-
+ 	$id_antrian = $_POST['id_antrian'];
+ 	$no_rekam_medis = $_POST['no_rekam_medis'];
+ 	$id_dokter = $_POST['id_dokter'];
+ 	$id_perawat = $_POST['id_perawat'];
+ 	$tanggal = date("Y-m-d");
+ 	$jam = date("H:i");
+ 	$metode_pembayaran = $_POST['metode_pembayaran'];
+ 	$biaya_total = $_POST["biaya_total"];
+ 	$diskon = $_POST["diskon"];
 
  	//CREATE TRANSAKSI
- 	$sqlTransaksi = "INSERT INTO transaksi(no_rekam_medis, id_dokter, id_perawat, tanggal, jam, jenis_pembayaran, biaya_total) VALUES ";
+ 	$sqlTransaksi = "INSERT INTO transaksi(no_rekam_medis, id_dokter, id_perawat, tanggal, jam, metode_pembayaran, biaya_total, diskon) VALUES 
+ 	('$no_rekam_medis', '$id_dokter', '$id_perawat', '$tanggal', '$jam', '$metode_pembayaran', '$biaya_total', '$diskon')";
+
+ 	//UPDATE ANTRIAN
+ 	$sqlAntrian = "UPDATE antrian SET status = 'Selesai', jam_selesai = '$jam' WHERE id_antrian = '$id_antrian'";
+
+ 	//echo "TRANSAKSI = " . $sqlTransaksi . "<br>";
+
+ 	if(isset($ido[0]) && isset($jumo[0]) && isset($hrgo[0]))
+ 		$sql = $sqlDiag . "; " . $sqlTerapi . "; " . $sqlObat . "; " . $sqlTransaksi . "; " . $sqlAntrian;
+ 	else
+ 		$sql = $sqlDiag . "; " . $sqlTerapi . "; " . $sqlTransaksi . "; " . $sqlAntrian;
+
+ 	//echo $sql;
+ 	if($conn->multi_query($sql) === TRUE){
+ 		echo "berhasil";
+		//echo "<script> alert('Data berhasil diinputkan');
+		//location='../antrian.php';
+		//</script>";
+	} else {
+		echo "gagal";
+		//echo "<script> alert('Data gagal diinputkan');
+		//location='../antrian.php';
+		//</script>";
+		//echo $conn->error();
+		echo mysqli_errno($conn) . ": " . mysqli_error($conn). "\n";
+	}
 
  	//Fungsi
 	function GetData($conn, $sql){

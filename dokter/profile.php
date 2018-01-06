@@ -1,10 +1,12 @@
 <?php
-  //Library
+ //Library
   include "../connection/connect.php";
   include "../process/session_check.php";
+  include "headside.php";
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
+  $dataDokter  = $conn->query("SELECT * FROM user_klinik, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=dokter.id_user_klinik");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -16,11 +18,11 @@
         break;
       case 2:
         //Dokter
-        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
-        return "SELECT * FROM perawat WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
     }
   }
@@ -66,75 +68,20 @@
   <body>
 
   <section id="container" >
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header blue-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
-            <!--logo end-->
-            
-        </header>
-      <!--header end-->
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-
-              	  <p class="centered"><a href="profile.php"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
-
-                  <li class="sub-menu">
-                      <a href="profile.php" >
-                          <i class="fa"></i>
-                          <span>PROFILE</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="antrian.php" >
-                          <i class="fa"></i>
-                          <span>ANTRIAN</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="../process/logout.php" >
-                          <i class="fa"></i>
-                          <span>LOGOUT</span>
-                      </a>
-                  </li>
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
+       <?php
+        echo $headbar;
+        echo $sidebar;
+      ?>
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
           	<h2><center>Profile</center></h2>
             <hr>
-			<?php
-				$sql  = "SELECT * FROM user_klinik, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=dokter.id_user_klinik";
-				$result = mysqli_query($conn, $sql);
-			?>
-			
-          	<div class="container">
+
+      <div class="container">
 				<table class="table table-striped">
 				<?php
-				while($row=mysqli_fetch_assoc($result))
+				while($row = $dataDokter->fetch_assoc()){
 				echo "
 				<tr>
 					<td> Nama </td>
@@ -162,9 +109,10 @@
 					<td> ".$row['email']."</td>
 				</tr>
 				";
+      }
 				?>
           		</table>
-          	</div>
+            </div>
 			<br>
 			<button style="float: left"><a href="gantipass.php">Change Password</a></button>
                     <br>

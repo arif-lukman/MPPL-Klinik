@@ -4,9 +4,11 @@
   include "../process/session_check.php";
   include "headside.php";
 
+  date_default_timezone_set("Asia/Jakarta");
+
   //Ambil data
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
-  $dataAntrian = $conn->query("SELECT antrian.id_pasien as id_pasien, antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter AND antrian.tanggal = '" . date("Y-m-d") . "'");
+  $dataAntrian = $conn->query("SELECT antrian.id_pasien as id_pasien, antrian.id_antrian as id_antrian, pasien.nama_pasien as nama_pasien, antrian.tanggal as tanggal, antrian.status as status, antrian.jam_daftar as jam_daftar, antrian.jam_layan as jam_layan, antrian.jam_selesai as jam_selesai, dokter.nama_dokter as nama_dokter FROM antrian, dokter, pasien WHERE antrian.id_pasien = pasien.id_pasien AND antrian.id_dokter = dokter.id_dokter AND antrian.status != 'Selesai' AND antrian.tanggal = '" . date("Y-m-d") . "'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -97,7 +99,7 @@
                   echo "
                     <tr>
                       <td>
-                        <a href=\"diagnosa.php?id_pasien=$antrian[id_pasien]\">$antrian[nama_pasien]</a>
+                        <a href=\"diagnosa.php?id_pasien=$antrian[id_pasien]&id_antrian=$antrian[id_antrian]\">$antrian[nama_pasien]</a>
                       </td>
                       <td>
                         $antrian[status]

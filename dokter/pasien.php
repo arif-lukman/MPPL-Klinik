@@ -6,8 +6,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataBooking = $conn->query("SELECT booking.id_booking as id_booking, booking.nama_pasien as nama_pasien, booking.tanggal as tanggal, booking.jam as jam, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter WHERE booking.id_dokter = dokter.id_dokter");
-  //echo "";
+  $dataPasien = $conn->query("SELECT * FROM pasien");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -59,12 +58,30 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<script type="text/javascript">
+      //JQUERY
+      $(document).ready(function(){
+        //search
+        $("#search").keyup(function(){
+          var search = document.getElementById("search").value;
+
+          //console.log("ajax/uname_status.php?uname=" + uname);
+
+          $.get("ajax/search_pasien.php?q=" + search, function(data, status){
+            $("tbody").html(data);
+          });
+        });
+      });
+    </script>
   </head>
 
   <body onload="startTime()">
@@ -77,48 +94,53 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Booking</center></h2>
+          	<h2><center>Data Pasien</center></h2>
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
+				<form role="search">
+                <div class="form-group">
+                  <div id="tabeldata_filter" class="dataTables_filter">
+                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
+                  </div>
+                </div>
+				</form>
+			  
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
-                <th>Nama Lengkap</th>
-                <th>Tanggal</th>
-                <th>Jam</th>
-                <th>Dokter</th>
-                <th>Status Pasien</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Tanggal Lahir</th>
+                <th>Pekerjaan</th>
+                <th>Nomor Telpon</th>
+                <th>Jenis Kelamin</th>
+                <th>Nomor Rekam Medis</th>
               </thead>
               <tbody>
                 <?php
-                while($booking = $dataBooking->fetch_assoc()){
+                while($pasien = $dataPasien->fetch_assoc()){
                   echo "
                     <tr>
                       <td>
-                        $booking[nama_pasien]
+                        <a href=\"rekam_medis.php?id_pasien=$pasien[id_pasien]\">$pasien[nama_pasien]</a>
                       </td>
                       <td>
-                        $booking[tanggal]
+                        $pasien[alamat]
                       </td>
                       <td>
-                        $booking[jam]
+                        $pasien[tanggal_lahir]
                       </td>
                       <td>
-                        $booking[nama_dokter]
+                        $pasien[pekerjaan]
                       </td>
                       <td>
-                      ";
-                      if($booking['status_pasien'] === '1'){
-                        echo "Pasien Lama";
-                      } else {
-                        echo "Pasien Baru";
-                      }
-                      echo "
+                        $pasien[no_telp]
                       </td>
-                      <td align =\"right\">
-                        <a href=\"edit_booking.php?id_booking=$booking[id_booking]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                        <a href=\"act/hapus_booking.php?id_booking=$booking[id_booking]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                      <td>
+                        $pasien[jenis_kelamin]
+                      </td>
+                      <td>
+                        $pasien[no_rekam_medis]
                       </td>
                     </tr>
                   ";
@@ -126,7 +148,6 @@
                 ?>
               </tbody>
               </table>
-              <a href="add_booking.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
 			
@@ -147,12 +168,13 @@
     -->
       <!--footer end-->
   </section>
+
     <!-- Offline JQuery -->
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- Our Javascript -->
     <script src="../assets/js/ours/jam.js"></script>
-
+    
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>

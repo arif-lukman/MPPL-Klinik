@@ -10,6 +10,7 @@
   $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
   $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
   $resultPerawat = $conn->query("SELECT id_perawat, nama_perawat FROM perawat");
+  $dokter = GetData($conn, "SELECT id_dokter FROM antrian WHERE id_antrian = '$_GET[id_antrian]'");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -171,31 +172,36 @@
 					<br>
 					<form class="form-horizontal style-form" method="post" action = "act/diagnosa.php?">
 
+            <!-- hidden input data pasien -->
+            <input type="hidden" name="no_rekam_medis" <?php echo "value=\"$no_rekam[no_rekam_medis]\"";?>>
+            <input type="hidden" name="id_dokter" <?php echo "value=\"$dokter[id_dokter]\"";?>>
+            <input type="hidden" name="id_antrian" <?php echo "value=\"$_GET[id_antrian]\"";?>>
+
 						<!--diagnosa dokter-->
             <h4>Diagnosa</h4><hr>
 
-            <h5>1 )</h5>
+            <h5>1 )</h5>                 
 
             <center>
               <div class="form-group">
                 <div class="col-sm-6">
                   <label class="control-label">Kuadran 1</label>
-                  <input type="text" class="form-control" name="k1d1" id="k1d1">
+                  <input type="text" class="form-control" name="k1d1" id="k1d1" autocomplete="off">
                 </div>
                 <div class="col-sm-6">
                   <label class="control-label">Kuadran 2</label>
-                  <input type="text" class="form-control" name="k2d1" id="k2d1">
+                  <input type="text" class="form-control" name="k2d1" id="k2d1" autocomplete="off">
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="col-sm-6">
                   <label class="control-label">Kuadran 3</label>
-                  <input type="text" class="form-control" name="k3d1" id="k3d1">
+                  <input type="text" class="form-control" name="k3d1" id="k3d1" autocomplete="off">
                 </div>
                 <div class="col-sm-6">
                   <label class="control-label">Kuadran 4</label>
-                  <input type="text" class="form-control" name="k4d1" id="k4d1">
+                  <input type="text" class="form-control" name="k4d1" id="k4d1" autocomplete="off">
                 </div>
               </div>
             </center>
@@ -203,7 +209,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Keterangan</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%"></textarea >
+								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
 							</div>
 						</div>
 
@@ -227,7 +233,7 @@
               <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
               <div class="col-sm-10">
                 <!--DROPDOWN NAMA DOKTER-->
-                <select class="form-control" name="idk1" id="idk1" onchange="SetChildOpt(this);">
+                <select class="form-control" name="idk1" id="idk1" onchange="SetChildOpt(this);" required>
                   <option disabled selected hidden>-- Pilih Kategori Terapi --</option>
                   <?php
                     while($kat = $resultKat->fetch_assoc()){
@@ -244,7 +250,7 @@
               <label class="col-sm-2 col-sm-2 control-label">Jenis Terapi</label>
               <div class="col-sm-10">
                 <!--DROPDOWN NAMA DOKTER-->
-                <select class="form-control" name="idt1" id="idt1" onchange="LoadTarifTerapi(this);">
+                <select class="form-control" name="idt1" id="idt1" onchange="LoadTarifTerapi(this);" required>
                   <option disabled selected hidden>Pilih kategori terlebih dahulu</option>
                 </select>
               </div>
@@ -253,7 +259,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Tarif (Rp)</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control" name="tarift1" id="tarift1">
+                <input type="number" class="form-control" name="tarift1" id="tarift1" onkeyup="CalcBiayaTotal()" required autocomplete="off">
                 <div id="minmaxt1"></div>
               </div>
             </div>
@@ -261,7 +267,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">Keterangan</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%"></textarea>
+								<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
 							</div>
 						</div>
 
@@ -331,7 +337,7 @@
               <div class="col-sm-3"></div>
               <label class="col-sm-2 control-label">Nama Perawat</label>
               <div class="col-sm-4">
-                <select class="form-control" id="id_perawat" name="id_perawat" onchange="CalcHargaObat(this);">
+                <select class="form-control" id="id_perawat" name="id_perawat" onchange="CalcHargaObat(this);" required>
                   <option disabled selected hidden>Pilih Nama perawat</option>
                   <?php
                     while($perawat = $resultPerawat->fetch_assoc()){
@@ -348,19 +354,28 @@
             <h4>Biaya</h4><hr>
             <div class="form-group">
               <div class="col-sm-3"></div>
-              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Biaya Total : </h4></div>
+              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya : </h4></div>
+              <input type="hidden" name="biaya_total" id="biaya_total" value="100">
             </div>
 
             <div class="form-group">
               <div class="col-sm-3"></div>
               <label class="col-sm-2 control-label">Metode Pembayaran</label>
               <div class="col-sm-4">
-                <select class="form-control" id="id_perawat" name="id_perawat" onchange="CalcHargaObat(this);">
+                <select class="form-control" id="metode_pembayaran" name="metode_pembayaran" onchange="CalcHargaObat(this);" required>
                   <option disabled selected hidden>Pilih Metode Pembayaran</option>
                   <option>Tunai</option>
                   <option>Kredit</option>
                   <option>Debit</option>
                 </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <label class="control-label col-sm-2">Diskon (%)</label>
+              <div class="col-sm-4">
+                <input type="number" class="form-control" name="diskon" id="diskon" onkeyup="CalcBiayaTotal();" value="0">
               </div>
             </div>
 

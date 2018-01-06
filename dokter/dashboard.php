@@ -19,11 +19,11 @@
         break;
       case 2:
         //Dokter
-        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
-        return "SELECT * FROM perawat WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
     }
   }

@@ -6,8 +6,9 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataBooking = $conn->query("SELECT booking.id_booking as id_booking, booking.nama_pasien as nama_pasien, booking.tanggal as tanggal, booking.jam as jam, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter WHERE booking.id_dokter = dokter.id_dokter");
-  //echo "";
+  $dataObat = $conn->query("SELECT * FROM obat WHERE id_obat = $_GET[id_obat]");
+  $obat = $dataObat->fetch_assoc();
+  $resultSat = $conn->query("SELECT id_satuan, nama_satuan FROM satuan");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -19,11 +20,11 @@
         break;
       case 2:
         //Dokter
-        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
-        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM perawat WHERE username = '$_SESSION[uid]'";
         break;
     }
   }
@@ -54,11 +55,10 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
-    <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -77,59 +77,47 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Daftar Booking</center></h2>
+          	<h2><center>Daftar Obat</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
-          		<table class="table table-striped table-advance table-hover col-lg-12">
-              <thead>
-                <th>Nama Lengkap</th>
-                <th>Tanggal</th>
-                <th>Jam</th>
-                <th>Dokter</th>
-                <th>Status Pasien</th>
-              </thead>
-              <tbody>
-                <?php
-                while($booking = $dataBooking->fetch_assoc()){
-                  echo "
-                    <tr>
-                      <td>
-                        $booking[nama_pasien]
-                      </td>
-                      <td>
-                        $booking[tanggal]
-                      </td>
-                      <td>
-                        $booking[jam]
-                      </td>
-                      <td>
-                        $booking[nama_dokter]
-                      </td>
-                      <td>
-                      ";
-                      if($booking['status_pasien'] === '1'){
-                        echo "Pasien Lama";
-                      } else {
-                        echo "Pasien Baru";
-                      }
-                      echo "
-                      </td>
-                      <td align =\"right\">
-                        <a href=\"edit_booking.php?id_booking=$booking[id_booking]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                        <a href=\"act/hapus_booking.php?id_booking=$booking[id_booking]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                      </td>
-                    </tr>
-                  ";
-                }
-                ?>
-              </tbody>
-              </table>
-              <a href="add_booking.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Pengurangan Stok Obat</center></h4>
+                  <br>
+
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "act/stokobat_kurang.php?id_obat=$obat[id_obat]" ?>>
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Obat</label>
+                      <div class="col-sm-10">
+						<input type="text" class="form-control" name="nama" id="nama" value=<?php echo "\"$obat[nama_obat]\"";?> readonly>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Kurang Stok</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" value="">
+                      </div>
+                    </div>
+
+                    <center>
+                      <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                      <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+                    </center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->
+            </div><!-- /row -->
+              </center>
           		</div>
           	</div>
-			
+
 		      </section>
       </section><!-- /MAIN CONTENT -->
 
@@ -147,6 +135,7 @@
     -->
       <!--footer end-->
   </section>
+
     <!-- Offline JQuery -->
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
@@ -167,7 +156,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+
   <script>
       //custom select box
 

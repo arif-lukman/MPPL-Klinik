@@ -14,22 +14,22 @@ $(document).ready(function(){
                 "<div class=\"form-group\">" +
                   "<div class=\"col-sm-6\">" +
                     "<label class=\"control-label\">Kuadran 1</label>" +
-                    "<input type=\"text\" class=\"form-control\" name=\"k1d" + val + "\" id=\"k1d" + val + "\">" +
+                    "<input type=\"text\" class=\"form-control\" name=\"k1d" + val + "\" id=\"k1d" + val + "\" autocomplete=\"off\">" +
                   "</div>" +
                   "<div class=\"col-sm-6\">" +
                     "<label class=\"control-label\">Kuadran 2</label>" +
-                    "<input type=\"text\" class=\"form-control\" name=\"k2d" + val + "\" id=\"k2d" + val + "\">" +
+                    "<input type=\"text\" class=\"form-control\" name=\"k2d" + val + "\" id=\"k2d" + val + "\" autocomplete=\"off\">" +
                   "</div>" +
                 "</div>" +
 
                 "<div class=\"form-group\">" +
                   "<div class=\"col-sm-6\">" +
                     "<label class=\"control-label\">Kuadran 3</label>" +
-                    "<input type=\"text\" class=\"form-control\" name=\"k3d" + val + "\" id=\"k3d" + val + "\">" +
+                    "<input type=\"text\" class=\"form-control\" name=\"k3d" + val + "\" id=\"k3d" + val + "\" autocomplete=\"off\">" +
                   "</div>" +
                   "<div class=\"col-sm-6\">" +
                     "<label class=\"control-label\">Kuadran 4</label>" +
-                    "<input type=\"text\" class=\"form-control\" name=\"k4d" + val + "\" id=\"k4d" + val + "\">" +
+                    "<input type=\"text\" class=\"form-control\" name=\"k4d" + val + "\" id=\"k4d" + val + "\" autocomplete=\"off\">" +
                   "</div>" +
                 "</div>" +
           	"</center>" +
@@ -37,7 +37,7 @@ $(document).ready(function(){
     		"<div class=\"form-group\">" +
     			"<label class=\"col-sm-2 control-label\">Keterangan</label>" +
     			"<div class=\"col-sm-10\">" +
-    				"<textarea class=\"form-control\" name=\"ketd" + val + "\" id=\"ketd" + val + "\" style=\"max-width: 100%; min-width: 100%\"></textarea required>" +
+    				"<textarea class=\"form-control\" name=\"ketd" + val + "\" id=\"ketd" + val + "\" style=\"max-width: 100%; min-width: 100%\" autocomplete=\"off\" required></textarea>" +
     			"</div>" +
     		"</div>" +
         "</div>" +
@@ -83,7 +83,7 @@ $(document).ready(function(){
             "<div class=\"form-group\">" +
               "<label class=\"col-sm-2 col-sm-2 control-label\">Kategori</label>" +
               "<div class=\"col-sm-10\">" +
-                "<select class=\"form-control\" name=\"idk" + val + "\" id=\"idk" + val + "\" onclick=\"SetChildOpt(this);\">" +
+                "<select class=\"form-control\" name=\"idk" + val + "\" id=\"idk" + val + "\" onclick=\"SetChildOpt(this);\" required>" +
                     "<option disabled selected hidden>-- Pilih Kategori Terapi --</option>" +
                     katOpts +
                 "</select>" +
@@ -94,7 +94,7 @@ $(document).ready(function(){
               "<label class=\"col-sm-2 col-sm-2 control-label\">Jenis Terapi</label>" +
               "<div class=\"col-sm-10\">" +
                 "<!--DROPDOWN NAMA DOKTER-->" +
-                "<select class=\"form-control\" name=\"idt" + val + "\" id=\"idt" + val + "\" onchange=\"LoadTarifTerapi(this);\">" +
+                "<select class=\"form-control\" name=\"idt" + val + "\" id=\"idt" + val + "\" onchange=\"LoadTarifTerapi(this);\" required>" +
                   "<option disabled selected hidden>Pilih kategori terlebih dahulu</option>" +
                 "</select>" +
               "</div>" +
@@ -103,7 +103,7 @@ $(document).ready(function(){
             "<div class=\"form-group\">" +
                 "<label class=\"col-sm-2 control-label\">Tarif (Rp)</label>" +
                 "<div class=\"col-sm-10\">" +
-                    "<input type=\"number\" class=\"form-control\" name=\"tarift" + val + "\" id=\"tarift" + val + "\">" +
+                    "<input type=\"number\" class=\"form-control\" name=\"tarift" + val + "\" id=\"tarift" + val + "\" onkeyup=\"CalcBiayaTotal()\" required autocomplete=\"off\">" +
                     "<div id=\"minmaxt" + val + "\"></div>" +
                 "</div>" +
             "</div>" +
@@ -111,7 +111,7 @@ $(document).ready(function(){
     		"<div class=\"form-group\">" +
     			"<label class=\"col-sm-2 control-label\">Keterangan</label>" +
     			"<div class=\"col-sm-10\">" +
-    				"<textarea class=\"form-control\" name=\"kett" + val + "\" id=\"kett" + val + "\" style=\"max-width: 100%; min-width: 100%\"></textarea>" +
+    				"<textarea class=\"form-control\" name=\"kett" + val + "\" id=\"kett" + val + "\" style=\"max-width: 100%; min-width: 100%\" required autocomplete=\"off\"></textarea>" +
     			"</div>" +
     		"</div>" +
         "</div>" +
@@ -242,6 +242,7 @@ function LoadTarifTerapi(elm){
     //console.log(elm);
     $.get("ajax/harga_terapi.php?id_terapi=" + elm.value, function(data, status){
         $("#tarift" + elm.id.slice(-1)).val(data);
+        CalcBiayaTotal();
         //console.log("#tarift"+elm);
         //console.log(status);
         //console.log(data);
@@ -260,7 +261,57 @@ function CalcHargaObat(elm){
     $.get("ajax/harga_obat.php?id_obat=" + elm.value, function(data, status){
         $("#hargao" + elm.id.slice(-1)).html("Harga : Rp " + addCommas(data * $("#jumo" + elm.id.slice(-1)).val()));
         $("#hrgo" + elm.id.slice(-1)).val(data * $("#jumo" + elm.id.slice(-1)).val());
+        CalcBiayaTotal();
     });
+}
+
+function CalcBiayaTotal(){
+    var tarifTerapi = 0;
+    var tarifObat = 0;
+
+    $("[id*='tarift']").each(function(){
+    //    SetChildOpt(this);
+        //console.log(this.value);
+        tarifTerapi += parseInt(this.value);
+    });
+
+    $("[id*='hrgo']").each(function(){
+    //    SetChildOpt(this);
+        //console.log(this.value);
+        tarifObat += parseInt(this.value);
+    });
+
+    console.log($("#diskon").val());
+
+    if(!isNaN(tarifTerapi) || !isNaN(tarifObat)){
+        if(!isNaN($("#diskon").val()) && $("#diskon").val() != "" && $("#diskon").val() != null){
+            if(isNaN(tarifTerapi)){
+                $("#biaya-total").html("<h4>Total Biaya : Rp " + addCommas(tarifObat - (tarifObat * parseInt($("#diskon").val()) / 100)) + "</h4>");
+                $("#biaya_total").val(tarifObat - (tarifObat * parseInt($("#diskon").val()) / 100));
+            } else if(isNaN(tarifObat)){
+                $("#biaya-total").html("<h4>Total Biaya : Rp " + addCommas(tarifTerapi - (tarifTerapi * parseInt($("#diskon").val()) / 100)) + "</h4>");
+                $("#biaya_total").val(tarifTerapi - (tarifTerapi * parseInt($("#diskon").val()) / 100));
+            } else {
+                $("#biaya-total").html("<h4>Total Biaya : Rp " + addCommas((tarifTerapi+tarifObat) - ((tarifTerapi+tarifObat) * parseInt($("#diskon").val()) /100)) + "</h4>");
+                $("#biaya_total").val((tarifTerapi+tarifObat) - ((tarifTerapi+tarifObat) * parseInt($("#diskon").val()) /100));
+            }
+        } else {
+            if(isNaN(tarifTerapi)){
+                $("#biaya-total").html("<h4>Total Biaya : Rp " + addCommas(tarifObat) + "</h4>");
+                $("#biaya_total").val(tarifObat);
+            } else if(isNaN(tarifObat)){
+                $("#biaya-total").html("<h4>Total Biaya : Rp " + addCommas(tarifTerapi) + "</h4>");
+                $("#biaya_total").val(tarifTerapi);
+            } else {
+                $("#biaya-total").html("<h4>Total Biaya : Rp " + addCommas((tarifTerapi+tarifObat)) + "</h4>");
+                $("#biaya_total").val((tarifTerapi+tarifObat));
+            }
+        }
+    }
+
+    //console.log("Tarif Terapi = " + tarifTerapi);
+    //console.log("Tarif Obat = " + tarifObat);
+    //console.log("Tarif Total = " + (tarifTerapi+tarifObat));
 }
 
 //Cek terapi price

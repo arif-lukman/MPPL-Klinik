@@ -131,6 +131,10 @@
                       <td>
                         $obat[harga]
                       </td>
+					  <td align =\"right\">
+						<a href=\"stokobat_tambah.php?id_obat=$obat[id_obat]\" style=\"float: left\">Tambah Stok</a>
+						<a href=\"stokobat_kurang.php?id_obat=$obat[id_obat]\" style=\"float: right\">Kurang Stok</a>
+						</td>
                       <td align =\"right\">
                         <a href=\"edit_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                         
