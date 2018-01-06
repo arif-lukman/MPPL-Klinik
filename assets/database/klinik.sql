@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 05 Jan 2018 pada 19.01
+-- Generation Time: 06 Jan 2018 pada 03.39
 -- Versi Server: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -160,6 +160,7 @@ CREATE TABLE `detail_terapi` (
 
 CREATE TABLE `detail_transaksi_obat` (
   `id_transaksi` int(11) NOT NULL,
+  `id_detail_transaksi_obat` int(11) NOT NULL,
   `id_obat` int(11) NOT NULL,
   `jumlah` int(11) NOT NULL,
   `biaya` int(11) NOT NULL
@@ -169,9 +170,9 @@ CREATE TABLE `detail_transaksi_obat` (
 -- Dumping data untuk tabel `detail_transaksi_obat`
 --
 
-INSERT INTO `detail_transaksi_obat` (`id_transaksi`, `id_obat`, `jumlah`, `biaya`) VALUES
-(1, 1, 2, 20000),
-(1, 2, 1, 50000);
+INSERT INTO `detail_transaksi_obat` (`id_transaksi`, `id_detail_transaksi_obat`, `id_obat`, `jumlah`, `biaya`) VALUES
+(1, 1, 1, 2, 20000),
+(1, 2, 2, 1, 50000);
 
 -- --------------------------------------------------------
 
@@ -181,6 +182,7 @@ INSERT INTO `detail_transaksi_obat` (`id_transaksi`, `id_obat`, `jumlah`, `biaya
 
 CREATE TABLE `detail_transaksi_terapi` (
   `id_transaksi` int(11) NOT NULL,
+  `id_detail_transaksi_terapi` int(11) NOT NULL,
   `id_terapi` int(11) NOT NULL,
   `biaya` int(11) NOT NULL,
   `keterangan` text NOT NULL
@@ -190,10 +192,10 @@ CREATE TABLE `detail_transaksi_terapi` (
 -- Dumping data untuk tabel `detail_transaksi_terapi`
 --
 
-INSERT INTO `detail_transaksi_terapi` (`id_transaksi`, `id_terapi`, `biaya`, `keterangan`) VALUES
-(1, 6, 170000, 'Cabut Gigi'),
-(1, 11, 150000, 'Tambal Gigi'),
-(2, 3, 200000, '2');
+INSERT INTO `detail_transaksi_terapi` (`id_transaksi`, `id_detail_transaksi_terapi`, `id_terapi`, `biaya`, `keterangan`) VALUES
+(1, 1, 6, 170000, 'Cabut Gigi'),
+(1, 2, 11, 150000, 'Tambal Gigi'),
+(2, 3, 3, 200000, '2');
 
 -- --------------------------------------------------------
 
@@ -499,13 +501,13 @@ ALTER TABLE `detail_terapi`
 -- Indexes for table `detail_transaksi_obat`
 --
 ALTER TABLE `detail_transaksi_obat`
-  ADD PRIMARY KEY (`id_transaksi`,`id_obat`);
+  ADD PRIMARY KEY (`id_detail_transaksi_obat`,`id_transaksi`);
 
 --
 -- Indexes for table `detail_transaksi_terapi`
 --
 ALTER TABLE `detail_transaksi_terapi`
-  ADD PRIMARY KEY (`id_transaksi`,`id_terapi`);
+  ADD PRIMARY KEY (`id_detail_transaksi_terapi`,`id_transaksi`);
 
 --
 -- Indexes for table `dokter`
@@ -602,6 +604,18 @@ ALTER TABLE `detail_obat`
 --
 ALTER TABLE `detail_terapi`
   MODIFY `id_detail_terapi` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `detail_transaksi_obat`
+--
+ALTER TABLE `detail_transaksi_obat`
+  MODIFY `id_detail_transaksi_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `detail_transaksi_terapi`
+--
+ALTER TABLE `detail_transaksi_terapi`
+  MODIFY `id_detail_transaksi_terapi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `dokter`
