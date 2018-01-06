@@ -4,6 +4,7 @@
   include "../process/session_check.php";
   include "headside.php";
 
+
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
   $dataDokter = $conn->query("SELECT * FROM dokter");
@@ -109,7 +110,7 @@
             ";
         ?>
                   <!--BOX PASIEN--><br><br>
-                  <a href="pasien.php"> 
+                  <a href="../admin/pasien.php"> 
                   <div class="col-md-2 col-sm-2 col-md-offset-3 box0">
                     <div class="box1">
                       <span class="fa fa-users"></span>

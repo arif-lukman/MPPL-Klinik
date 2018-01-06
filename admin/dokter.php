@@ -109,13 +109,13 @@
               </div>
             </form>
 
-        		<table class="table table-striped table-advance table-hover col-lg-12">
+        		<table class="table table-striped table-advance table-hover table-condensed">
             <thead>
               <th>Nama</th>
               <th>Nomor Registrasi</th>
               <th>Alamat</th>
               <th>Tanggal Lahir</th>
-              <th>Jenis Kelamin</th>
+              <th>Gender</th>
               <th>Nomor Telpon</th>
               <th>Email</th>
               <th><center>Status</center></th>
@@ -137,7 +137,7 @@
                     <td>
                       $dokter[tanggal_lahir]
                     </td>
-                    <td>
+                    <td align=\"center\">
                       $dokter[jenis_kelamin]
                     </td>
                     <td>
