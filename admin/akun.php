@@ -80,6 +80,7 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
+                <div class="table-responsive">
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <td>Username</td>
@@ -123,6 +124,7 @@
               </table>
           		</div>
           	</div>
+          </div>
 			
 		      </section>
       </section><!-- /MAIN CONTENT -->

@@ -6,7 +6,7 @@
 	            <div class=\"fa fa-bars tooltips\" data-placement=\"right\" data-original-title=\"Toggle Navigation\"></div>
 	        </div>
 	        <!--logo start-->
-	        <a href=\"index.php\" class=\"logo\"><b>Sistem Informasi Riona Dental Care</b></a>
+	        <a href=\"index.php\" class=\"logo\"><img src=\"../assets/img/logordc2.png\" width=\"200\"></a>
 	        <!--logo end-->
 	        <div id=\"waktu\" class=\"waktu\" 
 	          style=\"
@@ -31,25 +31,25 @@
 
 		      	<li class=\"sub-menu\">
 		          	<a href=\"profile.php\" >
-		              	<i class=\"fa\"></i>
+		              	<i class=\"fa fa-user-o\"></i>
 		              	<span>PROFILE</span>
 		          	</a>
 		      	</li>
 		      	<li class=\"sub-menu\">
 		          	<a href=\"pasien.php\" >
-		              	<i class=\"fa\"></i>
+		              	<i class=\"fa fa-users\"></i>
 		              	<span>PASIEN</span>
 		          	</a>
 		      	</li>
 		      	<li class=\"sub-menu\">
 		          	<a href=\"antrian.php\" >
-		              	<i class=\"fa\"></i>
+		              	<i class=\"fa fa-tasks\"></i>
 		              	<span>ANTRIAN</span>
 		          	</a>
 		      	</li>
 		      	<li class=\"sub-menu\">
 		          	<a href=\"booking.php\" >
-		              	<i class=\"fa\"></i>
+		              	<i class=\"fa fa-bell-o\"></i>
 		              	<span>BOOKING</span>
 		          	</a>
 		      	</li>

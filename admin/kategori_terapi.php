@@ -101,6 +101,7 @@
           	<div class="row mt">
               <div class="col-lg-3"></div>
           		<div class="col-lg-6">
+                <div class="table-responsive">
                 
               <form role="search">
                 <div class="form-group">
@@ -137,6 +138,7 @@
               <a href="add_kat_terapi.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
+          </div>
 			
 		      </section>
       </section><!-- /MAIN CONTENT -->

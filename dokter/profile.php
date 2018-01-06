@@ -75,47 +75,50 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Profile</center></h2>
-            <hr>
-
-      <div class="container">
-				<table class="table table-striped">
-				<?php
-				while($row = $dataDokter->fetch_assoc()){
-				echo "
-				<tr>
-					<td> Nama </td>
-					<td> : </td>
-					<td> ".$row['nama_dokter']."</td>
-				</tr>
-				<tr>
-					<td> Alamat </td>
-					<td> : </td>
-					<td> ".$row['alamat']."</td>
-				</tr>
-				<tr>
-					<td> Tanggal Lahir </td>
-					<td> : </td>
-					<td> ".$row['tanggal_lahir']."</td>
-				</tr>
-				<tr>
-					<td> No. Telepon </td>
-					<td> : </td>
-					<td> ".$row['no_telp']."</td>
-				</tr>
-				<tr>
-					<td> Email </td>
-					<td> : </td>
-					<td> ".$row['email']."</td>
-				</tr>
-				";
-      }
-				?>
-          		</table>
-            </div>
-			<br>
-			<button style="float: left"><a href="gantipass.php">Change Password</a></button>
+             <?php
+        $sql  = "SELECT * FROM user_klinik, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=dokter.id_user_klinik";
+        $result = mysqli_query($conn, $sql);
+      ?>
+          
+          <?php 
+          while($row=mysqli_fetch_assoc($result))
+           echo "
+            
+              <div class=\"bigwhite-panel pnbig\">
+                <div class=\"bigwhite-header\">
+                  <h2><i class=\"fa fa-angle-right\"></i>PROFILE</h2>
+                </div>
+                <p class=\"big mt\"><b>".$row['nama_dokter']."</b></p>
+                <br><br>
+                  <div class=\"row\">
+                    <div class=\"col-md-6\">
+                      <p class=\"small mt\">Tanggal Lahir</p>
+                      <p class=\"medium mt\">".$row['tanggal_lahir']."</p>
+                    </div>
+                    <div class=\"col-md-6\">
+                      <p class=\"small mt\">Alamat</p>
+                      <p class=\"medium mt\">".$row['alamat']."</p>
+                    </div>
+                  </div>
+                  <br>
+                  <div class=\"row\">
+                    <div class=\"col-md-6\">
+                      <p class=\"small mt\">Nomor Telepon</p>
+                      <p class=\"medium mt\">".$row['no_telp']."</p>
+                    </div>
+                    <div class=\"col-md-6\">
+                      <p class=\"small mt\">E-mail</p>
+                      <p class=\"medium mt\">".$row['email']."</p>
+                    </div>
                     <br>
+                    <div class=\"row\" align=\"right\">
+                    <a href=\"gantipass.php\" style=\"float: center\" class=\"btn btn-round btn-theme02\" role=\"button\">Change Password</a>
+                    </div>
+                  
+             </div>
+            ";
+        ?>
+
 		</section>
       </section><!-- /MAIN CONTENT -->
 

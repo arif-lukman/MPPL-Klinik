@@ -35,7 +35,7 @@
 	  	<div class="container">
 	  	
 		      <form class="form-login" action="process/login.php" method="post">
-		        <h2 class="form-login-heading">sign in now</h2>
+		        <h2 class="form-login-heading">sign in to start your session</h2>
 		        <div class="login-wrap">
 		            <input type="text" class="form-control" placeholder="User ID" name="uid" id="uid" autofocus>
 		            <br>
@@ -85,7 +85,7 @@
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
     <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
     <script>
-        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
+        $.backstretch("assets/img/logordc.jpg", {speed: 500});
     </script>
 
 

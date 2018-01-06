@@ -100,6 +100,7 @@
           <hr>
         	<div class="row mt">
         		<div class="col-lg-12">
+            <div class="table-responsive">
 
             <form role="search">
               <div class="form-group">
@@ -173,7 +174,7 @@
             <a href="add_dokter.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
         		</div>
         	</div>
-
+        </div>
 	      </section>
     </section>
     <!--MAIN CONTENT END-->

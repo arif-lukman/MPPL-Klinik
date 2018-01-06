@@ -99,6 +99,7 @@
                       <p class=\"small mt\">".$row['alamat']."</p>
                       <p>".$row['no_telp']."</p>
                     </div>
+                    
                     <div class=\"col-md-6\">
                       <p class=\"small mt\">".$row['tanggal_lahir']."</p>
                       <p>".$row['email']."</p>

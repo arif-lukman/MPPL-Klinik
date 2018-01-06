@@ -81,6 +81,7 @@
             <hr>
           	<div class="row mt">
           		<div class="col-lg-12">
+                <div class="table-responsive">
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <th>Nama Lengkap</th>
@@ -129,6 +130,7 @@
               <a href="add_booking.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
+          </div>
 			
 		      </section>
       </section><!-- /MAIN CONTENT -->
