@@ -256,6 +256,66 @@ function LoadTarifTerapi(elm){
     });
 }
 
+function LoadChildOpt(elm, id_terapi){
+    //console.log(elm);
+    $.get("ajax/edit_terapi.php?id_kat=" + elm.value + "&id_terapi=" + id_terapi, function(data, status){
+        $("#idt").html(data);
+        //LoadTarifTerapi($("#idt" + elm.id.slice(-1));
+        //console.log("#idt"+elm);
+        //console.log(status);
+        //console.log(data);
+        CheckTarifTerapi(document.getElementById("idt"));
+    });
+}
+
+function SetChildOpt2(elm){
+    //var idknum = elm.id.slice(-1);
+    //var elmHtml = elm.innerHTML;
+    //console.log(idknum);
+    //console.log("#idt" + idknum + " > option");
+    //console.log(elmHtml);
+    //$("#idt" + elm).prop("disabled", false);
+
+    //console.log(elm);
+    $.get("ajax/terapi.php?id_kat=" + elm.value, function(data, status){
+        $("#idt").html(data);
+        //LoadTarifTerapi($("#idt" + elm.id.slice(-1));
+        //console.log("#idt"+elm);
+        //console.log(status);
+        //console.log(data);
+    });
+}
+
+//Terapi price
+function LoadTarifTerapi2(elm){
+    //console.log(elm);
+    $.get("ajax/harga_terapi.php?id_terapi=" + elm.value, function(data, status){
+        $("#tarif").val(data);
+        //CalcBiayaTotal();
+        //console.log("#tarift"+elm);
+        //console.log(status);
+        //console.log(data);
+    });
+
+    $.get("ajax/min_max_tarif.php?id_terapi=" + elm.value, function(data, status){
+        $("#minmax").html(data);
+        //console.log("#minmaxt1t"+elm);
+        //console.log(status);
+        //console.log(data);
+    });
+}
+
+function CheckTarifTerapi(elm){
+    //console.log(elm);
+
+    $.get("ajax/min_max_tarif.php?id_terapi=" + elm.value, function(data, status){
+        $("#minmax").html(data);
+        //console.log("#minmaxt1t"+elm);
+        //console.log(status);
+        //console.log(data);
+    });
+}
+
 //Hitung harga obat
 function CalcHargaObat(elm){
     $.get("ajax/harga_obat.php?id_obat=" + elm.value, function(data, status){

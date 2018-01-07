@@ -167,7 +167,7 @@ $tanggal = date('Y-m-d');
                       <label class="col-sm-2 col-sm-2 control-label">Jam Daftar</label>
                       <div class="col-sm-10">
                         <!--<input type="time" class="form-control" name="jam_daftar" id="jam_daftar" required>-->
-                        <input type="text" class="form-control" id="jam_daftar" name="jam_daftar" value="<?php echo $jamdaftar;?>" autocomplete="off" readonly>
+                        <input type="time" class="form-control" id="jam_daftar" name="jam_daftar" value="<?php echo $jamdaftar;?>" autocomplete="off" readonly>
                       </div>
                     </div>
 

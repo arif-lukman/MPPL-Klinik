@@ -134,7 +134,7 @@
         <h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
         
         <div class="form-panel">
-          <form class="form-horizontal style-form" method="post" action = "act/edit_diagnosa.php">
+          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_diagnosa.php?id_diagnosa=$_GET[id_diagnosa]&id_pasien=$_GET[id_pasien]\""?>>
             <!--diagnosa dokter-->
               <h4>Pengubahan Data Diagnosa</h4><hr>                
 
@@ -142,22 +142,22 @@
                 <div class="form-group">
                   <div class="col-sm-6">
                     <label class="control-label">Kuadran 1</label>
-                    <input type="text" class="form-control" name="k1d1" id="k1d1" <?php echo "value=\"$diagnosa[k1]\""; ?> autocomplete="off">
+                    <input type="text" class="form-control" name="k1" id="k1" <?php echo "value=\"$diagnosa[k1]\""; ?> autocomplete="off">
                   </div>
                   <div class="col-sm-6">
                     <label class="control-label">Kuadran 2</label>
-                    <input type="text" class="form-control" name="k2d1" id="k2d1" <?php echo "value=\"$diagnosa[k2]\""; ?> autocomplete="off">
+                    <input type="text" class="form-control" name="k2" id="k2" <?php echo "value=\"$diagnosa[k2]\""; ?> autocomplete="off">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="col-sm-6">
                     <label class="control-label">Kuadran 3</label>
-                    <input type="text" class="form-control" name="k3d1" id="k3d1" <?php echo "value=\"$diagnosa[k3]\""; ?> autocomplete="off">
+                    <input type="text" class="form-control" name="k3" id="k3" <?php echo "value=\"$diagnosa[k3]\""; ?> autocomplete="off">
                   </div>
                   <div class="col-sm-6">
                     <label class="control-label">Kuadran 4</label>
-                    <input type="text" class="form-control" name="k4d1" id="k4d1" <?php echo "value=\"$diagnosa[k4]\""; ?> autocomplete="off">
+                    <input type="text" class="form-control" name="k4" id="k4" <?php echo "value=\"$diagnosa[k4]\""; ?> autocomplete="off">
                   </div>
                 </div>
               </center>
@@ -165,7 +165,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Keterangan</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%" required autocomplete="off"><?php echo "$diagnosa[diagnosa]"; ?></textarea>
+                  <textarea class="form-control" name="ket" id="ket" style="max-width: 100%; min-width: 100%" required autocomplete="off"><?php echo "$diagnosa[diagnosa]"; ?></textarea>
                 </div>
               </div>
 
