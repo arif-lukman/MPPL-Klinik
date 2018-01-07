@@ -111,7 +111,7 @@
             ";
         ?>
                   <!--BOX PASIEN--><br><br>
-                  <a href="../admin/pasien.php"> 
+                  <a href="../dokter/pasien.php"> 
                   <div class="col-md-2 col-sm-2 col-md-offset-3 box0">
                     <div class="box1">
                       <span class="fa fa-users"></span>
@@ -131,7 +131,7 @@
                   </div></a>
 
                   <!--BOX BOOKING-->
-                  <a href="terapi.php"> 
+                  <a href="booking.php"> 
                   <div class="col-md-2 col-sm-2 box0">
                     <div class="box1">
                       <span class="fa fa-bell-o"></span>
