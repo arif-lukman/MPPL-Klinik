@@ -169,6 +169,9 @@
  	//UPDATE ANTRIAN
  	$sqlAntrian = "UPDATE antrian SET status = 'Selesai', jam_selesai = '$jam' WHERE id_antrian = '$id_antrian'";
 
+ 	//UPDATE STOK
+ 	$sqlStok = "";
+
  	//echo "TRANSAKSI = " . $sqlTransaksi . "<br>";
 
  	if(isset($ido[0]) && isset($jumo[0]) && isset($hrgo[0]))
