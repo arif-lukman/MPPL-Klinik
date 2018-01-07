@@ -13,11 +13,11 @@
 	//Masukkan data
 	if($conn->query($sql1) === TRUE){
 		echo "<script> alert('Stok berhasil ditambah');
-		location='../stok_obat.php';
+		location='../obat.php';
 		</script>";
 	} else {
 		echo "<script> alert('Stok gagal ditambah');
-		location='../stok_obat.php';
+		location='../obat.php';
 		</script>";
 	}
 

@@ -65,6 +65,18 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<SCRIPT language=Javascript>
+	<!--
+	function isNumberKey(evt)
+	{
+		var charCode = (evt.which) ? evt.which : event.keyCode
+		if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+		return false;
+		return true;
+	}
+	//-->
+	</SCRIPT>
   </head>
 
   <body onload="startTime()">
@@ -122,7 +134,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="jumlah" id="jumlah" value=<?php echo "\"$obat[stok]\"";?> required>
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" onkeypress="return isNumberKey(event)" value=<?php echo "\"$obat[stok]\"";?> required>
                       </div>
                     </div>
 

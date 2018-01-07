@@ -16,11 +16,11 @@
 			$sql1 = "UPDATE obat SET  stok = stok-'$jumlah' WHERE id_obat = '$_GET[id_obat]'";
 			if($conn->query($sql1) === TRUE){
 				echo "<script> alert('Stok berhasil dikurangi');
-				location='../stok_obat.php';
+				location='../obat.php';
 				</script>";
 			} else {
 				echo "<script> alert('Stok gagal dikurangi');
-				location='../stok_obat.php';
+				location='../obat.php';
 				</script>";
 				}
 		}
