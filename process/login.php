@@ -53,7 +53,7 @@
 				break;
 			case 3:
 				//Perawat
-				return "../perawat/";
+				return "../perawat/dashboard.php";
 				break;
 		}
 	}
