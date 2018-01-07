@@ -173,7 +173,7 @@
 					<form class="form-horizontal style-form" method="post" action = "act/diagnosa.php">
 
             <!-- hidden input data pasien -->
-            <input type="hidden" name="no_rekam_medis" <?php echo "value=\"$no_rekam[no_rekam_medis]\"";?>>
+            <input type="hidden" name="id_pasien" <?php echo "value=\"$_GET[id_pasien]\"";?>>
             <input type="hidden" name="id_dokter" <?php echo "value=\"$dokter[id_dokter]\"";?>>
             <input type="hidden" name="id_antrian" <?php echo "value=\"$_GET[id_antrian]\"";?>>
 

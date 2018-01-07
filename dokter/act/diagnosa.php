@@ -153,7 +153,8 @@
 
  	//AMBIL PARAM TRANSAKSI
  	$id_antrian = $_POST['id_antrian'];
- 	$no_rekam_medis = $_POST['no_rekam_medis'];
+ 	//$no_rekam_medis = $_POST['no_rekam_medis'];
+ 	$id_pasien = $_POST['id_pasien'];
  	$id_dokter = $_POST['id_dokter'];
  	$id_perawat = $_POST['id_perawat'];
  	$tanggal = date("Y-m-d");
@@ -163,8 +164,8 @@
  	$diskon = $_POST["diskon"];
 
  	//CREATE TRANSAKSI
- 	$sqlTransaksi = "INSERT INTO transaksi(no_rekam_medis, id_dokter, id_perawat, tanggal, jam, metode_pembayaran, biaya_total, diskon) VALUES 
- 	('$no_rekam_medis', '$id_dokter', '$id_perawat', '$tanggal', '$jam', '$metode_pembayaran', '$biaya_total', '$diskon')";
+ 	$sqlTransaksi = "INSERT INTO transaksi(id_pasien, id_dokter, id_perawat, tanggal, jam, metode_pembayaran, biaya_total, diskon) VALUES 
+ 	('$id_pasien', '$id_dokter', '$id_perawat', '$tanggal', '$jam', '$metode_pembayaran', '$biaya_total', '$diskon')";
 
  	//UPDATE ANTRIAN
  	$sqlAntrian = "UPDATE antrian SET status = 'Selesai', jam_selesai = '$jam' WHERE id_antrian = '$id_antrian'";
@@ -181,17 +182,17 @@
 
  	//echo $sql;
  	if($conn->multi_query($sql) === TRUE){
- 		echo "berhasil";
-		//echo "<script> alert('Data berhasil diinputkan');
-		//location='../antrian.php';
-		//</script>";
+ 		//echo "berhasil";
+		echo "<script> alert('Data berhasil diinputkan');
+		location='../antrian.php';
+		</script>";
 	} else {
-		echo "gagal";
-		//echo "<script> alert('Data gagal diinputkan');
-		//location='../antrian.php';
-		//</script>";
+		//echo "gagal";
+		echo "<script> alert('Data gagal diinputkan');
+		location='../antrian.php';
+		</script>";
 		//echo $conn->error();
-		echo mysqli_errno($conn) . ": " . mysqli_error($conn). "\n";
+		//echo mysqli_errno($conn) . ": " . mysqli_error($conn). "\n";
 	}
 
  	//Fungsi
