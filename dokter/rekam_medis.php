@@ -8,7 +8,7 @@
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
   //
 
-  $resultTransaksi = $conn->query("SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.no_rekam_medis = pasien.no_rekam_medis AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat");
+  $resultTransaksi = $conn->query("SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.no_rekam_medis = pasien.no_rekam_medis AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat AND transaksi.no_rekam_medis = '$_GET[no_rekam_medis]'");
 
   $resTransaksi = $conn->query("SELECT * FROM transaksi, pasien, detail_diagnosa");
   //echo $rowDiagnosa;
@@ -94,10 +94,10 @@
 				<h3><center>Data Pasien</center></h3><hr>
 				
 				<?php
-					$id_pasien = $_GET["id_pasien"];
-					$sql  = "SELECT * FROM pasien WHERE id_pasien='$id_pasien'";
+					$no_rekam = $_GET["no_rekam_medis"];
+					$sql  = "SELECT * FROM pasien WHERE no_rekam_medis='$no_rekam'";
 					$result = mysqli_query($conn, $sql);
-          $no_rekam = mysqli_fetch_assoc(mysqli_query($conn, "SELECT no_rekam_medis FROM pasien WHERE id_pasien='$id_pasien'"));
+          //$no_rekam = mysqli_fetch_assoc(mysqli_query($conn, "SELECT no_rekam_medis FROM pasien WHERE id_pasien='$id_pasien'"));
 				?>
 				
 				<table class="table table-striped">
@@ -141,10 +141,12 @@
 				<br>
 				
         <!-- REKAM MEDIS PASIEN -->
-				<h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
+				<h3><center>Rekam Medis No. <?php echo $no_rekam?></center></h3><hr>
 				<?php					
+          /*
 					$sql  = "SELECT * FROM transaksi WHERE id_pasien='$id_pasien'";
 					$result = mysqli_query($conn, $sql);
+          */
 				?>
 
         <h4><center>Diagnosa</center></h4>
@@ -157,7 +159,7 @@
 				<tbody>
           <?php
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'");
+                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.no_rekam_medis = '$_GET[no_rekam_medis]'");
 
                 $rowDiagnosa = $resultDiagnosa->num_rows;
 
@@ -217,7 +219,7 @@
                 //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
               $resultTransaksi->data_seek(0);
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultTerapi = $conn->query("SELECT * FROM transaksi, detail_transaksi_terapi, terapi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND detail_transaksi_terapi.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'");
+                $resultTerapi = $conn->query("SELECT * FROM transaksi, detail_transaksi_terapi, terapi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND detail_transaksi_terapi.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.no_rekam_medis = '$_GET[no_rekam_medis]'");
 
                 $rowTerapi = $resultTerapi->num_rows;
 
@@ -269,7 +271,7 @@
                 //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
               $resultTransaksi->data_seek(0);
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]'");
+                $resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.no_rekam_medis = '$_GET[no_rekam_medis]'");
                 
 
                 $rowObat = $resultObat->num_rows;
