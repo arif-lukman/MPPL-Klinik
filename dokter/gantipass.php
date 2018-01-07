@@ -2,6 +2,9 @@
   //Library
   include "../connection/connect.php";
   include "../process/session_check.php";
+  include "headside.php";
+
+  date_default_timezone_set("Asia/Jakarta");
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
@@ -56,6 +59,13 @@
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
 
+    <!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
+
+    <!-- Our Javascript -->
+    <script src="../assets/js/ours/validation_add.js"></script>
+
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -63,64 +73,13 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body onload="startTime()">
 
   <section id="container" >
-      <!-- **********************************************************************************************************************************************************
-      TOP BAR CONTENT & NOTIFICATIONS
-      *********************************************************************************************************************************************************** -->
-      <!--header start-->
-      <header class="header black-bg">
-              <div class="sidebar-toggle-box">
-                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>
-            <!--logo start-->
-            <a href="index.php" class="logo"><b>Sistem Informasi Klinik Gigi</b></a>
-            <!--logo end-->
-            <div class="top-menu">
-            	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../process/logout.php">Logout</a></li>
-            	</ul>
-            </div>
-        </header>
-      <!--header end-->
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN SIDEBAR MENU
-      *********************************************************************************************************************************************************** -->
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-               <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-
-              	  <p class="centered"><a href="profile.php"><img src="../assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?php echo $_SESSION['uid']?></h5>
-
-                  <li class="sub-menu">
-                      <a href="profile.php" >
-                          <i class="fa"></i>
-                          <span>PROFILE</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="diagnosa.php" >
-                          <i class="fa"></i>
-                          <span>DIAGNOSA</span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="../process/logout.php" >
-                          <i class="fa"></i>
-                          <span>LOGOUT</span>
-                      </a>
-                  </li>
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
+    <?php
+      echo $headbar;
+      echo $sidebar;
+    ?>
 
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -136,7 +95,7 @@
 					<div class="form-panel">
 						<h4 class="mb"><center>Change Password</center></h4>
 						<form class="form-horizontal style-form" method="post" action = "act/gantipass.php">
-						
+
 							<!--- Password saat ini ---->
 							<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">Password Saat Ini</label>
@@ -145,26 +104,30 @@
 							<br>
 							</div>
 							</div>
-							
+
 							<!--- Password Baru ---->
 							<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">Password Baru</label>
 							<div class="col-sm-10">
-							<input type="password" class="form-control" name="passbaru" id="passbaru" required>
+							<input type="password" class="form-control" name="passbaru" id="password" required>
 							<br>
 							</div>
 							</div>
-							
+
 							<!--- Verifikasi Password ---->
 							<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
 							<div class="col-sm-10">
-							<input type="password" class="form-control" name="verpass" id="verpass" required>
+							<input type="password" class="form-control" name="verpass" id="cnf_pw" required>
+              <span id="pw-status"></span>
 							<br>
 							</div>
 							</div>
-							
-							<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
+
+							<center>
+                <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+              </center>
 							<br>
 							</div>
 							</div>
