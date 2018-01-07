@@ -4,10 +4,9 @@
   include "../process/session_check.php";
   include "headside.php";
 
-
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
+  $resultSat = $conn->query("SELECT id_satuan, nama_satuan FROM satuan");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -57,6 +56,9 @@
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" >
     <link href="../assets/icofont/css/icofont.css" rel="stylesheet" >
     <link rel="stylesheet" type="text/css" href="../assets/lineicons/style.css"> 
+	
+	<!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -67,63 +69,81 @@
   </head>
   <body onload="startTime()">
 
-  <section id="container">
-    <?php
-      //DISPLAY HEADBAR AND SIDEBAR
-      echo $headbar;
-      echo $sidebar;
-    ?>
-    <!--MAIN CONTENT START-->
-    <section id="main-content">
-        <section class="wrapper">
-          <?php
-        $sql  = "SELECT * FROM user_klinik, perawat WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=perawat.id_user_klinik";
-        $result = mysqli_query($conn, $sql);
+  <section id="container" >
+      <?php
+        echo $headbar;
+        echo $sidebar;
       ?>
-          
-          <?php 
-          while($row=mysqli_fetch_assoc($result))
-           echo "
-            
-              <div class=\"bigwhite-panel pnbig\">
-                <div class=\"bigwhite-header\">
-                  <h2><i class=\"fa fa-angle-right\"></i>PROFILE</h2>
-                </div>
-
-                <p class=\"big mt\"><i class=\"fa fa-user\"></i><b>  ".$row['nama_perawat']."</b></p>
-                <br><br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Tanggal Lahir</p>
-                      <p class=\"medium mt\">".$row['tanggal_lahir']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Alamat</p>
-                      <p class=\"medium mt\">".$row['alamat']."</p>
-                    </div>
-                  </div>
-
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<h2><center>Daftar Obat</center></h2>
+            <hr>
+          	<div class="row mt">
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Penambahan Data Baru</center></h4>
                   <br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Nomor Telepon</p>
-                      <p class=\"medium mt\">".$row['no_telp']."</p>
+
+                  <form class="form-horizontal style-form" method="post" action = "act/add_obat.php">
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Obat</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_obat" id="nama_obat" required>
+                      </div>
                     </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">E-mail</p>
-                      <p class=\"medium mt\">".$row['email']."</p>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
+                      <div class="col-sm-10">
+                        <!--DROPDOWN NAMA DOKTER-->
+                        <select class="form-control" name="satuan" id="satuan">
+                          <?php
+                            while($sat = $resultSat->fetch_assoc()){
+                              echo "
+                                <option value=\"$sat[id_satuan]\">$sat[nama_satuan]</option>
+                              ";
+                            }
+                          ?>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                    <br><br>
-                    <div class=\"row\">
-                    <a href=\"gantipass.php\" style=\"float: right\" class=\"btn btn-round btn-theme02\" role=\"button\">  Change Password</a>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" required>
+                      </div>
                     </div>
-                  
-             </div>
-            ";
-        ?>
- </section>
-    </section>
+
+                    <!--no_reg_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Harga Per Satuan (Rp)</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="harga" id="harga" required>
+                      </div>
+                    </div>
+
+                    <center>
+                      <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                      <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+                    </center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->
+            </div><!-- /row -->
+              </center>
+          		</div>
+          	</div>
+
+		      </section>
+      </section>
     <!--MAIN CONTENT END-->
   </section>
 

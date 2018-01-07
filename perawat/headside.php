@@ -42,7 +42,7 @@
 		          	</a>
 		      	</li>
 		      	<li class=\"sub-menu\">
-		          	<a href=\"../admin/obat.php\" >
+		          	<a href=\"obat.php\" >
 		              	<i class=\"fa fa-medkit\"></i>
 		              	<span>OBAT</span>
 		          	</a>

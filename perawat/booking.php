@@ -4,10 +4,9 @@
   include "../process/session_check.php";
   include "headside.php";
 
-
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
+  $dataBooking = $conn->query("SELECT booking.id_booking as id_booking, booking.nama_pasien as nama_pasien, booking.tanggal as tanggal, booking.jam as jam, dokter.nama_dokter as nama_dokter, booking.status_pasien as status_pasien FROM booking, dokter WHERE booking.id_dokter = dokter.id_dokter");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -57,6 +56,9 @@
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" >
     <link href="../assets/icofont/css/icofont.css" rel="stylesheet" >
     <link rel="stylesheet" type="text/css" href="../assets/lineicons/style.css"> 
+	
+	<!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -67,65 +69,63 @@
   </head>
   <body onload="startTime()">
 
-  <section id="container">
-    <?php
-      //DISPLAY HEADBAR AND SIDEBAR
-      echo $headbar;
-      echo $sidebar;
-    ?>
-    <!--MAIN CONTENT START-->
-    <section id="main-content">
-        <section class="wrapper">
-          <?php
-        $sql  = "SELECT * FROM user_klinik, perawat WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=perawat.id_user_klinik";
-        $result = mysqli_query($conn, $sql);
+  <section id="container" >
+      <?php
+        echo $headbar;
+        echo $sidebar;
       ?>
-          
-          <?php 
-          while($row=mysqli_fetch_assoc($result))
-           echo "
-            
-              <div class=\"bigwhite-panel pnbig\">
-                <div class=\"bigwhite-header\">
-                  <h2><i class=\"fa fa-angle-right\"></i>PROFILE</h2>
-                </div>
-
-                <p class=\"big mt\"><i class=\"fa fa-user\"></i><b>  ".$row['nama_perawat']."</b></p>
-                <br><br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Tanggal Lahir</p>
-                      <p class=\"medium mt\">".$row['tanggal_lahir']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Alamat</p>
-                      <p class=\"medium mt\">".$row['alamat']."</p>
-                    </div>
-                  </div>
-
-                  <br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Nomor Telepon</p>
-                      <p class=\"medium mt\">".$row['no_telp']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">E-mail</p>
-                      <p class=\"medium mt\">".$row['email']."</p>
-                    </div>
-                  </div>
-                    <br><br>
-                    <div class=\"row\">
-                    <a href=\"gantipass.php\" style=\"float: right\" class=\"btn btn-round btn-theme02\" role=\"button\">  Change Password</a>
-                    </div>
-                  
-             </div>
-            ";
-        ?>
- </section>
-    </section>
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<h2><center>Daftar Booking</center></h2>
+            <hr>
+          	<div class="row mt">
+          		<div class="col-lg-12">
+          		<table class="table table-striped table-advance table-hover col-lg-12">
+              <thead>
+                <th>Nama Lengkap</th>
+                <th>Tanggal</th>
+                <th>Jam</th>
+                <th>Dokter</th>
+                <th>Status Pasien</th>
+              </thead>
+              <tbody>
+                <?php
+                while($booking = $dataBooking->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        $booking[nama_pasien]
+                      </td>
+                      <td>
+                        $booking[tanggal]
+                      </td>
+                      <td>
+                        $booking[jam]
+                      </td>
+                      <td>
+                        $booking[nama_dokter]
+                      </td>
+                      <td>
+                      ";
+                      if($booking['status_pasien'] === '1'){
+                        echo "Pasien Lama";
+                      } else {
+                        echo "Pasien Baru";
+                      }
+                      echo "
+                    </tr>
+                  ";
+                }
+                ?>
+              </tbody>
+              </table>
+          		</div>
+          	</div>
+			
+		      </section>
+      </section>
     <!--MAIN CONTENT END-->
-  </section>
 
   <!-- Offline JQuery -->
   <script src="../assets/js/jquery-3.2.1.min.js"></script>

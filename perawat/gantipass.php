@@ -73,57 +73,59 @@
       echo $headbar;
       echo $sidebar;
     ?>
-    <!--MAIN CONTENT START-->
-    <section id="main-content">
-        <section class="wrapper">
-          <?php
-        $sql  = "SELECT * FROM user_klinik, perawat WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=perawat.id_user_klinik";
-        $result = mysqli_query($conn, $sql);
-      ?>
-          
-          <?php 
-          while($row=mysqli_fetch_assoc($result))
-           echo "
-            
-              <div class=\"bigwhite-panel pnbig\">
-                <div class=\"bigwhite-header\">
-                  <h2><i class=\"fa fa-angle-right\"></i>PROFILE</h2>
-                </div>
+    <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<div class="row mt">
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+					<div class="form-panel">
+						<h4 class="mb"><center>Change Password</center></h4>
+						<form class="form-horizontal style-form" method="post" action = "act/gantipass.php">
 
-                <p class=\"big mt\"><i class=\"fa fa-user\"></i><b>  ".$row['nama_perawat']."</b></p>
-                <br><br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Tanggal Lahir</p>
-                      <p class=\"medium mt\">".$row['tanggal_lahir']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Alamat</p>
-                      <p class=\"medium mt\">".$row['alamat']."</p>
-                    </div>
-                  </div>
+							<!--- Password saat ini ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Password Saat Ini</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="pass" id="pass" required>
+							<br>
+							</div>
+							</div>
 
-                  <br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Nomor Telepon</p>
-                      <p class=\"medium mt\">".$row['no_telp']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">E-mail</p>
-                      <p class=\"medium mt\">".$row['email']."</p>
-                    </div>
-                  </div>
-                    <br><br>
-                    <div class=\"row\">
-                    <a href=\"gantipass.php\" style=\"float: right\" class=\"btn btn-round btn-theme02\" role=\"button\">  Change Password</a>
-                    </div>
-                  
-             </div>
-            ";
-        ?>
- </section>
-    </section>
+							<!--- Password Baru ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Password Baru</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="passbaru" id="password" required>
+							<br>
+							</div>
+							</div>
+
+							<!--- Verifikasi Password ---->
+							<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">Konfirmasi Password</label>
+							<div class="col-sm-10">
+							<input type="password" class="form-control" name="verpass" id="cnf_pw" required>
+              <span id="pw-status"></span>
+							<br>
+							</div>
+							</div>
+
+							<center>
+                <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+              </center>
+							<br>
+							</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+		</section>
+      </section>
     <!--MAIN CONTENT END-->
   </section>
 

@@ -7,7 +7,7 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
+  $dataObat = $conn->query("SELECT * FROM obat, satuan WHERE obat.id_satuan = satuan.id_satuan");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -57,6 +57,9 @@
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" >
     <link href="../assets/icofont/css/icofont.css" rel="stylesheet" >
     <link rel="stylesheet" type="text/css" href="../assets/lineicons/style.css"> 
+	
+	<!-- Offline JQuery -->
+    <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
@@ -64,6 +67,21 @@
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+      //JQUERY
+      $(document).ready(function(){
+        //search
+        $("#search").keyup(function(){
+          var search = document.getElementById("search").value;
+
+          //console.log("ajax/uname_status.php?uname=" + uname);
+
+          $.get("ajax/search_daftarobat.php?q=" + search, function(data, status){
+            $("tbody").html(data);
+          });
+        });
+      });
+    </script>
   </head>
   <body onload="startTime()">
 
@@ -73,57 +91,69 @@
       echo $headbar;
       echo $sidebar;
     ?>
-    <!--MAIN CONTENT START-->
-    <section id="main-content">
-        <section class="wrapper">
-          <?php
-        $sql  = "SELECT * FROM user_klinik, perawat WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=perawat.id_user_klinik";
-        $result = mysqli_query($conn, $sql);
-      ?>
-          
-          <?php 
-          while($row=mysqli_fetch_assoc($result))
-           echo "
-            
-              <div class=\"bigwhite-panel pnbig\">
-                <div class=\"bigwhite-header\">
-                  <h2><i class=\"fa fa-angle-right\"></i>PROFILE</h2>
+    <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<h2><center>Daftar Obat</center></h2>
+            <hr>
+          	<div class="row mt">
+          		<div class="col-lg-12">
+                <div class="table-responsive">
+
+              <form role="search">
+                <div class="form-group">
+                  <div id="tabeldata_filter" class="dataTables_filter">
+                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
+                  </div>
                 </div>
+              </form>
 
-                <p class=\"big mt\"><i class=\"fa fa-user\"></i><b>  ".$row['nama_perawat']."</b></p>
-                <br><br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Tanggal Lahir</p>
-                      <p class=\"medium mt\">".$row['tanggal_lahir']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Alamat</p>
-                      <p class=\"medium mt\">".$row['alamat']."</p>
-                    </div>
-                  </div>
-
-                  <br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Nomor Telepon</p>
-                      <p class=\"medium mt\">".$row['no_telp']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">E-mail</p>
-                      <p class=\"medium mt\">".$row['email']."</p>
-                    </div>
-                  </div>
-                    <br><br>
-                    <div class=\"row\">
-                    <a href=\"gantipass.php\" style=\"float: right\" class=\"btn btn-round btn-theme02\" role=\"button\">  Change Password</a>
-                    </div>
-                  
-             </div>
-            ";
-        ?>
- </section>
-    </section>
+          		<table class="table table-striped table-advance table-hover col-lg-12">
+              <thead>
+                <th>Nama Obat</th>
+                <th>Satuan</th>
+                <th>Stok</th>
+                <th>Harga Per Satuan</th>
+              </thead>
+              <tbody>
+                <?php
+                while($obat = $dataObat->fetch_assoc()){
+                  echo "
+                    <tr>
+                      <td>
+                        $obat[nama_obat]
+                      </td>
+                      <td>
+                        $obat[nama_satuan]
+                      </td>
+                      <td>
+                        $obat[stok]
+                      </td>
+                      <td>
+                        $obat[harga]
+                      </td>
+					  <td align =\"right\">
+						<a href=\"stokobat_tambah.php?id_obat=$obat[id_obat]\" class=\"btn btn-success btn-sm\" role=\"button\"><i class=\"fa fa-plus\"></i> Stok</a>
+						<a href=\"stokobat_kurang.php?id_obat=$obat[id_obat]\" class=\"btn btn-warning btn-sm\" role=\"button\"><i class=\"fa fa-minus\"></i> Stok</a>
+						</td>
+                      <td align =\"right\">
+                        <a href=\"edit_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                        
+                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                      </td>
+                    </tr>
+                  ";
+                }
+                ?>
+              </tbody>
+              </table>
+              <a href="add_obat.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
+          		</div>
+          	</div>
+          </div>
+			
+		      </section>
+      </section>
     <!--MAIN CONTENT END-->
   </section>
 

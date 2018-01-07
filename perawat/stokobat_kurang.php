@@ -7,7 +7,9 @@
 
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
-  $dataPerawat = $conn->query("SELECT * FROM perawat");
+  $dataObat = $conn->query("SELECT * FROM obat WHERE id_obat = $_GET[id_obat]");
+  $obat = $dataObat->fetch_assoc();
+  $resultSat = $conn->query("SELECT id_satuan, nama_satuan FROM satuan");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
@@ -64,68 +66,73 @@
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
+	<SCRIPT language=Javascript>
+	<!--
+	function isNumberKey(evt)
+	{
+		var charCode = (evt.which) ? evt.which : event.keyCode
+		if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+		return false;
+		return true;
+	}
+	//-->
+	</SCRIPT>
   </head>
   <body onload="startTime()">
 
-  <section id="container">
-    <?php
-      //DISPLAY HEADBAR AND SIDEBAR
-      echo $headbar;
-      echo $sidebar;
-    ?>
-    <!--MAIN CONTENT START-->
-    <section id="main-content">
-        <section class="wrapper">
-          <?php
-        $sql  = "SELECT * FROM user_klinik, perawat WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=perawat.id_user_klinik";
-        $result = mysqli_query($conn, $sql);
+<section id="container" >
+      <?php
+        echo $headbar;
+        echo $sidebar;
       ?>
-          
-          <?php 
-          while($row=mysqli_fetch_assoc($result))
-           echo "
-            
-              <div class=\"bigwhite-panel pnbig\">
-                <div class=\"bigwhite-header\">
-                  <h2><i class=\"fa fa-angle-right\"></i>PROFILE</h2>
-                </div>
-
-                <p class=\"big mt\"><i class=\"fa fa-user\"></i><b>  ".$row['nama_perawat']."</b></p>
-                <br><br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Tanggal Lahir</p>
-                      <p class=\"medium mt\">".$row['tanggal_lahir']."</p>
-                    </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Alamat</p>
-                      <p class=\"medium mt\">".$row['alamat']."</p>
-                    </div>
-                  </div>
-
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+          	<h2><center>Daftar Obat</center></h2>
+            <hr>
+          	<div class="row mt">
+              <div class="col-lg-2">
+              </div>
+          		<div class="col-lg-8">
+            		<center>
+                  <div class="form-panel">
+                  <h4 class="mb"><center>Pengurangan Stok Obat</center></h4>
                   <br>
-                  <div class=\"row\">
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">Nomor Telepon</p>
-                      <p class=\"medium mt\">".$row['no_telp']."</p>
+
+                  <form class="form-horizontal style-form" method="post" action = <?php echo "act/stokobat_kurang.php?id_obat=$obat[id_obat]" ?>>
+
+                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nama Obat</label>
+                      <div class="col-sm-10">
+						<input type="text" class="form-control" name="nama" id="nama" value=<?php echo "\"$obat[nama_obat]\"";?> readonly>
+                      </div>
                     </div>
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">E-mail</p>
-                      <p class=\"medium mt\">".$row['email']."</p>
+
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="jumlah" id="jumlah" value="" onkeypress="return isNumberKey(event)">
+                      </div>
                     </div>
-                  </div>
-                    <br><br>
-                    <div class=\"row\">
-                    <a href=\"gantipass.php\" style=\"float: right\" class=\"btn btn-round btn-theme02\" role=\"button\">  Change Password</a>
-                    </div>
-                  
-             </div>
-            ";
-        ?>
- </section>
-    </section>
+
+                    <center>
+                      <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                      <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
+                    </center>
+                    <br>
+                  </form>
+                </div>
+              </div><!-- col-lg-12-->
+            </div><!-- /row -->
+              </center>
+          		</div>
+          	</div>
+
+		      </section>
+      </section>
     <!--MAIN CONTENT END-->
-  </section>
 
   <!-- Offline JQuery -->
   <script src="../assets/js/jquery-3.2.1.min.js"></script>

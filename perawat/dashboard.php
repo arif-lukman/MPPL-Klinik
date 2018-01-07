@@ -77,7 +77,7 @@
     <section id="main-content">
         <section class="wrapper">
           <?php
-        $sql  = "SELECT * FROM user_klinik, dokter WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=dokter.id_user_klinik";
+        $sql  = "SELECT * FROM user_klinik, perawat WHERE user_klinik.username = '$_SESSION[uid]' and user_klinik.id_user_klinik=perawat.id_user_klinik";
         $result = mysqli_query($conn, $sql);
       ?>
           <div class="row mt">
@@ -93,7 +93,7 @@
                  <h2>PROFILE</h2>
                 </div>
                 <p><img src=\"assets/img/login-bgg.jpg\" class=\"img-circle\" width=\"50\"></p>
-                <p class=\"medium mt\"><b>".$row['nama_dokter']."</b></p>
+                <p class=\"medium mt\"><b>".$row['nama_perawat']."</b></p>
                   <div class=\"row\">
                     <div class=\"col-md-6\">
                       <p class=\"small mt\">".$row['alamat']."</p>
@@ -112,7 +112,7 @@
         ?>
 
                   <!--BOX PASIEN--><br><br>
-                  <a href="../admin/pasien.php"> 
+                  <a href="../perawat/pasien.php"> 
                   <div class="col-md-2 col-sm-2 col-md-offset-2 box0">
                     <div class="box1">
                       <span class="fa fa-users"></span>
@@ -123,7 +123,7 @@
 
 
                   <!--BOX OBAT-->
-                  <a href="../admin/obat.php"> 
+                  <a href="../perawat/obat.php"> 
                   <div class="col-md-2 col-sm-2 box0">
                     <div class="box1">
                       <span class="icofont icofont-pills"></span>
