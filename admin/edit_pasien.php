@@ -166,7 +166,7 @@
 
                     <!--email-->
                     <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis</label>
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis (12 digit)</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" value=<?php echo "\"$pasien[no_rekam_medis]\"";?> autocomplete="off" required>
                       </div>

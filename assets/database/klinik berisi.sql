@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 06 Jan 2018 pada 03.39
+-- Generation Time: 08 Jan 2018 pada 02.28
 -- Versi Server: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -76,7 +76,10 @@ INSERT INTO `antrian` (`id_antrian`, `id_pasien`, `nama_pasien`, `id_dokter`, `t
 (5, 1, 'Jason Prawira Azali', 2, '2018-01-03', 'Menunggu', '14:42:00', '15:00:00', NULL),
 (6, 1, 'Jason Prawira Azali', 1, '2018-01-04', 'Menunggu', '20:17:00', '11:11:00', NULL),
 (7, 1, 'Jason Prawira Azali', 2, '2018-01-05', 'Selesai', '16:45:00', '17:00:00', '18:44:00'),
-(8, 1, 'Jason Prawira Azali', 3, '2018-01-06', 'Selesai', '00:47:00', '02:00:00', '19:01:00');
+(8, 1, 'Jason Prawira Azali', 3, '2018-01-06', 'Selesai', '00:47:00', '02:00:00', '19:01:00'),
+(9, 2, 'Sugeng Hartono', 1, '2018-01-07', 'Selesai', '19:05:00', '20:00:00', '13:07:00'),
+(10, 2, 'Sugeng Hartono', 3, '2018-01-07', 'Selesai', '21:01:00', '08:00:00', '15:13:00'),
+(11, 1, 'Jason Prawira Azali', 2, '2018-01-08', 'Menunggu', '07:51:00', '10:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -125,8 +128,8 @@ CREATE TABLE `detail_diagnosa` (
 
 INSERT INTO `detail_diagnosa` (`id_transaksi`, `id_detail_diagnosa`, `k1`, `k2`, `k3`, `k4`, `diagnosa`) VALUES
 (1, 1, 0, 0, 0, 3, 'Pencabutan Gigi'),
-(1, 2, 1, 0, 0, 0, 'Penambalan gigi'),
-(2, 3, 1, 0, 0, 0, 'a');
+(2, 3, 1, 0, 0, 0, 'a'),
+(3, 4, 13, 0, 0, 0, 'A');
 
 -- --------------------------------------------------------
 
@@ -171,8 +174,8 @@ CREATE TABLE `detail_transaksi_obat` (
 --
 
 INSERT INTO `detail_transaksi_obat` (`id_transaksi`, `id_detail_transaksi_obat`, `id_obat`, `jumlah`, `biaya`) VALUES
-(1, 1, 1, 2, 20000),
-(1, 2, 2, 1, 50000);
+(1, 2, 2, 1, 50000),
+(3, 3, 2, 2, 100000);
 
 -- --------------------------------------------------------
 
@@ -193,9 +196,8 @@ CREATE TABLE `detail_transaksi_terapi` (
 --
 
 INSERT INTO `detail_transaksi_terapi` (`id_transaksi`, `id_detail_transaksi_terapi`, `id_terapi`, `biaya`, `keterangan`) VALUES
-(1, 1, 6, 170000, 'Cabut Gigi'),
-(1, 2, 11, 150000, 'Tambal Gigi'),
-(2, 3, 3, 200000, '2');
+(2, 3, 3, 200000, '2'),
+(3, 4, 7, 250000, 'B');
 
 -- --------------------------------------------------------
 
@@ -221,7 +223,7 @@ CREATE TABLE `dokter` (
 --
 
 INSERT INTO `dokter` (`id_dokter`, `no_reg_dokter`, `nama_dokter`, `alamat`, `tanggal_lahir`, `jenis_kelamin`, `no_telp`, `email`, `status`, `id_user_klinik`) VALUES
-(1, '', 'Arif Lukman Hakim', 'Jl. Bangau Sakti no. 84', '1997-12-01', 'L', '081267357649', 'goodgamerasep@gmail.com', 1, 3),
+(1, '', 'Arif Lukman Hakim', 'Jl. Bangau Sakti no. 84', '1997-12-01', 'L', '081267357649', 'goodgamerasep@gmail.com', 1, 2),
 (2, '', 'Roby Estara Sunara', 'Jl. Bangau Sakti', '1997-04-05', 'L', '0811223344', 'roby@gmail.com', 1, 5),
 (3, '', 'Lukmannil Hakim', 'Jl. Garuda Sakti', '2018-02-03', 'L', '08998877363', 'lukman@gmail.com', 2, 6);
 
@@ -295,7 +297,8 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `alamat`, `tanggal_lahir`, `pekerjaan`, `no_telp`, `jenis_kelamin`, `no_rekam_medis`) VALUES
-(1, 'Jason Prawira Azali', 'Jl. Bangau Sakti no.84', '1997-01-05', 'Mahasiswa', '082233445566', 'L', '000000000001');
+(1, 'Jason Prawira Azali', 'Jl. Bangau Sakti no.84', '1997-01-05', 'Mahasiswa', '082233445566', 'L', '000000000001'),
+(2, 'Sugeng Hartono', 'Jl. Kalideres no. 12', '2018-04-24', 'Juragan Bakso', '081288889999', 'L', '000000000002');
 
 -- --------------------------------------------------------
 
@@ -321,7 +324,7 @@ CREATE TABLE `perawat` (
 --
 
 INSERT INTO `perawat` (`id_perawat`, `no_reg_perawat`, `nama_perawat`, `alamat`, `tanggal_lahir`, `jenis_kelamin`, `no_telp`, `email`, `status`, `id_user_klinik`) VALUES
-(1, '', 'Rihhadatul Aisy Frianti', 'Jl. Bangau Sakti', '1997-12-26', 'P', '0811223344', 'aisy@gmail.com', 1, 4),
+(1, '', 'Rihhadatul Aisy Frianti', 'Jl. Bangau Sakti', '1997-12-26', 'P', '0811223344', 'aisy@gmail.com', 1, 3),
 (10, '', 'Mega Bintang Purnama Sari', 'Jl. Sudirman', '1997-01-03', 'P', '0811223344', 'mega@gmail.com', 1, 8);
 
 -- --------------------------------------------------------
@@ -413,7 +416,7 @@ INSERT INTO `terapi` (`id_terapi`, `nama_terapi`, `kategori`, `tarif_min`, `tari
 
 CREATE TABLE `transaksi` (
   `id_transaksi` int(11) NOT NULL,
-  `no_rekam_medis` varchar(12) NOT NULL,
+  `id_pasien` int(11) NOT NULL,
   `id_dokter` int(11) NOT NULL,
   `id_perawat` int(11) NOT NULL,
   `tanggal` date NOT NULL,
@@ -427,9 +430,10 @@ CREATE TABLE `transaksi` (
 -- Dumping data untuk tabel `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `no_rekam_medis`, `id_dokter`, `id_perawat`, `tanggal`, `jam`, `metode_pembayaran`, `biaya_total`, `diskon`) VALUES
-(1, '000000000001', 2, 1, '2018-01-05', '18:44:00', 'Tunai', 351000, 10),
-(2, '000000000001', 3, 10, '2018-01-05', '19:01:00', 'Kredit', 180000, 10);
+INSERT INTO `transaksi` (`id_transaksi`, `id_pasien`, `id_dokter`, `id_perawat`, `tanggal`, `jam`, `metode_pembayaran`, `biaya_total`, `diskon`) VALUES
+(1, 1, 2, 1, '2018-01-05', '18:44:00', 'Tunai', 45000, 10),
+(2, 1, 3, 10, '2018-01-05', '19:01:00', 'Kredit', 180000, 10),
+(3, 2, 3, 10, '2018-01-07', '13:20:00', 'Debit', 175000, 50);
 
 -- --------------------------------------------------------
 
@@ -483,7 +487,8 @@ ALTER TABLE `booking`
 -- Indexes for table `detail_diagnosa`
 --
 ALTER TABLE `detail_diagnosa`
-  ADD PRIMARY KEY (`id_detail_diagnosa`,`id_transaksi`);
+  ADD PRIMARY KEY (`id_detail_diagnosa`,`id_transaksi`),
+  ADD KEY `id_transaksi` (`id_transaksi`);
 
 --
 -- Indexes for table `detail_obat`
@@ -501,13 +506,15 @@ ALTER TABLE `detail_terapi`
 -- Indexes for table `detail_transaksi_obat`
 --
 ALTER TABLE `detail_transaksi_obat`
-  ADD PRIMARY KEY (`id_detail_transaksi_obat`,`id_transaksi`);
+  ADD PRIMARY KEY (`id_detail_transaksi_obat`,`id_transaksi`),
+  ADD KEY `id_transaksi` (`id_transaksi`);
 
 --
 -- Indexes for table `detail_transaksi_terapi`
 --
 ALTER TABLE `detail_transaksi_terapi`
-  ADD PRIMARY KEY (`id_detail_transaksi_terapi`,`id_transaksi`);
+  ADD PRIMARY KEY (`id_detail_transaksi_terapi`,`id_transaksi`),
+  ADD KEY `detail_transaksi_terapi_ibfk_1` (`id_transaksi`);
 
 --
 -- Indexes for table `dokter`
@@ -579,7 +586,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `antrian`
 --
 ALTER TABLE `antrian`
-  MODIFY `id_antrian` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_antrian` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `booking`
@@ -591,7 +598,7 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT for table `detail_diagnosa`
 --
 ALTER TABLE `detail_diagnosa`
-  MODIFY `id_detail_diagnosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_detail_diagnosa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `detail_obat`
@@ -609,13 +616,13 @@ ALTER TABLE `detail_terapi`
 -- AUTO_INCREMENT for table `detail_transaksi_obat`
 --
 ALTER TABLE `detail_transaksi_obat`
-  MODIFY `id_detail_transaksi_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_detail_transaksi_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi_terapi`
 --
 ALTER TABLE `detail_transaksi_terapi`
-  MODIFY `id_detail_transaksi_terapi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_detail_transaksi_terapi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `dokter`
@@ -639,7 +646,7 @@ ALTER TABLE `obat`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pasien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `perawat`
@@ -663,13 +670,35 @@ ALTER TABLE `terapi`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_klinik`
 --
 ALTER TABLE `user_klinik`
   MODIFY `id_user_klinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `detail_diagnosa`
+--
+ALTER TABLE `detail_diagnosa`
+  ADD CONSTRAINT `detail_diagnosa_ibfk_1` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `detail_transaksi_obat`
+--
+ALTER TABLE `detail_transaksi_obat`
+  ADD CONSTRAINT `detail_transaksi_obat_ibfk_1` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `detail_transaksi_terapi`
+--
+ALTER TABLE `detail_transaksi_terapi`
+  ADD CONSTRAINT `detail_transaksi_terapi_ibfk_1` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
