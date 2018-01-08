@@ -127,10 +127,10 @@
                         $terapi[nama_kategori_terapi]
                       </td>
                       <td>
-                        $terapi[tarif_min]
+                        Rp " . number_format($terapi['tarif_min'], 0 , ".", ",") . "
                       </td>
                       <td>
-                        $terapi[tarif_max]
+                        Rp " . number_format($terapi['tarif_max'], 0, ".", ",") . "
                       </td>
                       <td align =\"right\">
                         <a href=\"edit_terapi.php?id_terapi=$terapi[id_terapi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>

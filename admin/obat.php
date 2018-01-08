@@ -130,12 +130,12 @@
                         $obat[stok]
                       </td>
                       <td>
-                        $obat[harga]
+                        Rp " . number_format($obat['harga'], 0, ".", ",") . "
                       </td>
-					  <td align =\"right\">
-						<a href=\"stokobat_tambah.php?id_obat=$obat[id_obat]\" class=\"btn btn-success btn-sm\" role=\"button\"><i class=\"fa fa-plus\"></i> Stok</a>
-						<a href=\"stokobat_kurang.php?id_obat=$obat[id_obat]\" class=\"btn btn-warning btn-sm\" role=\"button\"><i class=\"fa fa-minus\"></i> Stok</a>
-						</td>
+          					  <td align =\"right\">
+          						<a href=\"stokobat_tambah.php?id_obat=$obat[id_obat]\" class=\"btn btn-success btn-sm\" role=\"button\"><i class=\"fa fa-plus\"></i> Stok</a>
+          						<a href=\"stokobat_kurang.php?id_obat=$obat[id_obat]\" class=\"btn btn-warning btn-sm\" role=\"button\"><i class=\"fa fa-minus\"></i> Stok</a>
+          						</td>
                       <td align =\"right\">
                         <a href=\"edit_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                         
