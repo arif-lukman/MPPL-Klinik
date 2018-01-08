@@ -93,14 +93,20 @@
                  <h2>PROFILE</h2>
                 </div>
                 <p class=\"medium mt\"><b>".$row['nama_dokter']."</b></p>
+
                   <div class=\"row\">
                     <div class=\"col-md-6\">
-                      <p class=\"small mt\">".$row['alamat']."</p>
+                      <p class=\"small mt\">Tanggal Lahir</p>
+                      <p>".$row['tanggal_lahir']."</p>
+                    </div>
+                    <div class=\"col-md-6\">
+                      <p class=\"small mt\">No. Telp</p>
                       <p>".$row['no_telp']."</p>
                     </div>
-                    
-                    <div class=\"col-md-6\">
-                      <p class=\"small mt\">".$row['tanggal_lahir']."</p>
+                  </div><br>
+                  <div class=\"row\">
+                    <div class=\"col-md-6 col-md-offset-3\">
+                      <p class=\"small mt\">".$row['alamat']."</p>
                       <p>".$row['email']."</p>
                     </div>
                   </div>
