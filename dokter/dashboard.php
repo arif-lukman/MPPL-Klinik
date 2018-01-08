@@ -92,7 +92,6 @@
                 <div class=\"white-header\">
                  <h2>PROFILE</h2>
                 </div>
-                <p><img src=\"assets/img/login-bgg.jpg\" class=\"img-circle\" width=\"50\"></p>
                 <p class=\"medium mt\"><b>".$row['nama_dokter']."</b></p>
                   <div class=\"row\">
                     <div class=\"col-md-6\">
