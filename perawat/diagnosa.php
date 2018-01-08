@@ -10,6 +10,8 @@
   $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
   $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
   $resultPerawat = $conn->query("SELECT id_perawat, nama_perawat FROM perawat");
+  $resultTransaksi = $conn->query("SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.id_pasien = pasien.id_pasien AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat AND transaksi.id_pasien = '$_GET[id_pasien]'");
+  $dokter = GetData($conn, "SELECT id_dokter FROM antrian WHERE id_antrian = '$_GET[id_antrian]'");
   $dokter = GetData($conn, "SELECT id_dokter FROM antrian WHERE id_antrian = '$_GET[id_antrian]'");
   //echo SelectTarget($_SESSION['tgt']);
 
@@ -144,16 +146,185 @@
 					$result = mysqli_query($conn, $sql);
 				?>
 				
-				<table class="table table-striped table-advance table-hover col-lg-12">
-				<thead>
-					<th>Tanggal</th>
-					<th>Diagnosa</th>
-					<th>Terapi</th>
-					<th>Harga</th>
-					<th>Dokter</th>
-				</thead>
-				<tbody>
-				</table>
+				<h4><center>Diagnosa</center></h4>
+        <table class="table table-striped table-advance table-hover col-lg-12">
+        <thead>
+          <th>Tanggal</th>
+          <th colspan="2">Gigi</th>
+          <th>Keterangan</th>
+        </thead>
+        <tbody>
+          <?php
+              while ($transaksi = $resultTransaksi->fetch_assoc()) {
+                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
+
+                $rowDiagnosa = $resultDiagnosa->num_rows;
+
+                echo "
+                  <tr>
+                    <td rowspan=\"" . $rowDiagnosa * 2 . "\">
+                      $transaksi[tanggal]
+                    </td>
+                ";
+
+                //diagnosa
+                if($rowDiagnosa != 0){
+                  while ($diagnosa = $resultDiagnosa->fetch_assoc()) {
+                    echo "
+                        <td style=\"border-right: solid 2px #000000; border-bottom: solid 2px #000000; text-align: right;\">
+                          $diagnosa[k1]
+                        </td>
+                        <td style=\"border-left: solid 2px #000000; border-bottom: solid 2px #000000; text-align: left;\">
+                          $diagnosa[k2]
+                        </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[diagnosa]
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style=\"border-right: solid 2px #000000; border-top: solid 2px #000000; text-align: right;\">
+                          $diagnosa[k3]
+                        </td>
+                        <td style=\"border-left: solid 2px #000000; border-top: solid 2px #000000; text-align: left;\">
+                          $diagnosa[k4]
+                        </td>
+                      </tr>
+                      ";
+                  }
+              }
+            }
+          ?>
+        </tbody>
+        </table>
+        <br><br><br><br>
+
+        <h4><center>Terapi</center></h4>
+        <table class="table table-striped table-advance table-hover col-lg-12">
+        <thead>
+          <th>Tanggal</th>
+          <th>Terapi</th>
+          <th>Keterangan</th>
+          <th>Tarif</th>
+        </thead>
+        <tbody>
+          <?php
+                //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
+              $resultTransaksi->data_seek(0);
+              while ($transaksi = $resultTransaksi->fetch_assoc()) {
+                $resultTerapi = $conn->query("SELECT * FROM transaksi, detail_transaksi_terapi, terapi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND detail_transaksi_terapi.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'  AND transaksi.id_pasien = '$_GET[id_pasien]'");
+
+                $rowTerapi = $resultTerapi->num_rows;
+
+                if($rowTerapi != 0){
+                  echo "
+                    <tr>
+                      <td rowspan=\"" . $rowTerapi . "\">
+                        $transaksi[tanggal]
+                      </td>
+                  ";
+
+                  //diagnosa
+                  while ($terapi = $resultTerapi->fetch_assoc()) {
+                    echo "
+                        <td>
+                          $terapi[nama_terapi]
+                        </td>
+                        <td>
+                          $terapi[keterangan]
+                        </td>
+                        <td>
+                          Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
+                        </td>
+                      </tr>
+                    ";
+                  }
+                }
+              }
+          ?>
+        </tbody>
+        </table>
+        <br><br><br><br>
+
+        <h4><center>Obat</center></h4>
+        <table class="table table-striped table-advance table-hover col-lg-12">
+        <thead>
+          <th>Tanggal</th>
+          <th>Nama Obat</th>
+          <th>Jumlah per Satuan</th>
+          <th>Harga Total</th>
+        </thead>
+        <tbody>
+          <?php
+                //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
+              $resultTransaksi->data_seek(0);
+              while ($transaksi = $resultTransaksi->fetch_assoc()) {
+                $resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
+                
+
+                $rowObat = $resultObat->num_rows;
+
+                //echo $rowObat;
+
+                if($rowObat != 0){
+                  echo "
+                    <tr>
+                      <td rowspan=\"" . $rowObat . "\">
+                        $transaksi[tanggal]
+                      </td>
+                  ";
+
+                  //diagnosa
+                  while ($obat = $resultObat->fetch_assoc()) {
+                    echo "
+                        <td>
+                          $obat[nama_obat]
+                        </td>
+                        <td>
+                          $obat[jumlah] $obat[nama_satuan]
+                        </td>
+                        <td>
+                          Rp " . number_format($obat['biaya'], 0 , ",", ".") . "
+                        </td>
+                      </tr>
+                    ";
+                  }
+                }
+              }
+          ?>
+        </tbody>
+        </table>
+        <br><br><br><br>
+
+        <h4><center>Rincian</center></h4>
+        <table class="table table-striped table-advance table-hover col-lg-12">
+        <thead>
+          <th>Tanggal</th>
+          <th>Dokter</th>
+          <th>Perawat</th>
+        </thead>
+        <tbody>
+          <?php
+                //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
+              $resultTransaksi->data_seek(0);
+              while ($transaksi = $resultTransaksi->fetch_assoc()) {
+                echo "
+                  <tr>
+                    <td>
+                      $transaksi[tanggal]
+                    </td>
+                    <td>
+                      $transaksi[nama_dokter]
+                    </td>
+                    <td>
+                      $transaksi[nama_perawat]
+                    </td>
+                  <tr>
+                ";
+              }
+          ?>
+        </tbody>
+        </table>
+        <br><br><br><br>
 
 				<div class="container">
 				<table class="table table-striped">
