@@ -26,7 +26,7 @@
 	       	<!-- sidebar menu start-->
 	      	<ul class=\"sidebar-menu\" id=\"nav-accordion\">
 	      
-		  	  	<p class=\"centered\"><a href=\"dashboard.php\"><img src=\"../assets/img/ui-sam.jpg\" class=\"img-circle\" width=\"60\"></a></p>
+		  	  	<p class=\"centered\"><a href=\"dashboard.php\"><img src=\"../assets/img/logobulat.png\" class=\"img-circle\" width=\"60\"></a></p>
 		  	  	<h5 class=\"centered\">$_SESSION[uid]</h5>
 
 		      	<li class=\"sub-menu\">
