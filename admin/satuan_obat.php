@@ -53,7 +53,7 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
@@ -101,7 +101,7 @@
           	<div class="row mt">
               <div class="col-lg-3"></div>
           		<div class="col-lg-6">
-                
+
               <form role="search">
                 <div class="form-group">
                   <div id="tabeldata_filter" class="dataTables_filter">
@@ -109,7 +109,7 @@
                   </div>
                 </div>
               </form>
-              
+
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <th>Nama Satuan</th>
@@ -125,8 +125,8 @@
                       </td>
                       <td align =\"right\">
                         <a href=\"edit_satuan.php?id_satuan=$satuan[id_satuan]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                      	<a href=\"act/hapus_satuan.php?id_satuan=$satuan[id_satuan]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+
+                      	<a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_satuan.php?id_satuan=$satuan[id_satuan]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";
@@ -137,7 +137,7 @@
               <a href="add_satuan.php"  style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
-			
+
 		      </section>
       </section><!-- /MAIN CONTENT -->
 
@@ -173,7 +173,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+
   <script>
       //custom select box
 

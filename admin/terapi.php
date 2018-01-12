@@ -53,12 +53,12 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
-	
+
 	<!-- Offline JQuery -->
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
@@ -67,7 +67,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
+
 	<script type="text/javascript">
       //JQUERY
       $(document).ready(function(){
@@ -127,15 +127,15 @@
                         $terapi[nama_kategori_terapi]
                       </td>
                       <td>
-                        $terapi[tarif_min]
+                        Rp " . number_format($terapi['tarif_min'], 0 , ".", ",") . "
                       </td>
                       <td>
-                        $terapi[tarif_max]
+                        Rp " . number_format($terapi['tarif_max'], 0, ".", ",") . "
                       </td>
                       <td align =\"right\">
                         <a href=\"edit_terapi.php?id_terapi=$terapi[id_terapi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                        
-                        <a href=\"act/hapus_terapi.php?id_terapi=$terapi[id_terapi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+
+                        <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_terapi.php?id_terapi=$terapi[id_terapi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";
@@ -170,7 +170,7 @@
 
     <!-- Our Javascript -->
     <script src="../assets/js/ours/jam.js"></script>
-    
+
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -185,7 +185,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+
   <script>
       //custom select box
 

@@ -8,7 +8,8 @@
 
   //Ambil data
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
-  $resultTransaksi = $conn->query("SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.no_rekam_medis = pasien.no_rekam_medis AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat");
+  $resultTransaksi = $conn->query("SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.id_pasien = pasien.id_pasien AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat AND transaksi.id_pasien = '$_GET[id_pasien]'");
+  //echo "SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.no_rekam_medis = pasien.no_rekam_medis AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat";
 
   $resTransaksi = $conn->query("SELECT * FROM transaksi, pasien, detail_diagnosa");
   //echo SelectTarget($_SESSION['tgt']);
@@ -38,6 +39,14 @@
       return $result -> fetch_assoc();
     } else {
       return false;
+    }
+  }
+
+  function CheckQ($q){
+    if($q != 0){
+      return $q;
+    } else {
+      return "-";
     }
   }
 ?>
@@ -149,12 +158,15 @@
 				<thead>
 					<th>Tanggal</th>
 					<th colspan="2">Gigi</th>
-					<th>Keterangan</th>
+					<th>Diagnosa</th>
+          <th>Terapi</th>
+          <th>Keterangan Terapi</th>
+          <th>Biaya</th>
 				</thead>
 				<tbody>
           <?php
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'");
+                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa, terapi WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND detail_diagnosa.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
 
                 $rowDiagnosa = $resultDiagnosa->num_rows;
 
@@ -170,26 +182,35 @@
                   while ($diagnosa = $resultDiagnosa->fetch_assoc()) {
                     echo "
                         <td style=\"border-right: solid 2px #000000; border-bottom: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k1]
+                          " . CheckQ($diagnosa['k1']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-bottom: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k2]
+                          " . CheckQ($diagnosa['k2']) . "
                         </td>
                         <td rowspan=\"2\">
                           $diagnosa[diagnosa]
                         </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[nama_terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          Rp " . number_format($diagnosa['biaya'], 0, ".", ",") . "
+                        </td>
                         <td align =\"right\" rowspan=\"2\">
-                          <a href=\"edit_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                          <a href=\"edit_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                         
-                          <a href=\"act/hapus_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                          <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]&id_pasien=$_GET[id_pasien]&id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                         </td>
                       </tr>
                       <tr>
                         <td style=\"border-right: solid 2px #000000; border-top: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k3]
+                          " . CheckQ($diagnosa['k3']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-top: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k4]
+                          " . CheckQ($diagnosa['k4']) . "
                         </td>
                       </tr>
                       ";
@@ -199,58 +220,6 @@
           ?>
         </tbody>
   			</table>
-        <br><br><br><br>
-
-        <h4><center>Terapi</center></h4>
-        <table class="table table-striped table-advance table-hover col-lg-12">
-        <thead>
-          <th>Tanggal</th>
-          <th>Terapi</th>
-          <th>Keterangan</th>
-          <th>Tarif</th>
-        </thead>
-        <tbody>
-          <?php
-                //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
-              $resultTransaksi->data_seek(0);
-              while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultTerapi = $conn->query("SELECT * FROM transaksi, detail_transaksi_terapi, terapi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND detail_transaksi_terapi.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'");
-
-                $rowTerapi = $resultTerapi->num_rows;
-
-                if($rowTerapi != 0){
-                  echo "
-                    <tr>
-                      <td rowspan=\"" . $rowTerapi . "\">
-                        $transaksi[tanggal]
-                      </td>
-                  ";
-
-                  //diagnosa
-                  while ($terapi = $resultTerapi->fetch_assoc()) {
-                    echo "
-                        <td>
-                          $terapi[nama_terapi]
-                        </td>
-                        <td>
-                          $terapi[keterangan]
-                        </td>
-                        <td>
-                          Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
-                        </td>
-                        <td align =\"right\">
-                          <a href=\"edit_terapi.php?id_terapi=$terapi[id_detail_transaksi_terapi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                        
-                          <a href=\"act/hapus_terapi.php?id_terapi=$terapi[id_detail_transaksi_terapi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                        </td>
-                      </tr>
-                    ";
-                  }
-                }
-              }
-          ?>
-        </tbody>
-        </table>
         <br><br><br><br>
 
         <h4><center>Obat</center></h4>
@@ -294,9 +263,9 @@
                           Rp " . number_format($obat['biaya'], 0 , ",", ".") . "
                         </td>
                         <td align =\"right\">
-                        <a href=\"edit_obat.php?id_obat=$obat[id_detail_transaksi_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                        <a href=\"edit_tr_obat.php?id_obat=$obat[id_detail_transaksi_obat]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                       
-                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_detail_transaksi_obat]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                        <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_obat.php?id_obat=$obat[id_detail_transaksi_obat]&id_pasien=$_GET[id_pasien]&id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                       </tr>
                     ";
@@ -345,12 +314,12 @@
                       Rp " . number_format($transaksi['biaya_total'], 0 , ",", ".") . "
                     </td>
                     <td>
-                      $transaksi[diskon]%
+                      Rp " . number_format($transaksi['diskon'], 0 , ",", ".") . "
                     </td>
                     <td align =\"right\" rowspan=\"2\">
-                      <a href=\"edit_transaksi.php?id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
+                      <a href=\"edit_transaksi.php?id_transaksi=$transaksi[id_transaksi]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
                     
-                      <a href=\"act/hapus_transaksi.php?id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+                      <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_transaksi.php?id_transaksi=$transaksi[id_transaksi]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                     </td>
                   <tr>
                 ";

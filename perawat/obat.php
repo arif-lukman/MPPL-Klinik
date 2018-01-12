@@ -56,8 +56,8 @@
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" >
     <link href="../assets/icofont/css/icofont.css" rel="stylesheet" >
-    <link rel="stylesheet" type="text/css" href="../assets/lineicons/style.css"> 
-	
+    <link rel="stylesheet" type="text/css" href="../assets/lineicons/style.css">
+
 	<!-- Offline JQuery -->
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
@@ -138,8 +138,8 @@
 						</td>
                       <td align =\"right\">
                         <a href=\"edit_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                        
-                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+
+                        <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_obat.php?id_obat=$obat[id_obat]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";
@@ -151,7 +151,7 @@
           		</div>
           	</div>
           </div>
-			
+
 		      </section>
       </section>
     <!--MAIN CONTENT END-->

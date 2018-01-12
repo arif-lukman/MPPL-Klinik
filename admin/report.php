@@ -7,9 +7,12 @@
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
   $dataPasien = $conn->query("SELECT * FROM pasien");
+  
+  $report = $conn->query("SELECT transaksi.tanggal AS tanggal, pasien.nama_pasien AS nama_pasien, pasien.jenis_kelamin AS jenis_kelamin, pasien.alamat AS alamat, pasien.tanggal_lahir AS tanggal_lahir, pasien.no_rekam_medis AS no_rekam_medis, terapi.nama_terapi AS nama_terapi, detail_diagnosa.biaya, dokter.nama_dokter AS nama_dokter, perawat.nama_perawat AS nama_perawat from transaksi, pasien, detail_diagnosa, terapi, dokter, perawat WHERE transaksi.id_pasien = pasien.id_pasien AND transaksi.id_transaksi=detail_diagnosa.id_transaksi AND detail_diagnosa.id_terapi=terapi.id_terapi AND dokter.id_dokter=transaksi.id_dokter AND perawat.id_perawat=transaksi.id_perawat");
   //echo SelectTarget($_SESSION['tgt']);
 
   //Fungsi
+  
   function SelectTarget($usrType){
     switch ($usrType) {
       case 1:
@@ -53,12 +56,12 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+        
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
     <link href="../assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
-
+	
 	<!-- Offline JQuery -->
     <script src="../assets/js/jquery-3.2.1.min.js"></script>
 
@@ -76,14 +79,12 @@
 
           //console.log("ajax/uname_status.php?uname=" + uname);
 
-          $.get("ajax/search_pasien.php?q=" + search, function(data, status){
+          $.get("ajax/search_report.php?q=" + search, function(data, status){
             $("tbody").html(data);
           });
         });
       });
     </script>
-  </head>
-
   <body onload="startTime()">
 
   <section id="container" >
@@ -94,71 +95,74 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Data Pasien</center></h2>
+          	<h2><center>Report</center></h2>
             <hr>
           	<div class="row mt">
-          		<div class="col-lg-12">
+          	<div class="col-lg-12">
                 <div class="table-responsive">
 				<form role="search">
                 <div class="form-group">
                   <div id="tabeldata_filter" class="dataTables_filter">
-                    <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
+                    <label>Search : <input type="date" class="form-control input-sm" placeholder="" aria-controls="tabeldata" id="search"></label>
                   </div>
                 </div>
 				</form>
-
+			
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
+				<th>Tanggal</th>
                 <th>Nama</th>
+				<th>JK</th>
                 <th>Alamat</th>
                 <th>Tanggal Lahir</th>
-                <th>Pekerjaan</th>
-                <th>Nomor Telpon</th>
-                <th>Jenis Kelamin</th>
-                <th>Nomor Rekam Medis</th>
+				<th>Nomor Rekam Medis</th>
+                <th>Terapi</th>
+                <th>Biaya</th>
+				<th>Dokter / Perawat
               </thead>
               <tbody>
                 <?php
-                while($pasien = $dataPasien->fetch_assoc()){
+				
+                while($rep = $report->fetch_assoc()){
                   echo "
                     <tr>
                       <td>
-                        $pasien[nama_pasien]
+                        $rep[tanggal]
                       </td>
                       <td>
-                        $pasien[alamat]
+                        $rep[nama_pasien]
                       </td>
                       <td>
-                        $pasien[tanggal_lahir]
+                        $rep[jenis_kelamin]
                       </td>
                       <td>
-                        $pasien[pekerjaan]
+                        $rep[alamat]
                       </td>
                       <td>
-                        $pasien[no_telp]
+                        $rep[tanggal_lahir]
+                      </td>
+					  <td>
+						$rep[no_rekam_medis]
+					  </td>
+                      <td>
+                        $rep[nama_terapi]
                       </td>
                       <td>
-                        $pasien[jenis_kelamin]
+                        Rp " . number_format($rep['biaya'], 0 , ",", ".") . "
                       </td>
-                      <td>
-                        $pasien[no_rekam_medis]
-                      </td>
-                      <td align =\"right\">
-                        <a href=\"edit_pasien.php?id_pasien=$pasien[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-
-                        <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_pasien.php?id_pasien=$pasien[id_pasien]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                      </td>
+					  <td>
+						$rep[nama_dokter] / $rep[nama_perawat]
+					  </td>
                     </tr>
                   ";
                 }
                 ?>
               </tbody>
               </table>
-              <a href="add_pasien.php" style="float: right" class="btn btn-round btn-theme02" role="button">Tambah</a>
           		</div>
           	</div>
           </div>
-
+			
 		      </section>
       </section><!-- /MAIN CONTENT -->
 
@@ -182,7 +186,7 @@
 
     <!-- Our Javascript -->
     <script src="../assets/js/ours/jam.js"></script>
-
+    
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -197,7 +201,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-
+    
   <script>
       //custom select box
 

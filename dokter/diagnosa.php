@@ -8,7 +8,8 @@
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
   //
   $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
-  $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
+  $resultObat2 = $conn->query("SELECT id_obat, nama_obat FROM obat");
+  //echo "SELECT id_obat, nama_obat FROM obat";
   $resultPerawat = $conn->query("SELECT id_perawat, nama_perawat FROM perawat");
   $resultTransaksi = $conn->query("SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.id_pasien = pasien.id_pasien AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat AND transaksi.id_pasien = '$_GET[id_pasien]'");
   $dokter = GetData($conn, "SELECT id_dokter FROM antrian WHERE id_antrian = '$_GET[id_antrian]'");
@@ -40,6 +41,14 @@
     } else {
       return false;
     }
+  }
+
+  function CheckQ($q){
+  	if($q != 0){
+  		return $q;
+  	} else {
+  		return "-";
+  	}
   }
 ?>
 
@@ -150,12 +159,15 @@
         <thead>
           <th>Tanggal</th>
           <th colspan="2">Gigi</th>
-          <th>Keterangan</th>
+          <th>Diagnosa</th>
+          <th>Terapi</th>
+          <th>Keterangan Terapi</th>
+          <th>Biaya</th>
         </thead>
         <tbody>
           <?php
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
+                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa, terapi WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND detail_diagnosa.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
 
                 $rowDiagnosa = $resultDiagnosa->num_rows;
 
@@ -171,74 +183,36 @@
                   while ($diagnosa = $resultDiagnosa->fetch_assoc()) {
                     echo "
                         <td style=\"border-right: solid 2px #000000; border-bottom: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k1]
+                          " . CheckQ($diagnosa['k1']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-bottom: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k2]
+                          " . CheckQ($diagnosa['k2']) . "
                         </td>
                         <td rowspan=\"2\">
                           $diagnosa[diagnosa]
                         </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[nama_terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          Rp " . number_format($diagnosa['biaya'], 0, ".", ",") . "
+                        </td>
                       </tr>
                       <tr>
                         <td style=\"border-right: solid 2px #000000; border-top: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k3]
+                          " . CheckQ($diagnosa['k3']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-top: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k4]
+                          " . CheckQ($diagnosa['k4']) . "
                         </td>
                       </tr>
                       ";
                   }
               }
             }
-          ?>
-        </tbody>
-        </table>
-        <br><br><br><br>
-
-        <h4><center>Terapi</center></h4>
-        <table class="table table-striped table-advance table-hover col-lg-12">
-        <thead>
-          <th>Tanggal</th>
-          <th>Terapi</th>
-          <th>Keterangan</th>
-          <th>Tarif</th>
-        </thead>
-        <tbody>
-          <?php
-                //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
-              $resultTransaksi->data_seek(0);
-              while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultTerapi = $conn->query("SELECT * FROM transaksi, detail_transaksi_terapi, terapi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND detail_transaksi_terapi.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'  AND transaksi.id_pasien = '$_GET[id_pasien]'");
-
-                $rowTerapi = $resultTerapi->num_rows;
-
-                if($rowTerapi != 0){
-                  echo "
-                    <tr>
-                      <td rowspan=\"" . $rowTerapi . "\">
-                        $transaksi[tanggal]
-                      </td>
-                  ";
-
-                  //diagnosa
-                  while ($terapi = $resultTerapi->fetch_assoc()) {
-                    echo "
-                        <td>
-                          $terapi[nama_terapi]
-                        </td>
-                        <td>
-                          $terapi[keterangan]
-                        </td>
-                        <td>
-                          Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
-                        </td>
-                      </tr>
-                    ";
-                  }
-                }
-              }
           ?>
         </tbody>
         </table>
@@ -257,10 +231,10 @@
                 //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
               $resultTransaksi->data_seek(0);
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
+                $resultObat1 = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
                 
 
-                $rowObat = $resultObat->num_rows;
+                $rowObat = $resultObat1->num_rows;
 
                 //echo $rowObat;
 
@@ -273,16 +247,16 @@
                   ";
 
                   //diagnosa
-                  while ($obat = $resultObat->fetch_assoc()) {
+                  while ($obat1 = $resultObat1->fetch_assoc()) {
                     echo "
                         <td>
-                          $obat[nama_obat]
+                          $obat1[nama_obat]
                         </td>
                         <td>
-                          $obat[jumlah] $obat[nama_satuan]
+                          $obat1[jumlah] $obat1[nama_satuan]
                         </td>
                         <td>
-                          Rp " . number_format($obat['biaya'], 0 , ",", ".") . "
+                          Rp " . number_format($obat1['biaya'], 0 , ",", ".") . "
                         </td>
                       </tr>
                     ";
@@ -375,31 +349,15 @@
               </div>
             </center>
 
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Keterangan</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
-							</div>
-						</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Diagnosa</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
+				</div>
+			</div>
 
-            <!-- DIAGNOSA BARU DIAPPEND KE SINI -->
-            <div id="field-diagnosa">
-            </div>
-
-            <!-- TOMBOL BUAT NAMBAH DIAGNOSA -->
-            <div class="form-group col-sm-12">
-              <center>
-              <input type="hidden" name="diag-num" id="diag-num" value="1">
-              <input type="button" class="btn" name="btn-diag" id="btn-diag" value="+">
-              <input type="button" class="btn" name="btn-diag-" id="btn-diag-" value="-" style="display:none;">
-              </center>
-            </div>
-
-						<!--Form terapi-->
-            <h4>Terapi</h4><hr>
-            <h5>1 )</h5>
-						<div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+			<div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Kategori Terapi</label>
               <div class="col-sm-10">
                 <!--DROPDOWN NAMA DOKTER-->
                 <select class="form-control" name="idk1" id="idk1" onchange="SetChildOpt(this);" required>
@@ -433,24 +391,28 @@
               </div>
             </div>
 					
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Keterangan</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
-							</div>
-						</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Keterangan Terapi</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
+				</div>
+			</div>
+
+            <!-- DIAGNOSA BARU DIAPPEND KE SINI -->
+            <div id="field-diagnosa">
+            </div>
+
+            <!-- TOMBOL BUAT NAMBAH DIAGNOSA -->
+            <div class="form-group col-sm-12">
+              <center>
+              <input type="hidden" name="diag-num" id="diag-num" value="1">
+              <input type="button" class="btn" name="btn-diag" id="btn-diag" value="+">
+              <input type="button" class="btn" name="btn-diag-" id="btn-diag-" value="-" style="display:none;">
+              </center>
+            </div>
 
             <!-- TERAPI BARU DIAPPEND KE SINI -->
             <div id="field-terapi">
-            </div>
-
-            <!-- BUTTON BUAT NAMBAH TERAPI -->
-            <div class="form-group col-sm-12">
-              <center>
-              <input type="hidden" name="terapi-num" id="terapi-num" value="1">
-              <input type="button" class="btn" name="btn-terapi" id="btn-terapi" value="+">
-              <input type="button" class="btn" name="btn-terapi-" id="btn-terapi-" value="-" style="display:none;">
-              </center>
             </div>
 
             <!--Form obat-->
@@ -463,9 +425,9 @@
 								<select class="form-control" id="ido1" name="ido1" onchange="CalcHargaObat(this);">
                   <option disabled selected hidden>Pilih Nama Obat</option>
 									<?php
-                    while($obat = $resultObat->fetch_assoc()){
+                    while($obat2 = $resultObat2->fetch_assoc()){
                       echo "
-                        <option value=\"$obat[id_obat]\">$obat[nama_obat]</option>
+                        <option value=\"$obat2[id_obat]\">$obat2[nama_obat]</option>
                       ";
                     }
                   ?>
@@ -521,11 +483,6 @@
 
             <!--Biaya Total & Metode Pembayaran-->
             <h4>Biaya</h4><hr>
-            <div class="form-group">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya : </h4></div>
-              <input type="hidden" name="biaya_total" id="biaya_total" value="100">
-            </div>
 
             <div class="form-group">
               <div class="col-sm-3"></div>
@@ -542,10 +499,22 @@
 
             <div class="form-group">
               <div class="col-sm-3"></div>
-              <label class="control-label col-sm-2">Diskon (%)</label>
+              <label class="control-label col-sm-2">Diskon (Rp)</label>
               <div class="col-sm-4">
                 <input type="number" class="form-control" name="diskon" id="diskon" onkeyup="CalcBiayaTotal();" value="0">
               </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya (Sebelum Diskon): </h4></div>
+              <input type="hidden" name="biaya_total" id="biaya_total" value="100">
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="biaya-total-diskon" style="text-align: center;"><h4>Total Biaya (Sesudah Diskon): </h4></div>
+              <input type="hidden" name="biaya_total_diskon" id="biaya_total_diskon" value="100">
             </div>
 
 						<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>

@@ -66,6 +66,12 @@
 	                      	<li><a  href=\"pasien.php\">Data Pasien</a></li>
 	                  	</ul>
 	          		</li>
+					<li class=\"sub-menu\">
+	                  	<a href=\"report.php\" >
+	                      	<i class=\"fa fa-tasks\"></i>
+	                      	<span>Report</span>
+	                  	</a>
+	              	</li>
 	              	<li class=\"sub-menu\">
 	                  	<a href=\"../process/logout.php\" >
 	                      	<i class=\"fa fa-sign-out\"></i>

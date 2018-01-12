@@ -6,8 +6,8 @@
 
   //Ambil data
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
-  $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
-  $terapi = GetData($conn, "SELECT * FROM detail_transaksi_terapi, terapi, kategori_terapi WHERE detail_transaksi_terapi.id_terapi = terapi.id_terapi AND terapi.kategori = kategori_terapi.id_kategori_terapi AND detail_transaksi_terapi.id_detail_transaksi_terapi = '$_GET[id_terapi]'");
+  $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
+  $obat2 = GetData($conn, "SELECT * FROM detail_transaksi_obat, obat WHERE detail_transaksi_obat.id_obat = obat.id_obat AND detail_transaksi_obat.id_detail_transaksi_obat = '$_GET[id_obat]'");
 
   //Fungsi
   function SelectTarget($usrType){
@@ -18,11 +18,11 @@
         break;
       case 2:
         //Dokter
-        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
-        return "SELECT * FROM perawat WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
     }
   }
@@ -65,7 +65,7 @@
     <![endif]-->
   </head>
 
-  <body <?php echo "onload=\"startTime(); LoadChildOpt(document.getElementById('idk'), $terapi[id_terapi]);\""?>>
+  <body <?php echo "onload=\"startTime();CalcHargaObat(document.getElementById(\"ido1\"));\""?>>
 
   <section id="container" >
       <?php
@@ -135,50 +135,46 @@
         <h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
         
         <div class="form-panel">
-          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_terapi.php?id_terapi=$_GET[id_terapi]&id_pasien=$_GET[id_pasien]&id_transaksi=$terapi[id_transaksi]\""?>>
+          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_tr_obat.php?id_obat=$_GET[id_obat]&id_pasien=$_GET[id_pasien]&id_transaksi=$obat2[id_transaksi]\""?>>
             <!--diagnosa dokter-->
-              <!--Form terapi-->
-              <h4>Pengubahan Data Terapi</h4><hr>
-              <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
-                <div class="col-sm-10">
-                  <!--DROPDOWN NAMA DOKTER-->
-                  <select class="form-control" name="idk" id="idk" onchange="SetChildOpt2(this);" required>
-                    <option disabled selected hidden>-- Pilih Kategori Terapi --</option>
-                    <?php
-                      while($kat = $resultKat->fetch_assoc()){
-                        if($terapi['kategori'] == $kat['id_kategori_terapi']){
-                          echo "
-                            <option value=\"$kat[id_kategori_terapi]\" selected>$kat[nama_kategori_terapi]</option>
-                          ";
-                        } else {
-                          echo "
-                            <option value=\"$kat[id_kategori_terapi]\">$kat[nama_kategori_terapi]</option>
-                          ";
-                        }
+              <!--Form obat-->
+            <h4>Pengubahan Data Obat</h4><hr>
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <label class="col-sm-2 control-label">Nama Obat</label>
+              <div class="col-sm-4">
+                <select class="form-control" id="ido1" name="ido1" onchange="CalcHargaObat(this);">
+                  <option disabled selected hidden>Pilih Nama Obat</option>
+                  <?php
+                    while($obat = $resultObat->fetch_assoc()){
+                      if($obat['id_obat'] == $obat2['id_obat']){
+                        echo "
+                          <option value=\"$obat[id_obat]\" selected>$obat[nama_obat]</option>
+                        ";
+                      } else {
+                        echo "
+                          <option value=\"$obat[id_obat]\">$obat[nama_obat]</option>
+                        ";
                       }
-                    ?>
-                  </select>
-                </div>
+                    }
+                  ?>
+                </select>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Jenis Terapi</label>
-                <div class="col-sm-10">
-                  <!--DROPDOWN NAMA DOKTER-->
-                  <select class="form-control" name="idt" id="idt" onchange="LoadTarifTerapi2(this);" required>
-                    <option disabled selected hidden>Pilih kategori terlebih dahulu</option>
-                  </select>
-                </div>
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <label class="control-label col-sm-2">Jumlah</label>
+              <div class="col-sm-4">
+                <input type="number" class="form-control" name="jumo1" id="jumo1" <?php echo "value=\"$obat2[jumlah]\"" ?> onkeyup="CalcHargaObat(document.getElementById('ido1'));">
+                <input type="hidden" name="hrgo1" id="hrgo1" <?php echo "value=\"$obat2[biaya]\""?>>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Tarif (Rp)</label>
-                <div class="col-sm-10">
-                  <input type="number" class="form-control" name="tarif" id="tarif" <?php echo "value = \"$terapi[biaya]\""; ?> required autocomplete="off">
-                  <div id="minmax"></div>
-                </div>
-              </div>
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="hargao1" style="text-align: center;">Harga : Rp <?php echo number_format($obat2['biaya'], 0, ".", ",");?></div>
+            </div>
 
               <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
           </form>

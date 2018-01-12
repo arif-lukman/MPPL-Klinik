@@ -6,8 +6,9 @@
 
   //Ambil data
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
-  $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
-  $diagnosa = GetData($conn, "SELECT * FROM detail_diagnosa, terapi WHERE detail_diagnosa.id_terapi = terapi.id_terapi AND detail_diagnosa.id_detail_diagnosa = '$_GET[id_diagnosa]'");
+  $resultPerawat = $conn->query("SELECT id_perawat, nama_perawat FROM perawat");
+  $resultDokter = $conn->query("SELECT nama_dokter, id_dokter FROM dokter");
+  $transaksi = GetData($conn, "SELECT * FROM transaksi WHERE id_transaksi = '$_GET[id_transaksi]'");
 
   //Fungsi
   function SelectTarget($usrType){
@@ -18,11 +19,11 @@
         break;
       case 2:
         //Dokter
-        return "SELECT * FROM dokter WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
       case 3:
         //Perawat
-        return "SELECT * FROM perawat WHERE username = '$_SESSION[uid]'";
+        return "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'";
         break;
     }
   }
@@ -65,7 +66,7 @@
     <![endif]-->
   </head>
 
-  <body <?php echo "onload=\"startTime(); LoadChildOpt(document.getElementById('idk'), $diagnosa[id_terapi]);\""?>>
+  <body <?php echo "onload=\"startTime();CalcHargaObat(document.getElementById(\"ido1\"));\""?>>
 
   <section id="container" >
       <?php
@@ -135,108 +136,91 @@
         <h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
         
         <div class="form-panel">
-          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_diagnosa.php?id_diagnosa=$_GET[id_diagnosa]&id_pasien=$_GET[id_pasien]&id_transaksi=$diagnosa[id_transaksi]\""?>>
+          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_transaksi.php?id_pasien=$_GET[id_pasien]&id_transaksi=$_GET[id_transaksi]\""?>>
             <!--diagnosa dokter-->
-              <h4>Pengubahan Data Diagnosa</h4><hr>                
+            <!--Form Perawat-->
 
-              <center>
-                <div class="form-group">
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 1</label>
-                    <input type="text" class="form-control" name="k1" id="k1"
-                    <?php 
-                      if($diagnosa['k1'] != 0)
-                        echo "value=\"$diagnosa[k1]\""; 
-                    ?>
-                    autocomplete="off">
-                  </div>
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 2</label>
-                    <input type="text" class="form-control" name="k2" id="k2" 
-                    <?php 
-                      if($diagnosa['k2'] != 0)
-                        echo "value=\"$diagnosa[k2]\""; 
-                    ?>
-                    autocomplete="off">
-                  </div>
-                </div>
+            <h4>Pengubahan Data Transaksi</h4><hr>
 
-                <div class="form-group">
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 3</label>
-                    <input type="text" class="form-control" name="k3" id="k3"
-                    <?php 
-                      if($diagnosa['k3'] != 0)
-                        echo "value=\"$diagnosa[k3]\""; 
-                    ?>
-                    autocomplete="off">
-                  </div>
-                  <div class="col-sm-6">
-                    <label class="control-label">Kuadran 4</label>
-                    <input type="text" class="form-control" name="k4" id="k4"
-                    <?php 
-                      if($diagnosa['k4'] != 0)
-                        echo "value=\"$diagnosa[k4]\""; 
-                    ?>
-                    autocomplete="off">
-                  </div>
-                </div>
-              </center>
-
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Diagnosa</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" name="ketd" id="ketd" style="max-width: 100%; min-width: 100%" required autocomplete="off"><?php echo "$diagnosa[diagnosa]"; ?></textarea>
-                </div>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Tanggal</label>
+              <div class="col-sm-10">
+                <!--<textarea class="form-control" name="alamat" id="alamat" style="max-width: 100%; min-width: 100%"></textarea required>-->
+                <input type="date" class="form-control" name="tanggal" id="tanggal" autocomplete="off" <?php echo "value=\"$transaksi[tanggal]\""; ?>>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Kategori Terapi</label>
-                <div class="col-sm-10">
-                  <!--DROPDOWN NAMA DOKTER-->
-                  <select class="form-control" name="idk" id="idk" onchange="SetChildOpt2(this);" required>
-                    <option disabled selected hidden>-- Pilih Kategori Terapi --</option>
-                    <?php
-                      while($kat = $resultKat->fetch_assoc()){
-                        if($diagnosa['kategori'] == $kat['id_kategori_terapi']){
-                          echo "
-                            <option value=\"$kat[id_kategori_terapi]\" selected>$kat[nama_kategori_terapi]</option>
-                          ";
-                        } else {
-                          echo "
-                            <option value=\"$kat[id_kategori_terapi]\">$kat[nama_kategori_terapi]</option>
-                          ";
-                        }
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Jam</label>
+              <div class="col-sm-10">
+                <!--<input type="time" class="form-control" name="jam_daftar" id="jam_daftar" required>-->
+                <input type="time" class="form-control" id="jam" name="jam" autocomplete="off" <?php echo "value=\"$transaksi[jam]\""; ?>>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Dokter</label>
+              <div class="col-sm-10">
+                <!--DROPDOWN NAMA DOKTER-->
+                <select class="form-control" name="id_dokter" id="id_dokter">
+                  <option disabled selected hidden>Pilih Nama Dokter</option>
+                  <?php
+                    while($dokter = $resultDokter->fetch_assoc()){
+                      if($dokter['id_dokter'] == $transaksi['id_dokter']){
+                        echo "
+                          <option value=\"$dokter[id_dokter]\" selected>$dokter[nama_dokter]</option>
+                        ";
+                      } else {
+                        echo "
+                          <option value=\"$dokter[id_dokter]\">$dokter[nama_dokter]</option>
+                        ";
                       }
-                    ?>
-                  </select>
-                </div>
+                    }
+                  ?>
+                </select>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Jenis Terapi</label>
-                <div class="col-sm-10">
-                  <!--DROPDOWN NAMA DOKTER-->
-                  <select class="form-control" name="idt" id="idt" onchange="LoadTarifTerapi2(this);" required>
-                    <option disabled selected hidden>Pilih kategori terlebih dahulu</option>
-                  </select>
-                </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Perawat</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="id_perawat" name="id_perawat" required>
+                  <option disabled selected hidden>Pilih Nama Perawat</option>
+                  <?php
+                    while($perawat = $resultPerawat->fetch_assoc()){
+                      if($perawat['id_perawat'] == $transaksi['id_perawat']){
+                        echo "
+                          <option value=\"$perawat[id_perawat]\" selected>$perawat[nama_perawat]</option>
+                        ";
+                      } else {
+                        echo "
+                          <option value=\"$perawat[id_perawat]\">$perawat[nama_perawat]</option>
+                        ";
+                      }
+                    }
+                  ?>
+                </select>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Tarif (Rp)</label>
-                <div class="col-sm-10">
-                  <input type="number" class="form-control" name="tarif" id="tarif" <?php echo "value = \"$diagnosa[biaya]\""; ?> required autocomplete="off">
-                  <div id="minmax"></div>
-                </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Metode Pembayaran</label>
+              <div class="col-sm-10">
+                <select class="form-control" id="metode_pembayaran" name="metode_pembayaran" required>
+                  <option disabled selected hidden>Pilih Metode Pembayaran</option>
+                  <option <?php if($transaksi['metode_pembayaran'] == "Tunai") echo "selected";?>>Tunai</option>
+                  <option <?php if($transaksi['metode_pembayaran'] == "Kredit") echo "selected";?>>Kredit</option>
+                  <option <?php if($transaksi['metode_pembayaran'] == "Debit") echo "selected";?>>Debit</option>
+                </select>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Keterangan Terapi</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" name="kett" id="kett" style="max-width: 100%; min-width: 100%" required autocomplete="off"><?php echo "$diagnosa[terapi]"; ?></textarea>
-                </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2">Diskon (%)</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" name="diskon" id="diskon" <?php echo "value=\"$transaksi[diskon]\""; ?>>
               </div>
+            </div>
 
               <center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>
           </form>

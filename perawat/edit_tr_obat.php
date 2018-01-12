@@ -135,7 +135,7 @@
         <h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
         
         <div class="form-panel">
-          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_obat.php?id_obat=$_GET[id_obat]&id_pasien=$_GET[id_pasien]&id_transaksi=$obat2[id_transaksi]\""?>>
+          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_tr_obat.php?id_obat=$_GET[id_obat]&id_pasien=$_GET[id_pasien]&id_transaksi=$obat2[id_transaksi]\""?>>
             <!--diagnosa dokter-->
               <!--Form obat-->
             <h4>Pengubahan Data Obat</h4><hr>
