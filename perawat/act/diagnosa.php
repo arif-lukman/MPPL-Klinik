@@ -108,17 +108,45 @@
  	//echo $maxObat;
 
  	//GET MAX TRANSAKSI
-	$transaksi = GetData($conn, "SELECT AUTO_INCREMENT AS max FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'klinik' AND TABLE_NAME = 'transaksi'");
+	//$transaksi = GetData($conn, "SELECT AUTO_INCREMENT AS max FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'klinik' AND TABLE_NAME = 'transaksi'");
+
+ 	$id_antrian = $_POST['id_antrian'];
+ 	$id_pasien = $_POST['id_pasien'];
+ 	$id_dokter = $_POST['id_dokter'];
+ 	$id_perawat = $_POST['id_perawat'];
+ 	$tanggal = date("Y-m-d");
+ 	$jam = date("H:i");
+ 	$metode_pembayaran = $_POST['metode_pembayaran'];
+ 	$biaya_total = $_POST["biaya_total"];
+ 	$diskon = $_POST["diskon"];
+
+ 	$sqlTransaksi = "INSERT INTO transaksi(id_pasien, id_dokter, id_perawat, tanggal, jam, metode_pembayaran, biaya_total, diskon) VALUES 
+ 	('$id_pasien', '$id_dokter', '$id_perawat', '$tanggal', '$jam', '$metode_pembayaran', '$biaya_total', '$diskon')";
+ 	$conn->query($sqlTransaksi);
+ 	/*
+ 	if($conn->query($sqlTransaksi) === TRUE){
+ 		//echo "berhasil";
+		echo "<script> alert('Data transaksi berhasil diinputkan');
+		</script>";
+	} else {
+		//echo "gagal";
+		echo "<script> alert('Data transaksi gagal diinputkan');
+		</script>";
+		//echo $conn->error();
+		//echo mysqli_errno($conn) . ": " . mysqli_error($conn). "\n";
+	}*/
+
+	$transaksi = GetData($conn, "SELECT MAX(id_transaksi) as max FROM transaksi");
 	$maxTransaksi = $transaksi['max'];
 	//echo $maxTransaksi;
 
-	$sqlDiag = "INSERT INTO detail_diagnosa(id_transaksi, k1, k2, k3, k4, diagnosa) VALUES ";
-	$sqlTerapi = "INSERT INTO detail_transaksi_terapi(id_transaksi, id_terapi, biaya, keterangan) VALUES ";
+	$sqlDiag = "INSERT INTO detail_diagnosa(id_transaksi, k1, k2, k3, k4, diagnosa, id_terapi, biaya, terapi) VALUES ";
+	//$sqlTerapi = "INSERT INTO detail_transaksi_terapi(id_transaksi, id_terapi, biaya, keterangan) VALUES ";
 	$sqlObat = "INSERT INTO detail_transaksi_obat(id_transaksi, id_obat, jumlah, biaya) VALUES ";
 
  	//CREATE DIAGNOSA
  	for ($i=0; $i < $maxDiag; $i++) { 
- 		$sqlDiag = $sqlDiag . "('$maxTransaksi', '$k1d[$i]', '$k2d[$i]', '$k3d[$i]', '$k4d[$i]', '$ketd[$i]')";
+ 		$sqlDiag = $sqlDiag . "('$maxTransaksi', '$k1d[$i]', '$k2d[$i]', '$k3d[$i]', '$k4d[$i]', '$ketd[$i]', '$idt[$i]', '$tarift[$i]', '$kett[$i]')";
  		if($i < $maxDiag - 1){
  			$sqlDiag = $sqlDiag . ", ";
  		}
@@ -127,12 +155,14 @@
  	//echo "DIAG = " . $sqlDiag . "<br>";
 
  	//CREATE TERAPI
+ 	/*
  	for ($i=0; $i < $maxTerapi; $i++) { 
  		$sqlTerapi = $sqlTerapi . "('$maxTransaksi', '$idt[$i]', '$tarift[$i]', '$kett[$i]')";
  		if($i < $maxTerapi - 1){
  			$sqlTerapi = $sqlTerapi . ", ";
  		}
  	}
+ 	*/
 
  	//echo "TERAPI = " . $sqlTerapi . "<br>";
 
@@ -151,42 +181,30 @@
 
  	//echo "OBAT = " . $sqlObat . "<br>";
 
- 	//AMBIL PARAM TRANSAKSI
- 	$id_antrian = $_POST['id_antrian'];
- 	$no_rekam_medis = $_POST['no_rekam_medis'];
- 	$id_dokter = $_POST['id_dokter'];
- 	$id_perawat = $_POST['id_perawat'];
- 	$tanggal = date("Y-m-d");
- 	$jam = date("H:i");
- 	$metode_pembayaran = $_POST['metode_pembayaran'];
- 	$biaya_total = $_POST["biaya_total"];
- 	$diskon = $_POST["diskon"];
-
- 	//CREATE TRANSAKSI
- 	$sqlTransaksi = "INSERT INTO transaksi(no_rekam_medis, id_dokter, id_perawat, tanggal, jam, metode_pembayaran, biaya_total, diskon) VALUES 
- 	('$no_rekam_medis', '$id_dokter', '$id_perawat', '$tanggal', '$jam', '$metode_pembayaran', '$biaya_total', '$diskon')";
-
  	//UPDATE ANTRIAN
  	$sqlAntrian = "UPDATE antrian SET status = 'Selesai', jam_selesai = '$jam' WHERE id_antrian = '$id_antrian'";
+
+ 	//UPDATE STOK
+ 	$sqlStok = "";
 
  	//echo "TRANSAKSI = " . $sqlTransaksi . "<br>";
 
  	if(isset($ido[0]) && isset($jumo[0]) && isset($hrgo[0]))
- 		$sql = $sqlDiag . "; " . $sqlTerapi . "; " . $sqlObat . "; " . $sqlTransaksi . "; " . $sqlAntrian;
+ 		$sql = $sqlDiag . "; " . $sqlObat . "; " . $sqlAntrian;
  	else
- 		$sql = $sqlDiag . "; " . $sqlTerapi . "; " . $sqlTransaksi . "; " . $sqlAntrian;
+ 		$sql = $sqlDiag . "; " . $sqlAntrian;
 
  	//echo $sql;
  	if($conn->multi_query($sql) === TRUE){
- 		echo "berhasil";
-		//echo "<script> alert('Data berhasil diinputkan');
-		//location='../antrian.php';
-		//</script>";
+ 		//echo "berhasil";
+		echo "<script> alert('Data berhasil diinputkan');
+		location='../antrian.php';
+		</script>";
 	} else {
-		echo "gagal";
-		//echo "<script> alert('Data gagal diinputkan');
-		//location='../antrian.php';
-		//</script>";
+		//echo "gagal";
+		echo "<script> alert('Data gagal diinputkan');
+		location='../antrian.php';
+		</script>";
 		//echo $conn->error();
 		echo mysqli_errno($conn) . ": " . mysqli_error($conn). "\n";
 	}

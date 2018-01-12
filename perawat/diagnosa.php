@@ -43,6 +43,14 @@
     }
   }
 
+  function CheckQ($q){
+    if($q != 0){
+      return $q;
+    } else {
+      return "-";
+    }
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -151,12 +159,15 @@
         <thead>
           <th>Tanggal</th>
           <th colspan="2">Gigi</th>
-          <th>Keterangan</th>
+          <th>Diagnosa</th>
+          <th>Terapi</th>
+          <th>Keterangan Terapi</th>
+          <th>Biaya</th>
         </thead>
         <tbody>
           <?php
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
+                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa, terapi WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND detail_diagnosa.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
 
                 $rowDiagnosa = $resultDiagnosa->num_rows;
 
@@ -172,74 +183,36 @@
                   while ($diagnosa = $resultDiagnosa->fetch_assoc()) {
                     echo "
                         <td style=\"border-right: solid 2px #000000; border-bottom: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k1]
+                          " . CheckQ($diagnosa['k1']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-bottom: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k2]
+                          " . CheckQ($diagnosa['k2']) . "
                         </td>
                         <td rowspan=\"2\">
                           $diagnosa[diagnosa]
                         </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[nama_terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          Rp " . number_format($diagnosa['biaya'], 0, ".", ",") . "
+                        </td>
                       </tr>
                       <tr>
                         <td style=\"border-right: solid 2px #000000; border-top: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k3]
+                          " . CheckQ($diagnosa['k3']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-top: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k4]
+                          " . CheckQ($diagnosa['k4']) . "
                         </td>
                       </tr>
                       ";
                   }
               }
             }
-          ?>
-        </tbody>
-        </table>
-        <br><br><br><br>
-
-        <h4><center>Terapi</center></h4>
-        <table class="table table-striped table-advance table-hover col-lg-12">
-        <thead>
-          <th>Tanggal</th>
-          <th>Terapi</th>
-          <th>Keterangan</th>
-          <th>Tarif</th>
-        </thead>
-        <tbody>
-          <?php
-                //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
-              $resultTransaksi->data_seek(0);
-              while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultTerapi = $conn->query("SELECT * FROM transaksi, detail_transaksi_terapi, terapi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND detail_transaksi_terapi.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'  AND transaksi.id_pasien = '$_GET[id_pasien]'");
-
-                $rowTerapi = $resultTerapi->num_rows;
-
-                if($rowTerapi != 0){
-                  echo "
-                    <tr>
-                      <td rowspan=\"" . $rowTerapi . "\">
-                        $transaksi[tanggal]
-                      </td>
-                  ";
-
-                  //diagnosa
-                  while ($terapi = $resultTerapi->fetch_assoc()) {
-                    echo "
-                        <td>
-                          $terapi[nama_terapi]
-                        </td>
-                        <td>
-                          $terapi[keterangan]
-                        </td>
-                        <td>
-                          Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
-                        </td>
-                      </tr>
-                    ";
-                  }
-                }
-              }
           ?>
         </tbody>
         </table>
@@ -376,31 +349,15 @@
               </div>
             </center>
 
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Keterangan</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
-							</div>
-						</div>
-
-            <!-- DIAGNOSA BARU DIAPPEND KE SINI -->
-            <div id="field-diagnosa">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Diagnosa</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
+              </div>
             </div>
 
-            <!-- TOMBOL BUAT NAMBAH DIAGNOSA -->
-            <div class="form-group col-sm-12">
-              <center>
-              <input type="hidden" name="diag-num" id="diag-num" value="1">
-              <input type="button" class="btn" name="btn-diag" id="btn-diag" value="+">
-              <input type="button" class="btn" name="btn-diag-" id="btn-diag-" value="-" style="display:none;">
-              </center>
-            </div>
-
-						<!--Form terapi-->
-            <h4>Terapi</h4><hr>
-            <h5>1 )</h5>
-						<div class="form-group">
-              <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+            <div class="form-group">
+              <label class="col-sm-2 col-sm-2 control-label">Kategori Terapi</label>
               <div class="col-sm-10">
                 <!--DROPDOWN NAMA DOKTER-->
                 <select class="form-control" name="idk1" id="idk1" onchange="SetChildOpt(this);" required>
@@ -433,24 +390,24 @@
                 <div id="minmaxt1"></div>
               </div>
             </div>
-					
-						<div class="form-group">
-							<label class="col-sm-2 control-label">Keterangan</label>
-							<div class="col-sm-10">
-								<textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
-							</div>
-						</div>
-
-            <!-- TERAPI BARU DIAPPEND KE SINI -->
-            <div id="field-terapi">
+          
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Keterangan Terapi</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="kett1" id="kett1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
+              </div>
             </div>
 
-            <!-- BUTTON BUAT NAMBAH TERAPI -->
+            <!-- DIAGNOSA BARU DIAPPEND KE SINI -->
+            <div id="field-diagnosa">
+            </div>
+
+            <!-- TOMBOL BUAT NAMBAH DIAGNOSA -->
             <div class="form-group col-sm-12">
               <center>
-              <input type="hidden" name="terapi-num" id="terapi-num" value="1">
-              <input type="button" class="btn" name="btn-terapi" id="btn-terapi" value="+">
-              <input type="button" class="btn" name="btn-terapi-" id="btn-terapi-" value="-" style="display:none;">
+              <input type="hidden" name="diag-num" id="diag-num" value="1">
+              <input type="button" class="btn" name="btn-diag" id="btn-diag" value="+">
+              <input type="button" class="btn" name="btn-diag-" id="btn-diag-" value="-" style="display:none;">
               </center>
             </div>
 
@@ -581,6 +538,8 @@
   <script src="../assets/js/jquery.nicescroll.js" type="text/javascript"></script>
   <!--common script for all pages-->
   <script src="../assets/js/common-scripts.js"></script>
+
+    <script src="../assets/js/ours/diagnosa.js"></script>
   <!--script for this page-->
 
   <script>

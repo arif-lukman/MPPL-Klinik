@@ -7,7 +7,7 @@
   //Ambil data
   $userData = GetData($conn, "SELECT * FROM user_klinik WHERE username = '$_SESSION[uid]'");
   $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
-  $terapi = GetData($conn, "SELECT * FROM detail_transaksi_terapi, terapi, kategori_terapi WHERE detail_transaksi_terapi.id_terapi = terapi.id_terapi AND terapi.kategori = kategori_terapi.id_kategori_terapi AND detail_transaksi_terapi.id_detail_transaksi_terapi = '$_GET[id_terapi]'");
+  $diagnosa = GetData($conn, "SELECT * FROM detail_diagnosa, terapi WHERE detail_diagnosa.id_terapi = terapi.id_terapi AND detail_diagnosa.id_detail_diagnosa = '$_GET[id_diagnosa]'");
 
   //Fungsi
   function SelectTarget($usrType){
@@ -65,7 +65,7 @@
     <![endif]-->
   </head>
 
-  <body <?php echo "onload=\"startTime(); LoadChildOpt(document.getElementById('idk'), $terapi[id_terapi]);\""?>>
+  <body <?php echo "onload=\"startTime(); LoadChildOpt(document.getElementById('idk'), $diagnosa[id_terapi]);\""?>>
 
   <section id="container" >
       <?php
@@ -135,19 +135,70 @@
         <h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
         
         <div class="form-panel">
-          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_terapi.php?id_terapi=$_GET[id_terapi]&id_pasien=$_GET[id_pasien]&id_transaksi=$terapi[id_transaksi]\""?>>
+          <form class="form-horizontal style-form" method="post" <?php echo "action = \"act/edit_diagnosa.php?id_diagnosa=$_GET[id_diagnosa]&id_pasien=$_GET[id_pasien]\""?>>
             <!--diagnosa dokter-->
-              <!--Form terapi-->
-              <h4>Pengubahan Data Terapi</h4><hr>
+              <h4>Pengubahan Data Diagnosa</h4><hr>                
+
+              <center>
+                <div class="form-group">
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 1</label>
+                    <input type="text" class="form-control" name="k1" id="k1"
+                    <?php 
+                      if($diagnosa['k1'] != 0)
+                        echo "value=\"$diagnosa[k1]\""; 
+                    ?>
+                    autocomplete="off">
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 2</label>
+                    <input type="text" class="form-control" name="k2" id="k2" 
+                    <?php 
+                      if($diagnosa['k2'] != 0)
+                        echo "value=\"$diagnosa[k2]\""; 
+                    ?>
+                    autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 3</label>
+                    <input type="text" class="form-control" name="k3" id="k3"
+                    <?php 
+                      if($diagnosa['k3'] != 0)
+                        echo "value=\"$diagnosa[k3]\""; 
+                    ?>
+                    autocomplete="off">
+                  </div>
+                  <div class="col-sm-6">
+                    <label class="control-label">Kuadran 4</label>
+                    <input type="text" class="form-control" name="k4" id="k4"
+                    <?php 
+                      if($diagnosa['k4'] != 0)
+                        echo "value=\"$diagnosa[k4]\""; 
+                    ?>
+                    autocomplete="off">
+                  </div>
+                </div>
+              </center>
+
               <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+                <label class="col-sm-2 control-label">Diagnosa</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" name="ketd" id="ketd" style="max-width: 100%; min-width: 100%" required autocomplete="off"><?php echo "$diagnosa[diagnosa]"; ?></textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">Kategori Terapi</label>
                 <div class="col-sm-10">
                   <!--DROPDOWN NAMA DOKTER-->
                   <select class="form-control" name="idk" id="idk" onchange="SetChildOpt2(this);" required>
                     <option disabled selected hidden>-- Pilih Kategori Terapi --</option>
                     <?php
                       while($kat = $resultKat->fetch_assoc()){
-                        if($terapi['kategori'] == $kat['id_kategori_terapi']){
+                        if($diagnosa['kategori'] == $kat['id_kategori_terapi']){
                           echo "
                             <option value=\"$kat[id_kategori_terapi]\" selected>$kat[nama_kategori_terapi]</option>
                           ";
@@ -175,8 +226,15 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Tarif (Rp)</label>
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" name="tarif" id="tarif" <?php echo "value = \"$terapi[biaya]\""; ?> required autocomplete="off">
+                  <input type="number" class="form-control" name="tarif" id="tarif" <?php echo "value = \"$diagnosa[biaya]\""; ?> required autocomplete="off">
                   <div id="minmax"></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Keterangan Terapi</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" name="kett" id="kett" style="max-width: 100%; min-width: 100%" required autocomplete="off"><?php echo "$diagnosa[terapi]"; ?></textarea>
                 </div>
               </div>
 

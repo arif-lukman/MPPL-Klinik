@@ -5,6 +5,25 @@ $(document).ready(function(){
 	//APPEND DIAGNOSA
     $("#btn-diag").click(function(){
     	var val = parseInt($("#diag-num").val()) + 1;
+        var katOpts = "";
+        var terapi = "";
+
+        $.ajax({
+            async:false,
+            url:'ajax/kategori_terapi.php',
+            success: function(data){
+                katOpts = data;
+            }
+        });
+
+        //data terapi
+        $.ajax({
+            async:false,
+            url:'ajax/terapi.php',
+            success: function(data){
+                terapi = data;
+            }
+        });
 
         $("#field-diagnosa").append("" +
     	//isi
@@ -35,11 +54,47 @@ $(document).ready(function(){
           	"</center>" +
 
     		"<div class=\"form-group\">" +
-    			"<label class=\"col-sm-2 control-label\">Keterangan</label>" +
+    			"<label class=\"col-sm-2 control-label\">Diagnosa</label>" +
     			"<div class=\"col-sm-10\">" +
     				"<textarea class=\"form-control\" name=\"ketd" + val + "\" id=\"ketd" + val + "\" style=\"max-width: 100%; min-width: 100%\" autocomplete=\"off\" required></textarea>" +
     			"</div>" +
     		"</div>" +
+
+            "<div class=\"form-group\">" +
+              "<label class=\"col-sm-2 col-sm-2 control-label\">Kategori Terapi</label>" +
+              "<div class=\"col-sm-10\">" +
+                "<select class=\"form-control\" name=\"idk" + val + "\" id=\"idk" + val + "\" onclick=\"SetChildOpt(this);\" required>" +
+                    "<option disabled selected hidden>-- Pilih Kategori Terapi --</option>" +
+                    katOpts +
+                "</select>" +
+              "</div>" +
+            "</div>" +
+
+            "<div class=\"form-group\">" +
+              "<label class=\"col-sm-2 col-sm-2 control-label\">Jenis Terapi</label>" +
+              "<div class=\"col-sm-10\">" +
+                "<!--DROPDOWN NAMA DOKTER-->" +
+                "<select class=\"form-control\" name=\"idt" + val + "\" id=\"idt" + val + "\" onchange=\"LoadTarifTerapi(this);\" required>" +
+                  "<option disabled selected hidden>Pilih kategori terlebih dahulu</option>" +
+                "</select>" +
+              "</div>" +
+            "</div>" +
+            
+            "<div class=\"form-group\">" +
+                "<label class=\"col-sm-2 control-label\">Tarif (Rp)</label>" +
+                "<div class=\"col-sm-10\">" +
+                    "<input type=\"number\" class=\"form-control\" name=\"tarift" + val + "\" id=\"tarift" + val + "\" onkeyup=\"CalcBiayaTotal()\" required autocomplete=\"off\">" +
+                    "<div id=\"minmaxt" + val + "\"></div>" +
+                "</div>" +
+            "</div>" +
+
+            "<div class=\"form-group\">" +
+                "<label class=\"col-sm-2 control-label\">Keterangan Terapi</label>" +
+                "<div class=\"col-sm-10\">" +
+                    "<textarea class=\"form-control\" name=\"kett" + val + "\" id=\"kett" + val + "\" style=\"max-width: 100%; min-width: 100%\" required autocomplete=\"off\"></textarea>" +
+                "</div>" +
+            "</div>" +
+
         "</div>" +
     	"");
 
@@ -52,11 +107,6 @@ $(document).ready(function(){
     	var val = parseInt($("#terapi-num").val()) + 1;
         var katOpts = "";
         var terapi = "";
-
-        //data kategori terapi
-        //$.get("ajax/kategori_terapi.php", function(data, status){
-         //   katOpts = data;
-        //});
 
         $.ajax({
             async:false,

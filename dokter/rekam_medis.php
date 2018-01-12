@@ -45,6 +45,14 @@
       return false;
     }
   }
+
+  function CheckQ($q){
+    if($q != 0){
+      return $q;
+    } else {
+      return "-";
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -154,12 +162,15 @@
 				<thead>
 					<th>Tanggal</th>
 					<th colspan="2">Gigi</th>
-					<th>Keterangan</th>
+					<th>Diagnosa</th>
+          <th>Terapi</th>
+          <th>Keterangan Terapi</th>
+          <th>Biaya</th>
 				</thead>
 				<tbody>
           <?php
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
+                $resultDiagnosa = $conn->query("SELECT * FROM transaksi, detail_diagnosa, terapi WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND detail_diagnosa.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
 
                 $rowDiagnosa = $resultDiagnosa->num_rows;
 
@@ -175,13 +186,22 @@
                   while ($diagnosa = $resultDiagnosa->fetch_assoc()) {
                     echo "
                         <td style=\"border-right: solid 2px #000000; border-bottom: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k1]
+                          " . CheckQ($diagnosa['k1']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-bottom: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k2]
+                          " . CheckQ($diagnosa['k2']) . "
                         </td>
                         <td rowspan=\"2\">
                           $diagnosa[diagnosa]
+                        </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[nama_terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          $diagnosa[terapi]
+                        </td>
+                        <td rowspan=\"2\">
+                          Rp " . number_format($diagnosa['biaya'], 0, ".", ",") . "
                         </td>
                         <td align =\"right\" rowspan=\"2\">
                           <a href=\"edit_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
@@ -191,10 +211,10 @@
                       </tr>
                       <tr>
                         <td style=\"border-right: solid 2px #000000; border-top: solid 2px #000000; text-align: right;\">
-                          $diagnosa[k3]
+                          " . CheckQ($diagnosa['k3']) . "
                         </td>
                         <td style=\"border-left: solid 2px #000000; border-top: solid 2px #000000; text-align: left;\">
-                          $diagnosa[k4]
+                          " . CheckQ($diagnosa['k4']) . "
                         </td>
                       </tr>
                       ";
@@ -204,58 +224,6 @@
           ?>
         </tbody>
   			</table>
-        <br><br><br><br>
-
-        <h4><center>Terapi</center></h4>
-        <table class="table table-striped table-advance table-hover col-lg-12">
-        <thead>
-          <th>Tanggal</th>
-          <th>Terapi</th>
-          <th>Keterangan</th>
-          <th>Tarif</th>
-        </thead>
-        <tbody>
-          <?php
-                //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
-              $resultTransaksi->data_seek(0);
-              while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultTerapi = $conn->query("SELECT * FROM transaksi, detail_transaksi_terapi, terapi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND detail_transaksi_terapi.id_terapi = terapi.id_terapi AND transaksi.id_transaksi = '$transaksi[id_transaksi]'  AND transaksi.id_pasien = '$_GET[id_pasien]'");
-
-                $rowTerapi = $resultTerapi->num_rows;
-
-                if($rowTerapi != 0){
-                  echo "
-                    <tr>
-                      <td rowspan=\"" . $rowTerapi . "\">
-                        $transaksi[tanggal]
-                      </td>
-                  ";
-
-                  //diagnosa
-                  while ($terapi = $resultTerapi->fetch_assoc()) {
-                    echo "
-                        <td>
-                          $terapi[nama_terapi]
-                        </td>
-                        <td>
-                          $terapi[keterangan]
-                        </td>
-                        <td>
-                          Rp " . number_format($terapi['biaya'], 0 , ",", ".") . "
-                        </td>
-                        <td align =\"right\">
-                          <a href=\"edit_terapi.php?id_terapi=$terapi[id_detail_transaksi_terapi]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                        
-                          <a href=\"act/hapus_terapi.php?id_terapi=$terapi[id_detail_transaksi_terapi]&id_pasien=$_GET[id_pasien]&id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
-                        </td>
-                      </tr>
-                    ";
-                  }
-                }
-              }
-          ?>
-        </tbody>
-        </table>
         <br><br><br><br>
 
         <h4><center>Obat</center></h4>
@@ -272,7 +240,6 @@
               $resultTransaksi->data_seek(0);
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
                 $resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
-                
 
                 $rowObat = $resultObat->num_rows;
 
