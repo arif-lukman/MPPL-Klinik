@@ -98,16 +98,16 @@
 
 			 <!-- DATA PASIEN -->
 				<div class="col-lg-8">
-			
+
 				<h3><center>Data Pasien</center></h3><hr>
-				
+
 				<?php
 					$id_pasien = $_GET["id_pasien"];
 					$sql  = "SELECT * FROM pasien WHERE id_pasien='$id_pasien'";
 					$result = mysqli_query($conn, $sql);
           $no_rekam = mysqli_fetch_assoc(mysqli_query($conn, "SELECT no_rekam_medis FROM pasien WHERE id_pasien='$id_pasien'"));
 				?>
-				
+
 				<table class="table table-striped">
 				<?php
 					while($row=mysqli_fetch_assoc($result))
@@ -115,7 +115,7 @@
 						/*$lahir = new DateTime($row['tanggal_lahir']);
 						$today = new DateTime();
 						$umur = $today->diff($lahir);*/
-						
+
 					echo "
 					<tr>
 						<td> Nama </td>
@@ -144,13 +144,13 @@
 					";
 				?>
 				</table>
-				
+
 				<br>
 				<br>
-				
+
         <!-- REKAM MEDIS PASIEN -->
 				<h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
-				<?php					
+				<?php
           /*
 					$sql  = "SELECT * FROM transaksi WHERE id_pasien='$id_pasien'";
 					$result = mysqli_query($conn, $sql);
@@ -205,8 +205,8 @@
                         </td>
                         <td align =\"right\" rowspan=\"2\">
                           <a href=\"edit_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                        
-                          <a href=\"act/hapus_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]&id_pasien=$_GET[id_pasien]&id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+
+                          <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_diagnosa.php?id_diagnosa=$diagnosa[id_detail_diagnosa]&id_pasien=$_GET[id_pasien]&id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                         </td>
                       </tr>
                       <tr>
@@ -267,8 +267,8 @@
                         </td>
                         <td align =\"right\">
                         <a href=\"edit_obat.php?id_obat=$obat[id_detail_transaksi_obat]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                        <a href=\"act/hapus_obat.php?id_obat=$obat[id_detail_transaksi_obat]&id_pasien=$_GET[id_pasien]&id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+
+                        <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_obat.php?id_obat=$obat[id_detail_transaksi_obat]&id_pasien=$_GET[id_pasien]&id_transaksi=$transaksi[id_transaksi]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                       </tr>
                     ";
@@ -321,8 +321,8 @@
                     </td>
                     <td align =\"right\" rowspan=\"2\">
                       <a href=\"edit_transaksi.php?id_transaksi=$transaksi[id_transaksi]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                    
-                      <a href=\"act/hapus_transaksi.php?id_transaksi=$transaksi[id_transaksi]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+
+                      <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_transaksi.php?id_transaksi=$transaksi[id_transaksi]&id_pasien=$_GET[id_pasien]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                     </td>
                   <tr>
                 ";
@@ -334,14 +334,14 @@
 
 				<div class="container">
 				<table class="table table-striped">
-				
+
 				</table>
 				</div>
 				</div><!-- col-lg-12-->
             </div><!-- /row -->
               </center>
           		</div>
-				
+
           	</div>
 
 		      </section>

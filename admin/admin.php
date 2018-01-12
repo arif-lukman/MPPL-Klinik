@@ -53,7 +53,7 @@
     <link href="../assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        
+
     <!-- Custom styles for this template -->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/style-responsive.css" rel="stylesheet">
@@ -108,7 +108,7 @@
                   </div>
                 </div>
               </form>
-              
+
           		<table class="table table-striped table-advance table-hover col-lg-12">
               <thead>
                 <th>Nama</th>
@@ -156,8 +156,8 @@
                       </td>
                       <td align =\"right\">
                         <a href=\"edit_admin.php?id_admin=$admin[id_admin]\" class=\"btn btn-primary btn-xs\" role=\"button\"><i class=\"fa fa-pencil\"></i></a>
-                      
-                        <a href=\"act/hapus_admin.php?id_admin=$admin[id_admin]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
+
+                        <a onclick =\"return confirm('Yakin Ingin menghapus data?')\" href=\"act/hapus_admin.php?id_admin=$admin[id_admin]\" class=\"btn btn-danger btn-xs\" role=\"button\"><i class=\"fa fa-trash-o\"></i></a>
                       </td>
                     </tr>
                   ";
@@ -169,7 +169,7 @@
           		</div>
           	</div>
           </div>
-			
+
 		      </section>
       </section><!-- /MAIN CONTENT -->
 
@@ -208,7 +208,7 @@
     <script src="../assets/js/common-scripts.js"></script>
 
     <!--script for this page-->
-    
+
   <script>
       //custom select box
 
