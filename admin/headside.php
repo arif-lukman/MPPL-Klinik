@@ -69,7 +69,7 @@
 					<li class=\"sub-menu\">
 	                  	<a href=\"report.php\" >
 	                      	<i class=\"fa fa-tasks\"></i>
-	                      	<span>Report</span>
+	                      	<span>LAPORAN</span>
 	                  	</a>
 	              	</li>
 	              	<li class=\"sub-menu\">
