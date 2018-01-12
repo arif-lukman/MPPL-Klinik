@@ -14,9 +14,9 @@
 
 	$hrgTerapi = 0;
 	$hrgObat = 0;
-	$diskonBaru = $diskon / 100;
+	$diskonBaru = $diskon;
 
-	$resTerapi = $conn->query("SELECT detail_transaksi_terapi.biaya FROM detail_transaksi_terapi, transaksi WHERE transaksi.id_transaksi = detail_transaksi_terapi.id_transaksi AND transaksi.id_transaksi = '$id_transaksi'");
+	$resTerapi = $conn->query("SELECT detail_diagnosa.biaya FROM detail_diagnosa, transaksi WHERE transaksi.id_transaksi = detail_diagnosa.id_transaksi AND transaksi.id_transaksi = '$id_transaksi'");
 	while ($terapi = $resTerapi->fetch_assoc()) {
 		$hrgTerapi += $terapi['biaya'];
 		//echo $terapi['biaya'] . '<br>';
@@ -36,7 +36,7 @@
 	//echo $hrgObat . '<br>';
 	//echo $diskon;
 
-	$totalBaru = ($hrgTerapi + $hrgObat) - (($hrgTerapi + $hrgObat) * $diskonBaru);
+	$totalBaru = ($hrgTerapi + $hrgObat) - $diskonBaru;
 
 	//echo ($tarif + $hrgTerapi + $hrgObat);
 	//echo $totalBaru;

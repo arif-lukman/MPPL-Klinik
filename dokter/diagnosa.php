@@ -483,11 +483,6 @@
 
             <!--Biaya Total & Metode Pembayaran-->
             <h4>Biaya</h4><hr>
-            <div class="form-group">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya : </h4></div>
-              <input type="hidden" name="biaya_total" id="biaya_total" value="100">
-            </div>
 
             <div class="form-group">
               <div class="col-sm-3"></div>
@@ -504,10 +499,22 @@
 
             <div class="form-group">
               <div class="col-sm-3"></div>
-              <label class="control-label col-sm-2">Diskon (%)</label>
+              <label class="control-label col-sm-2">Diskon (Rp)</label>
               <div class="col-sm-4">
                 <input type="number" class="form-control" name="diskon" id="diskon" onkeyup="CalcBiayaTotal();" value="0">
               </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya (Sebelum Diskon): </h4></div>
+              <input type="hidden" name="biaya_total" id="biaya_total" value="100">
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="biaya-total-diskon" style="text-align: center;"><h4>Total Biaya (Sesudah Diskon): </h4></div>
+              <input type="hidden" name="biaya_total_diskon" id="biaya_total_diskon" value="100">
             </div>
 
 						<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>

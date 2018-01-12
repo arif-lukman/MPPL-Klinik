@@ -8,7 +8,7 @@
   //Ambil data
   $userData = GetData($conn, SelectTarget($_SESSION['tgt']));
   $resultKat = $conn->query("SELECT id_kategori_terapi, nama_kategori_terapi FROM kategori_terapi");
-  $resultObat = $conn->query("SELECT id_obat, nama_obat FROM obat");
+  $resultObat2 = $conn->query("SELECT id_obat, nama_obat FROM obat");
   $resultPerawat = $conn->query("SELECT id_perawat, nama_perawat FROM perawat");
   $resultTransaksi = $conn->query("SELECT * FROM transaksi, pasien, dokter, perawat WHERE transaksi.id_pasien = pasien.id_pasien AND transaksi.id_dokter = dokter.id_dokter AND transaksi.id_perawat = perawat.id_perawat AND transaksi.id_pasien = '$_GET[id_pasien]'");
   $dokter = GetData($conn, "SELECT id_dokter FROM antrian WHERE id_antrian = '$_GET[id_antrian]'");
@@ -231,10 +231,10 @@
                 //$resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat");
               $resultTransaksi->data_seek(0);
               while ($transaksi = $resultTransaksi->fetch_assoc()) {
-                $resultObat = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
+                $resultObat1 = $conn->query("SELECT * FROM transaksi, detail_transaksi_obat, obat, satuan WHERE transaksi.id_transaksi = detail_transaksi_obat.id_transaksi AND detail_transaksi_obat.id_obat = obat.id_obat AND obat.id_satuan = satuan.id_satuan AND transaksi.id_transaksi = '$transaksi[id_transaksi]' AND transaksi.id_pasien = '$_GET[id_pasien]'");
                 
 
-                $rowObat = $resultObat->num_rows;
+                $rowObat = $resultObat1->num_rows;
 
                 //echo $rowObat;
 
@@ -247,7 +247,7 @@
                   ";
 
                   //diagnosa
-                  while ($obat = $resultObat->fetch_assoc()) {
+                  while ($obat1 = $resultObat1->fetch_assoc()) {
                     echo "
                         <td>
                           $obat[nama_obat]
@@ -256,7 +256,7 @@
                           $obat[jumlah] $obat[nama_satuan]
                         </td>
                         <td>
-                          Rp " . number_format($obat['biaya'], 0 , ",", ".") . "
+                          Rp " . number_format($obat1['biaya'], 0 , ",", ".") . "
                         </td>
                       </tr>
                     ";
@@ -316,7 +316,7 @@
 					<form class="form-horizontal style-form" method="post" action = "act/diagnosa.php?">
 
             <!-- hidden input data pasien -->
-            <input type="hidden" name="no_rekam_medis" <?php echo "value=\"$no_rekam[no_rekam_medis]\"";?>>
+            <input type="hidden" name="id_pasien" <?php echo "value=\"$_GET[id_pasien]\"";?>>
             <input type="hidden" name="id_dokter" <?php echo "value=\"$dokter[id_dokter]\"";?>>
             <input type="hidden" name="id_antrian" <?php echo "value=\"$_GET[id_antrian]\"";?>>
 
@@ -421,9 +421,9 @@
 								<select class="form-control" id="ido1" name="ido1" onchange="CalcHargaObat(this);">
                   <option disabled selected hidden>Pilih Nama Obat</option>
 									<?php
-                    while($obat = $resultObat->fetch_assoc()){
+                    while($obat2 = $resultObat2->fetch_assoc()){
                       echo "
-                        <option value=\"$obat[id_obat]\">$obat[nama_obat]</option>
+                        <option value=\"$obat2[id_obat]\">$obat2[nama_obat]</option>
                       ";
                     }
                   ?>
@@ -479,11 +479,6 @@
 
             <!--Biaya Total & Metode Pembayaran-->
             <h4>Biaya</h4><hr>
-            <div class="form-group">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya : </h4></div>
-              <input type="hidden" name="biaya_total" id="biaya_total" value="100">
-            </div>
 
             <div class="form-group">
               <div class="col-sm-3"></div>
@@ -500,10 +495,22 @@
 
             <div class="form-group">
               <div class="col-sm-3"></div>
-              <label class="control-label col-sm-2">Diskon (%)</label>
+              <label class="control-label col-sm-2">Diskon (Rp)</label>
               <div class="col-sm-4">
                 <input type="number" class="form-control" name="diskon" id="diskon" onkeyup="CalcBiayaTotal();" value="0">
               </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya (Sebelum Diskon): </h4></div>
+              <input type="hidden" name="biaya_total" id="biaya_total" value="100">
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-6" id="biaya-total-diskon" style="text-align: center;"><h4>Total Biaya (Sesudah Diskon): </h4></div>
+              <input type="hidden" name="biaya_total_diskon" id="biaya_total_diskon" value="100">
             </div>
 
 						<center><button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button></center>

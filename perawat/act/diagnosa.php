@@ -117,7 +117,7 @@
  	$tanggal = date("Y-m-d");
  	$jam = date("H:i");
  	$metode_pembayaran = $_POST['metode_pembayaran'];
- 	$biaya_total = $_POST["biaya_total"];
+ 	$biaya_total = $_POST["biaya_total_diskon"];
  	$diskon = $_POST["diskon"];
 
  	$sqlTransaksi = "INSERT INTO transaksi(id_pasien, id_dokter, id_perawat, tanggal, jam, metode_pembayaran, biaya_total, diskon) VALUES 
@@ -182,7 +182,7 @@
  	//echo "OBAT = " . $sqlObat . "<br>";
 
  	//UPDATE ANTRIAN
- 	$sqlAntrian = "UPDATE antrian SET status = 'Selesai', jam_selesai = '$jam' WHERE id_antrian = '$id_antrian'";
+ 	$sqlAntrian = "UPDATE antrian SET status = 'Menunggu', jam_selesai = '$jam' WHERE id_antrian = '$id_antrian'";
 
  	//UPDATE STOK
  	$sqlStok = "";
