@@ -21,11 +21,40 @@ function CekTelpon(){
   }
 }
 
+function CekRekamMedis(){
+  var rm = document.getElementById("no_rekam_medis").value;
+
+  if(rm.length == 0){
+    $("#vld-rm").html("");
+    return false;
+  }
+  console.log(rm);
+  $.get("ajax/no_rekam_medis.php?no=" + rm, function(data, status){
+    $("#vld-rm").html(data);
+  });
+
+  if($("#vld-rm").text().search("telah") != -1){
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function GetLatestRM(){
+  $.get("ajax/rm_terkini.php", function(data, status){
+    $("#rm-now").html(data);
+  });
+}
+
 //JQUERY
 $(document).ready(function(){
   //cek telpon valid apa enga
   $("#no_telp").keyup(function(){
     CekTelpon();
+  });
+
+  $("#no_rekam_medis").keyup(function(){
+    CekRekamMedis();
   });
 
   //validasi form
@@ -62,17 +91,19 @@ $(document).ready(function(){
 
     //CEK BENER ENGGANYA FORM
     var telp = false;
+    var rm = false;
 
     telp = CekTelpon();
+    rm = CekRekamMedis();
 
-    //console.log("telp : " + telp);
-    //console.log("email : " + email);
+    console.log("telp : " + telp);
+    console.log("rm : " + rm);
     //console.log("username : " + username);
     //console.log("password : " + password);
     //console.log("formFull : " + formFull);
 
     //GABUNGIN!!!!!
-    if(telp && formFull){
+    if(telp && rm && formFull){
       $("#submit").prop("disabled", false);
       //console.log("BERHASIL");
     } else {

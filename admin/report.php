@@ -74,7 +74,7 @@
       //JQUERY
       $(document).ready(function(){
         //search
-        $("#search").keyup(function(){
+        $("#search").change(function(){
           var search = document.getElementById("search").value;
 
           //console.log("ajax/uname_status.php?uname=" + uname);
@@ -95,7 +95,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Report</center></h2>
+          	<h2><center>Laporan</center></h2>
             <hr>
           	<div class="row mt">
           	<div class="col-lg-12">

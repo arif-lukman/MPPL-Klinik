@@ -439,7 +439,8 @@
               <div class="col-sm-3"></div>
               <label class="control-label col-sm-2">Jumlah</label>
               <div class="col-sm-4">
-                <input type="number" class="form-control" name="jumo1" id="jumo1" onkeyup="CalcHargaObat(document.getElementById('ido1'));">
+                <input type="number" class="form-control" name="jumo1" id="jumo1" onkeyup="CalcHargaObat(document.getElementById('ido1')); CekStok(document.getElementById('ido1'), this);">
+                <div id="cekstok1"></div>
                 <input type="hidden" name="hrgo1" id="hrgo1">
               </div>
             </div>

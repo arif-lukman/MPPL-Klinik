@@ -143,6 +143,7 @@
 	$sqlDiag = "INSERT INTO detail_diagnosa(id_transaksi, k1, k2, k3, k4, diagnosa, id_terapi, biaya, terapi) VALUES ";
 	//$sqlTerapi = "INSERT INTO detail_transaksi_terapi(id_transaksi, id_terapi, biaya, keterangan) VALUES ";
 	$sqlObat = "INSERT INTO detail_transaksi_obat(id_transaksi, id_obat, jumlah, biaya) VALUES ";
+	$sqlStok = "";
 
  	//CREATE DIAGNOSA
  	for ($i=0; $i < $maxDiag; $i++) { 
@@ -154,22 +155,17 @@
 
  	//echo "DIAG = " . $sqlDiag . "<br>";
 
- 	//CREATE TERAPI
- 	/*
- 	for ($i=0; $i < $maxTerapi; $i++) { 
- 		$sqlTerapi = $sqlTerapi . "('$maxTransaksi', '$idt[$i]', '$tarift[$i]', '$kett[$i]')";
- 		if($i < $maxTerapi - 1){
- 			$sqlTerapi = $sqlTerapi . ", ";
- 		}
- 	}
- 	*/
-
- 	//echo "TERAPI = " . $sqlTerapi . "<br>";
-
  	//CREATE OBAT
  	for ($i=0; $i < $maxObat; $i++) {
  		if(isset($ido[$i]) && isset($jumo[$i]) && isset($hrgo[$i]))
  			$sqlObat = $sqlObat . "('$maxTransaksi', '$ido[$i]', '$jumo[$i]', '$hrgo[$i]')";
+
+			$resStok = $conn->query("SELECT stok FROM obat WHERE id_obat='$ido[$i]'");
+		 	$dataStok = $resStok->fetch_assoc();
+		 	$deltaStok = $dataStok['stok'] - $jumo[$i];
+		 	if($deltaStok >= 0)
+ 				$conn->query("UPDATE obat SET stok='$deltaStok' WHERE id_obat='$ido[$i]'");
+ 			$resStok->data_seek(0);
  		//echo $i;
  		//echo $ido[$i];
  		//echo $jumo[$i];
@@ -183,9 +179,6 @@
 
  	//UPDATE ANTRIAN
  	$sqlAntrian = "UPDATE antrian SET status = 'Menunggu', jam_selesai = '$jam' WHERE id_antrian = '$id_antrian'";
-
- 	//UPDATE STOK
- 	$sqlStok = "";
 
  	//echo "TRANSAKSI = " . $sqlTransaksi . "<br>";
 
