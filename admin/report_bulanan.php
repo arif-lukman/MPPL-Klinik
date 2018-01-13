@@ -77,10 +77,12 @@
         $("#search").change(function(){
           var search = document.getElementById("search").value;
           var searchp= document.getElementById("searchp").value;
+          console.log(search);
+          console.log(searchp);
 
           //console.log("ajax/uname_status.php?uname=" + uname);
-
-          $.get("ajax/search_bulanan.php?q="/ + search /"&p=" + searchp, function(data, status){
+          console.log("ajax/search_bulanan.php?q=" + search + "&p=" + searchp);
+          $.get("ajax/search_bulanan.php?q=" + search + "&p=" + searchp, function(data, status){
             $("tbody").html(data);
           });
         });
@@ -106,21 +108,21 @@
                   <label>Search :</label>
                   <div id="tabeldata_filter" class="dataTables_filter">
                     <!--<label>Search :</label>-->
-                      <div class="col-sm-2">
+                      <div class="col-sm-3">
                         <select class="form-control" name="bulan" id="search" required>
-                          <option selected="selected">Bulan</option>
+                          <option selected hidden disabled>Bulan</option>
                           <?php
-                            $bulan=array("1","2","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+                            $bulan=array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
                             $jlh_bln=count($bulan);
                             for($c=0; $c<$jlh_bln; $c+=1){
-                              echo"<option value=$bulan[$c]> $bulan[$c] </option>";
+                              echo"<option value=\"" . ($c+1) ."\"> $bulan[$c] </option>";
                             }
                           ?>
                         </select>
                       </div>
-                      <div class="col-sm-2">
+                      <div class="col-sm-3">
                         <select class="form-control" name="tahun" id="searchp" required>
-                          <option selected="selected">Tahun</option>
+                          <option selected hidden disabled>Tahun</option>
                           <?php
                             $now=date('Y');
                             for ($a=2000;$a<=$now;$a++)

@@ -4,6 +4,7 @@
 
 	//ambil parameter
 	$q = $_GET['q'];
+	$p = $_GET['p'];
 
 	//ambil data
 
