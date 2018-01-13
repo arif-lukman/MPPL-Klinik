@@ -97,7 +97,7 @@
 				</div>
 
 			 <!-- DATA PASIEN -->
-				<div class="col-lg-8">
+				<div class="col-lg-12">
 			
 				<h3><center>Data Pasien</center></h3><hr>
 				
@@ -118,28 +118,40 @@
 						
 					echo "
 					<tr>
-						<td> Nama </td>
-						<td> : </td>
-						<td> ".$row['nama_pasien']."</td>
+						<td></td>
+						<td></td>
+						<td> Nama</td>
+						<td>:   ".$row['nama_pasien']."</td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td> Pekerjaan </td>
-						<td> : </td>
-						<td> ".$row['pekerjaan']."</td>
+						<td>:	 ".$row['pekerjaan']."</td>
+						<td></td>
 					</tr>
 					<tr>
+						<td></td>
+						<td></td>
 						<td> Alamat </td>
-						<td> : </td>
-						<td> ".$row['alamat']."</td>
+						<td>:	 ".$row['alamat']."</td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td> No. Telepon </td>
-						<td> : </td>
-						<td> ".$row['no_telp']."</td>
+						<td>:  ".$row['no_telp']."</td>
+						<td></td>
 					</tr>
 					<tr>
+						<td></td>
+						<td></td>
 						<td> Tanggal Lahir </td>
-						<td> : </td>
-						<td> ".$row['tanggal_lahir'] ."</td>
+						<td>:	 ".$row['tanggal_lahir'] ."</td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td> Jenis Kelamin </td>
-						<td> : </td>
-						<td> ".$row['jenis_kelamin']."</td>
+						<td>:	 ".$row['jenis_kelamin']."</td>
+						<td></td>
 					</tr>
 					";
 				?>
@@ -147,6 +159,8 @@
 				
 				<br>
 				<br>
+			</div>
+			<div class="col-lg-12">
 				
         <!-- REKAM MEDIS PASIEN -->
 				<h3><center>Rekam Medis No. <?php echo $no_rekam['no_rekam_medis']?></center></h3><hr>
@@ -154,7 +168,16 @@
 					$sql  = "SELECT * FROM transaksi WHERE id_pasien='$id_pasien'";
 					$result = mysqli_query($conn, $sql);
 				?>
-        <h4><center>Diagnosa</center></h4>
+
+		<div class="panel-group">
+		<div class="panel panel-default">
+      	<div class="panel-heading">
+        <h4 class="panel-title">
+        <a href="#diagnosa"><center>Diagnosa</center></a>
+        </h4>
+      </div>
+      <div id="diagnosa" >
+        <div class="panel-body" style="height:200px; overflow:auto">
         <table class="table table-striped table-advance table-hover col-lg-12">
         <thead>
           <th>Tanggal</th>
@@ -216,9 +239,18 @@
           ?>
         </tbody>
         </table>
-        <br><br><br><br>
+   	</div>
+	</div>
+	</div>
 
-        <h4><center>Obat</center></h4>
+        <div class="panel panel-default">
+      	<div class="panel-heading">
+        <h4 class="panel-title">
+        <a data-toggle="collapse" href="#obat"><center>Obat</center></a>
+        </h4>
+      </div>
+      <div id="obat" class="panel-collapse collapse">
+        <div class="panel-body" style="height:200px; overflow:auto">
         <table class="table table-striped table-advance table-hover col-lg-12">
         <thead>
           <th>Tanggal</th>
@@ -266,9 +298,18 @@
           ?>
         </tbody>
         </table>
-        <br><br><br><br>
-
-        <h4><center>Rincian</center></h4>
+    </div>
+</div>
+</div>
+		
+		<div class="panel panel-default">
+      	<div class="panel-heading">
+        <h4 class="panel-title">
+        <a data-toggle="collapse" href="#rincian"><center>Rincian</center></a>
+        </h4>
+      </div>
+      <div id="rincian" class="panel-collapse collapse">
+        <div class="panel-body" style="height:200px; overflow:auto">
         <table class="table table-striped table-advance table-hover col-lg-12">
         <thead>
           <th>Tanggal</th>
@@ -297,7 +338,11 @@
           ?>
         </tbody>
         </table>
-        <br><br><br><br>
+    </div>
+</div>
+</div>
+</div>
+        <br>
 
 				<div class="container">
 				<table class="table table-striped">
@@ -327,34 +372,27 @@
 
             <center>
               <div class="form-group">
-                <div class="col-sm-6">
+                <div class="col-sm-1">
                   <label class="control-label">Kuadran 1</label>
                   <input type="text" class="form-control" name="k1d1" id="k1d1" autocomplete="off">
-                </div>
-                <div class="col-sm-6">
-                  <label class="control-label">Kuadran 2</label>
-                  <input type="text" class="form-control" name="k2d1" id="k2d1" autocomplete="off">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-sm-6">
                   <label class="control-label">Kuadran 3</label>
                   <input type="text" class="form-control" name="k3d1" id="k3d1" autocomplete="off">
                 </div>
-                <div class="col-sm-6">
+
+                <div class="col-sm-1">
+                  <label class="control-label">Kuadran 2</label>
+                  <input type="text" class="form-control" name="k2d1" id="k2d1" autocomplete="off">
                   <label class="control-label">Kuadran 4</label>
                   <input type="text" class="form-control" name="k4d1" id="k4d1" autocomplete="off">
                 </div>
-              </div>
-            </center>
 
-			<div class="form-group">
 				<label class="col-sm-2 control-label">Diagnosa</label>
 				<div class="col-sm-10">
 					<textarea class="form-control" name="ketd1" id="ketd1" style="max-width: 100%; min-width: 100%" required autocomplete="off"></textarea>
+					 <span class="help-block" align="left">Note: Harap mengisi diagnosa per tindakan. Jika ingin menambah, klik button + dibawah</span>
 				</div>
-			</div>
+				</div>
+            </center>
 
 			<div class="form-group">
               <label class="col-sm-2 col-sm-2 control-label">Kategori Terapi</label>
@@ -508,13 +546,18 @@
 
             <div class="form-group">
               <div class="col-sm-3"></div>
-              <div class="col-sm-6" id="biaya-total" style="text-align: center;"><h4>Total Biaya (Sebelum Diskon): </h4></div>
+              <div class="col-sm-6" id="biaya-total" style="text-align: left;">
+              <h4>Total Biaya</h4></div>
+              <div class="col-sm-10"></div>
+              <div class="col-sm-4"></div>
+              <div class="col-sm-6" id="biaya-total" style="text-align: left;">
+              	<h5>Sebelum Diskon: </h5></div>
               <input type="hidden" name="biaya_total" id="biaya_total" value="100">
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-3"></div>
-              <div class="col-sm-6" id="biaya-total-diskon" style="text-align: center;"><h4>Total Biaya (Sesudah Diskon): </h4></div>
+            
+              <div class="col-sm-10"></div>
+              <div class="col-sm-4"></div>
+              <div class="col-sm-6" id="biaya-total-diskon" style="text-align: left;">
+              	<h5>Sesudah Diskon: </h5></div>
               <input type="hidden" name="biaya_total_diskon" id="biaya_total_diskon" value="100">
             </div>
 
