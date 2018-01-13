@@ -226,7 +226,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Tarif (Rp)</label>
                 <div class="col-sm-10">
-                  <input type="number" class="form-control" name="tarif" id="tarif" <?php echo "value = \"$diagnosa[biaya]\""; ?> required autocomplete="off">
+                  <input type="text" class="form-control" name="tarif" id="tarif" <?php echo "value = \"$diagnosa[biaya]\""; ?> required autocomplete="off">
                   <div id="minmax"></div>
                 </div>
               </div>

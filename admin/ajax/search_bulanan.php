@@ -4,14 +4,15 @@
 
 	//ambil parameter
 	$q = $_GET['q'];
+	$p = $_GET['p'];
 	$total = 0;
 
 	//ambil data
 
-	$result = $conn->query("SELECT transaksi.tanggal AS tanggal, pasien.nama_pasien AS nama_pasien, pasien.jenis_kelamin AS jenis_kelamin, pasien.alamat AS alamat, pasien.tanggal_lahir AS tanggal_lahir, pasien.no_rekam_medis AS no_rekam_medis, terapi.nama_terapi AS nama_terapi, detail_diagnosa.biaya, dokter.nama_dokter AS nama_dokter, perawat.nama_perawat AS nama_perawat from transaksi, pasien, detail_diagnosa, terapi, dokter, perawat WHERE transaksi.id_pasien = pasien.id_pasien AND transaksi.id_transaksi=detail_diagnosa.id_transaksi AND detail_diagnosa.id_terapi=terapi.id_terapi AND dokter.id_dokter=transaksi.id_dokter AND perawat.id_perawat=transaksi.id_perawat AND transaksi.tanggal = '$q'");
+	$result = $conn->query("SELECT transaksi.tanggal AS tanggal, pasien.nama_pasien AS nama_pasien, pasien.jenis_kelamin AS jenis_kelamin, pasien.alamat AS alamat, pasien.tanggal_lahir AS tanggal_lahir, pasien.no_rekam_medis AS no_rekam_medis, terapi.nama_terapi AS nama_terapi, detail_diagnosa.biaya, dokter.nama_dokter AS nama_dokter, perawat.nama_perawat AS nama_perawat from transaksi, pasien, detail_diagnosa, terapi, dokter, perawat WHERE transaksi.id_pasien = pasien.id_pasien AND transaksi.id_transaksi=detail_diagnosa.id_transaksi AND detail_diagnosa.id_terapi=terapi.id_terapi AND dokter.id_dokter=transaksi.id_dokter AND perawat.id_perawat=transaksi.id_perawat AND month(transaksi.tanggal) = '$q' AND year(transaksi.tanggal) = '$p'");
 
 	$s = "";
-	
+
 	while($rep = $result->fetch_assoc()){
 		$s = $s . "
                    <tr>
@@ -61,7 +62,7 @@
 			</tr>
 		";
 	}
-
+	
 	echo $s;
 
 	//Fungsi

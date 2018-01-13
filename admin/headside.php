@@ -66,12 +66,16 @@
 	                      	<li><a  href=\"pasien.php\">Data Pasien</a></li>
 	                  	</ul>
 	          		</li>
-					<li class=\"sub-menu\">
-	                  	<a href=\"report.php\" >
+	              	<li class=\"sub-menu\">
+	                  	<a href=\"javascript:;\" >
 	                      	<i class=\"fa fa-tasks\"></i>
 	                      	<span>LAPORAN</span>
 	                  	</a>
-	              	</li>
+	                  	<ul class=\"sub\">
+	                      	<li><a  href=\"report.php\">Laporan Harian</a></li>
+	                      	<li><a  href=\"report_bulanan.php\">Laporan Bulanan</a></li>
+	                  	</ul>
+	          		</li>
 	              	<li class=\"sub-menu\">
 	                  	<a href=\"../process/logout.php\" >
 	                      	<i class=\"fa fa-sign-out\"></i>

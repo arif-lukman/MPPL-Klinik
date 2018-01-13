@@ -386,7 +386,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Tarif (Rp)</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control" name="tarift1" id="tarift1" onkeyup="CalcBiayaTotal()" required autocomplete="off">
+                <input type="text" class="form-control" name="tarift1" id="tarift1" onkeyup="CalcBiayaTotal()" required autocomplete="off">
                 <div id="minmaxt1"></div>
               </div>
             </div>
@@ -435,7 +435,7 @@
               <div class="col-sm-3"></div>
               <label class="control-label col-sm-2">Jumlah</label>
               <div class="col-sm-4">
-                <input type="number" class="form-control" name="jumo1" id="jumo1" onkeyup="CalcHargaObat(document.getElementById('ido1')); CekStok(document.getElementById('ido1'), this);">
+                <input type="text" class="form-control" name="jumo1" id="jumo1" onkeyup="CalcHargaObat(document.getElementById('ido1')); CekStok(document.getElementById('ido1'), this);">
                 <div id="cekstok1"></div>
                 <input type="hidden" name="hrgo1" id="hrgo1">
               </div>
@@ -498,7 +498,7 @@
               <div class="col-sm-3"></div>
               <label class="control-label col-sm-2">Diskon (Rp)</label>
               <div class="col-sm-4">
-                <input type="number" class="form-control" name="diskon" id="diskon" onkeyup="CalcBiayaTotal();" value="0">
+                <input type="text" class="form-control" name="diskon" id="diskon" onkeyup="CalcBiayaTotal();" value="0">
               </div>
             </div>
 
