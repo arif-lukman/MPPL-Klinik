@@ -73,7 +73,7 @@
     <![endif]-->
   </head>
 
-  <body onload="startTime()">
+  <body onload="startTime(); GetLatestRM();">
 
   <section id="container" >
       <?php
@@ -95,6 +95,23 @@
                   <br>
 
                   <form class="form-horizontal style-form" method="post" action = <?php echo "\"act/edit_pasien.php?id_pasien=$pasien[id_pasien]\""?>>
+
+                  	<div class="form-group">
+                      <center>
+                      <div class="col-sm-12" id="rm-now">
+                        Nomor Rekam Medis Terakhir:
+                      </div>
+                      </center>
+                    </div>
+                    
+                    <!--email-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis (12 digit)</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" autocomplete="off" required>
+                        <div id="vld-rm"></div>
+                      </div>
+                    </div>
 
                     <!--nama_dokter-->
                     <div class="form-group">
@@ -164,11 +181,19 @@
                       </div>
                     </div>
 
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis Terkini:</label>
+                      <div class="col-sm-10" id="rm-now">
+                       	
+                      </div>
+                    </div>
+
                     <!--email-->
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis (12 digit)</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" value=<?php echo "\"$pasien[no_rekam_medis]\"";?> autocomplete="off" required>
+                        <div id="vld-rm"></div>
                       </div>
                     </div>
 

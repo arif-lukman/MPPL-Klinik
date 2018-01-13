@@ -70,7 +70,7 @@
     <![endif]-->
   </head>
 
-  <body onload="startTime()">
+  <body onload="startTime(); GetLatestRM();">
 
   <section id="container" >
       <?php
@@ -93,7 +93,24 @@
 
                   <form class="form-horizontal style-form" method="post" action = "act/add_pasien.php">
 
-                    <!--nama_dokter-->
+                    <div class="form-group">
+                      <center>
+                      <div class="col-sm-12" id="rm-now">
+                        Nomor Rekam Medis Terakhir:
+                      </div>
+                      </center>
+                    </div>
+                    
+                    <!--email-->
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis (12 digit)</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" autocomplete="off" required>
+                        <div id="vld-rm"></div>
+                      </div>
+                    </div>
+
+                    <!--nama_dokter--> 
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Pasien</label>
                       <div class="col-sm-10">
@@ -149,16 +166,8 @@
                       </div>
                     </div>
 
-                    <!--email-->
-                    <div class="form-group">
-                      <label class="col-sm-2 col-sm-2 control-label">Nomor Rekam Medis (12 digit)</label>
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" name="no_rekam_medis" id="no_rekam_medis" autocomplete="off" required>
-                      </div>
-                    </div>
-
                     <center>
-                      <button class="btn btn-theme" type="submit" name="submit" id="submit">Submit</button>
+                      <button class="btn btn-theme" type="submit" name="submit" id="submit" disabled>Submit</button>
                       <button type="button" class="btn" onclick="history.back(-1)">Cancel</button>
                     </center>
                     <br>
