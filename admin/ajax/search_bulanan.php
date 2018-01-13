@@ -5,6 +5,7 @@
 	//ambil parameter
 	$q = $_GET['q'];
 	$p = $_GET['p'];
+	$total = 0;
 
 	//ambil data
 
@@ -44,8 +45,24 @@
 					  </td>
                     </tr>
                   ";
+        $total = $total + $rep['biaya'];
 	}
 
+	if($total > 0){
+		$s = $s . 
+		"
+			<tr>
+				<td colspan=\"9\">
+					<center>
+						<h3>
+							Total Pemasukan = Rp " . number_format($total, 0 , ",", ".") . "
+						</h3>
+					</center>
+				</td>
+			</tr>
+		";
+	}
+	
 	echo $s;
 
 	//Fungsi

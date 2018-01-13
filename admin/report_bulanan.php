@@ -98,7 +98,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h2><center>Laporan</center></h2>
+          	<h2><center>Laporan Bulanan</center></h2>
             <hr>
           	<div class="row mt">
           	<div class="col-lg-12">
